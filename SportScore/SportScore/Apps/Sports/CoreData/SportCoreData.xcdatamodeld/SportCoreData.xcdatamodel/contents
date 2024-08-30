@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22G720" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ScheduleCD" representedClassName="ScheduleCD" syncable="YES">
+        <attribute name="awayScore" optional="YES" attributeType="String"/>
+        <attribute name="awayTeamBadge" optional="YES" attributeType="String"/>
+        <attribute name="awayTeamName" optional="YES" attributeType="String"/>
+        <attribute name="banner" optional="YES" attributeType="String"/>
+        <attribute name="countryName" optional="YES" attributeType="String"/>
+        <attribute name="eventAlternateName" optional="YES" attributeType="String"/>
+        <attribute name="eventName" optional="YES" attributeType="String"/>
+        <attribute name="homeScore" optional="YES" attributeType="String"/>
+        <attribute name="homeTeamBadge" optional="YES" attributeType="String"/>
+        <attribute name="homeTeamName" optional="YES" attributeType="String"/>
+        <attribute name="idAwayTeam" optional="YES" attributeType="String"/>
+        <attribute name="idEvent" optional="YES" attributeType="String"/>
+        <attribute name="idHomeTeam" optional="YES" attributeType="String"/>
+        <attribute name="idLeague" optional="YES" attributeType="String"/>
+        <attribute name="idVenue" optional="YES" attributeType="String"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isNotify" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="leagueName" optional="YES" attributeType="String"/>
+        <attribute name="poster" optional="YES" attributeType="String"/>
+        <attribute name="roundNumber" optional="YES" attributeType="String"/>
+        <attribute name="seasonName" optional="YES" attributeType="String"/>
+        <attribute name="sportName" optional="YES" attributeType="String"/>
+        <attribute name="square" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="thumb" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="String"/>
+        <attribute name="venue" optional="YES" attributeType="String"/>
+    </entity>
+</model>
