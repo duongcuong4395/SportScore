@@ -23,7 +23,7 @@ struct MotorsportTeamView: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                LazyVGrid(columns: columns) {
+                LazyVGrid(columns: teamVM.columns) {
                     
                     ForEach (Array(teamVM.models.enumerated()), id: \.element.id) { index, team in
                         team.getOptionView(with: {
@@ -32,7 +32,6 @@ struct MotorsportTeamView: View {
                         .padding(0)
                         .rotateOnAppear(angle: -90, duration: 0.5, axis: .x)
                         .onTapGesture {
-                        
                             withAnimation(.spring()) {
                                 UIApplication.shared.endEditing() // Dismiss the keyboard
                                 teamVM.setDetail(by: team)

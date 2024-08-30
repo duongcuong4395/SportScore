@@ -14,9 +14,6 @@ struct SoccerTeamItemMenuView: View {
         TeamItemMenuView()
             .modifier(BadgeCloseItem(action: {
                 withAnimation(.spring()) {
-                    //soccerPageVM.removePagesFrom(.Team)
-                    //soccerPageVM.setCurrentPage(by: .LeaguesDetail)
-                    
                     soccerPageVM.removeFrom(.Team)
                     soccerPageVM.setCurrent(by: .LeaguesDetail)
                 }

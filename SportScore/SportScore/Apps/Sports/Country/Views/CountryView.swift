@@ -100,8 +100,6 @@ struct SportCountryView: View {
                             withAnimation(.spring()) {
                                 UIApplication.shared.endEditing()
                                 
-                                //soccerPageVM.add(by: .Country)
-                                //soccerPageVM.setCurrent(by: .Leagues)
                                 action()
                                 
                                 appVM.resetTextSearch()

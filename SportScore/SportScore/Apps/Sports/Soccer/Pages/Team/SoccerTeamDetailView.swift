@@ -15,9 +15,6 @@ struct SoccerTeamDetailView: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                
-                
-                
                 if scheduleVM.modelsForNext.count > 0 || scheduleVM.modelsForPrevious.count > 0 {
                     HStack {
                         Text("Schedule")

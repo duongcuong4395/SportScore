@@ -48,7 +48,6 @@
 		4F96B9072C6719F7000B6D42 /* SeasonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F96B9062C6719F7000B6D42 /* SeasonModel.swift */; };
 		4F9711252C526AB600A0DF1C /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9711242C526AB600A0DF1C /* AppUtility.swift */; };
 		4F9711302C527C6300A0DF1C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4F97112F2C527C6300A0DF1C /* Kingfisher */; };
-		4F9B620F2C720E3600003AB1 /* SoccerTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9B620E2C720E3600003AB1 /* SoccerTeamView.swift */; };
 		4F9B62112C720F2A00003AB1 /* SportPageSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9B62102C720F2A00003AB1 /* SportPageSelectedView.swift */; };
 		4F9B62142C72156B00003AB1 /* SoccerScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9B62132C72156B00003AB1 /* SoccerScheduleView.swift */; };
 		4F9B62162C721C4300003AB1 /* SoccerScheduleItemMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9B62152C721C4300003AB1 /* SoccerScheduleItemMenuView.swift */; };
@@ -151,7 +150,6 @@
 		4F8B2D762C68880400C86717 /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
 		4F96B9062C6719F7000B6D42 /* SeasonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonModel.swift; sourceTree = "<group>"; };
 		4F9711242C526AB600A0DF1C /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
-		4F9B620E2C720E3600003AB1 /* SoccerTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerTeamView.swift; sourceTree = "<group>"; };
 		4F9B62102C720F2A00003AB1 /* SportPageSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportPageSelectedView.swift; sourceTree = "<group>"; };
 		4F9B62132C72156B00003AB1 /* SoccerScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerScheduleView.swift; sourceTree = "<group>"; };
 		4F9B62152C721C4300003AB1 /* SoccerScheduleItemMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerScheduleItemMenuView.swift; sourceTree = "<group>"; };
@@ -523,7 +521,6 @@
 		4F9B620D2C720E1400003AB1 /* Team */ = {
 			isa = PBXGroup;
 			children = (
-				4F9B620E2C720E3600003AB1 /* SoccerTeamView.swift */,
 				4F9B621E2C721FEC00003AB1 /* SoccerTeamItemMenuView.swift */,
 				4F9B62222C72480800003AB1 /* SoccerTeamDetailView.swift */,
 			);
@@ -1257,7 +1254,6 @@
 				4F0FAD2E2C817854002C3331 /* DartsCountryView.swift in Sources */,
 				4FA8CD5E2C59355600A4DDFD /* MapViewModel.swift in Sources */,
 				4FEFBE932C6A5A1E00636471 /* EquipmentModel.swift in Sources */,
-				4F9B620F2C720E3600003AB1 /* SoccerTeamView.swift in Sources */,
 				4F6581592C778A4B00B7999A /* MotorsportCountryItemMenuView.swift in Sources */,
 				4F9B621F2C721FEC00003AB1 /* SoccerTeamItemMenuView.swift in Sources */,
 				4FCBE9AD2C6CABBA0072FA28 /* SportCoreDataManage.swift in Sources */,

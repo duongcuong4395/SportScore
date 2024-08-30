@@ -81,7 +81,6 @@ struct SoccerScheduleIModeltemView: View {
                             //appVM.switchPage(to: .TeamDetail)
                             
                             soccerPageVM.add(by: .Team)
-                            soccerPageVM.setCurrent(by: .TeamDetail)
                         }
                        
                     }
@@ -133,7 +132,6 @@ struct SoccerScheduleIModeltemView: View {
                             equipmentVM.fetch(from: awayTeam){}
                             
                             soccerPageVM.add(by: .Team)
-                            soccerPageVM.setCurrent(by: .TeamDetail)
                         }
                         
                     }

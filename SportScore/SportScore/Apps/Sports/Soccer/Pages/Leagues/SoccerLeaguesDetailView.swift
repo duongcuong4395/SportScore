@@ -16,6 +16,8 @@ struct SoccerLeaguesDetailView: View {
     
     @StateObject var seasonVM = SeasonViewModel()
     
+    @EnvironmentObject var soccerPageVM: SoccerPageViewModel
+    
     
     
     var body: some View {
@@ -62,8 +64,10 @@ struct SoccerLeaguesDetailView: View {
                     .font(.callout.bold())
                 Spacer()
             }
-            SoccerTeamView()
-                .frame(height: UIScreen.main.bounds.height / 2)
+            SportListTeamView {
+                soccerPageVM.add(by: .Team)
+            }
+            .frame(height: UIScreen.main.bounds.height / 2)
         }
     }
     
@@ -338,7 +342,6 @@ struct LookuptableLeagueView: View {
                                         guard let team = teamVM.getTeam(by: rank.idTeam ?? "") else { return }
                                         
                                         soccerPageVM.add(by: .Team)
-                                        soccerPageVM.setCurrent(by: .TeamDetail)
                                         
                                         teamVM.setDetail(by: team)
                                         

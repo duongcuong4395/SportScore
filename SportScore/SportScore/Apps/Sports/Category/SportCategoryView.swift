@@ -16,7 +16,49 @@ enum SportPage: String, CaseIterable {
     case EventDetail
     case Team
     case TeamDetail
+    
+    
+    func getCurrentPage() -> SportPage? {
+        switch self {
+        case .Country:
+            return .Leagues
+        case .Leagues:
+            return .LeaguesDetail
+        case .LeaguesDetail:
+            return nil
+        case .Event:
+            return .EventDetail
+        case .EventDetail:
+            return nil
+        case .Team:
+            return .TeamDetail
+        case .TeamDetail:
+            return nil
+        }
+    }
 }
+
+/*
+ List country
+ List League
+ List Team
+ List Event
+ List Season
+ List Ranks
+ List Event per Round
+ */
+
+
+/*
+ [
+ (pageSelected: nil, currentPage: List Country),
+ (pageSelected: Item Country, currentPage: List League),
+ (pageSelected: Item League, currentPage: League Detail),
+ 
+ (pageSelected: Item Event, currentPage: Event Detail),
+ (pageSelected: Item Team, currentPage: Team Detail),
+ ]
+ */
 
 // MARK: - For Item Menu 
 extension SportType {
@@ -116,13 +158,15 @@ extension SportType {
                 case .Leagues:
                     return SoccerLeaguesView().toAnyView()
                 case .Team:
-                    return SoccerTeamView().toAnyView()
+                    return EmptyView().toAnyView()
+                    //return SoccerTeamDetailView().toAnyView()
                 case .Event:
                     return SoccerScheduleView().toAnyView()
                 case .LeaguesDetail:
                     return SoccerLeaguesDetailView().toAnyView()
                 case .TeamDetail:
                     return SoccerTeamDetailView().toAnyView()
+                    //return EmptyView().toAnyView()
                 case .EventDetail:
                     return EmptyView().toAnyView()
             }

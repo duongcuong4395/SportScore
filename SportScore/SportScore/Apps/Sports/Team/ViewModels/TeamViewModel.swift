@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class TeamViewModel: ObservableObject, SportAPIEvent {
     @Published var models: [TeamModel] = []
@@ -15,7 +16,7 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
     
     @Published var isLoading: Bool = false
     
-    //@Published var rotatedIndexes: Set<Int> = []
+    @Published var columns: [GridItem] = [GridItem(), GridItem(), GridItem()]
     
     func fetch(from league: LeaguesModel) {
         self.isLoading = true

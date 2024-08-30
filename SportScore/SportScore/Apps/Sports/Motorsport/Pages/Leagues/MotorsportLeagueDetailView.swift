@@ -75,7 +75,6 @@ extension MotorsportLeagueDetailView {
                         
                     Spacer()
                 }
-                //SeasonForLeagueView(league: league)
                 MotorsportSeasonForLeagueView(league: league)
             }
         }
