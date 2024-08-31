@@ -216,8 +216,11 @@ extension SportType{
             return MotorsportView().toAnyView()
         case .Soccer:
             return SoccerView().toAnyView()
-        case .Darts, .Fighting
-            , .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
+        case .Darts:
+            return DartsView().toAnyView()
+        case .Fighting:
+            return FightingView().toAnyView()
+        case .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
             , .Rugby, .Tennis, .Cricket, .Cycling, .AustralianFootball, .Esports
             , .Volleyball, .Netball, .Handball, .Snooker, .FieldHockey, .Athletics
             , .Badminton, .Climbing, .Equestrian, .Gymnastics, .Shooting

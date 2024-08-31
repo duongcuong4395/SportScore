@@ -6,14 +6,12 @@
 //
 
 import SwiftUI
-import QGrid
 
 struct MotorsportLeaguePageView: View {
     @EnvironmentObject var motorsportPageVM: MotorsportPageViewModel
     
     var body: some View {
         SportLeaguesView{
-            motorsportPageVM.setCurrent(by: .LeaguesDetail)
             motorsportPageVM.add(by: .Leagues)
         }
     }

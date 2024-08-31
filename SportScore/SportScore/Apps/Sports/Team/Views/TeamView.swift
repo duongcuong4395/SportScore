@@ -108,20 +108,14 @@ struct SportListTeamView: View {
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 UIApplication.shared.endEditing()
-                                
-                                //motorsportPageVM.add(by: .Team)
-                                //motorsportPageVM.setCurrent(by: .TeamDetail)
-                                
                                 action()
-                                
                                 teamVM.setDetail(by: team)
-                                
                                 playerVM.resetModels()
                                 playerVM.fetch(by: team)
                                 scheduleVM.resetModels()
                                 scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Next, from: context)
                                 scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
-                                scheduleVM.getLastEvents(by: team.idTeam ?? "0")
+                                //scheduleVM.getLastEvents(by: team.idTeam ?? "0")
                                 
                                 equipmentVM.fetch(from: team) {}
                                 

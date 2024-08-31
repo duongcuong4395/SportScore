@@ -13,13 +13,9 @@ struct SoccerCountryItemMenuView: View {
     var body: some View {
         CountryItemMenuView()
             .modifier(BadgeCloseItem(action: {
-                
                 withAnimation(.spring()) {
-                    UIApplication.shared.endEditing() // Dismiss the keyboard
-                    //soccerPageVM.setCurrentPage(by: .Country)
-                    soccerPageVM.setCurrent(by: .Country)
+                    UIApplication.shared.endEditing()
                     soccerPageVM.removeFrom(.Country)
-                    //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {}
                 }
             }))
             .scaleEffect(0.85)

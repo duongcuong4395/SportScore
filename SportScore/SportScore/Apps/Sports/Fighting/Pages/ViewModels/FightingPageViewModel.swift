@@ -1,28 +1,30 @@
 //
-//  SoccerPageViewModel.swift
+//  FightingPageViewModel.swift
 //  SportScore
 //
-//  Created by pc on 18/08/2024.
+//  Created by pc on 30/08/2024.
 //
 
 import Foundation
 
-class SoccerPageViewModel: ObservableObject {
+
+class FightingPageViewModel: ObservableObject {
     @Published var pages: [SportPage] = []
     @Published var pageSelected: SportPage = .Country
-    
 }
 
-// MARK: - For New
-extension SoccerPageViewModel {
+extension FightingPageViewModel {
     
     func add(by page: SportPage) {
         if self.pages.firstIndex(of: page) != nil  {
-            print("removePagesFrom.index:")
+            
         } else {
             self.pages.append(page)
             guard let currPage = page.getCurrentPage() else { return }
+            
+            print("=== self.pages", self.pages)
             self.setCurrent(by: currPage)
+            print("=== setCurrent", self.pageSelected)
         }
     }
     

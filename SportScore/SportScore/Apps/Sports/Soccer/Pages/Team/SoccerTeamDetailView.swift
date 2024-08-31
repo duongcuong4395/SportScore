@@ -69,11 +69,15 @@ struct SoccerTeamDetailView: View {
                     Spacer()
                 }
                 Text(teamVM.modelDetail?.descriptionEN ?? "")
+                    .font(.caption)
                 
                 if let team = teamVM.modelDetail {
                     TeamAdsView(team: team)
                 }
             }
+        }
+        .onAppear{
+            scheduleVM.getLastEvents(by: teamVM.modelDetail?.idTeam ?? "0")
         }
         .overlay {
             HStack{
@@ -234,55 +238,67 @@ struct TeamAdsView: View {
     var column: [GridItem] = [GridItem(), GridItem()]
     var body: some View {
         VStack {
-            KFImage(URL(string: team.logo ?? ""))
-                .placeholder { progress in
-                    LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
-                }
-                .resizable()
-                .scaledToFit()
-                .frame(width: UIScreen.main.bounds.width - 10, height: 100)
-                //.padding()
+            if let logo = team.logo {
+                KFImage(URL(string: logo))
+                    .placeholder { progress in
+                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
+                    }
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.main.bounds.width - 10, height: 100)
+            }
+            
+            
             
             LazyVGrid(columns: column) {
-                KFImage(URL(string: team.fanart1 ?? ""))
-                    .placeholder { progress in
-                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
-                    }
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 100)
-                KFImage(URL(string: team.fanart2 ?? ""))
-                    .placeholder { progress in
-                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
-                    }
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 100)
-                KFImage(URL(string: team.fanart3 ?? ""))
-                    .placeholder { progress in
-                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
-                    }
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 100)
+                if let fanart1 = team.fanart1 {
+                    KFImage(URL(string: fanart1))
+                        .placeholder { progress in
+                            LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
+                        }
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 100)
+                }
+                if let fanart2 = team.fanart2 {
+                    KFImage(URL(string: fanart2))
+                        .placeholder { progress in
+                            LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
+                        }
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 100)
+                }
                 
-                KFImage(URL(string: team.fanart4 ?? ""))
-                    .placeholder { progress in
-                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
-                    }
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 100)
+                if let fanart3 = team.fanart3 {
+                    KFImage(URL(string: fanart3))
+                        .placeholder { progress in
+                            LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
+                        }
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 100)
+                }
+                
+                if let fanart4 = team.fanart4 {
+                    KFImage(URL(string: fanart4))
+                        .placeholder { progress in
+                            LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
+                        }
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 100)
+                }
                 
             }
-            //.padding()
-            
-            KFImage(URL(string: team.banner ?? ""))
-                .placeholder { progress in
-                    LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
-                }
-                .resizable()
-                .scaledToFit()
+            if let banner = team.banner {
+                KFImage(URL(string: banner))
+                    .placeholder { progress in
+                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .fast)
+                    }
+                    .resizable()
+                    .scaledToFit()
+            }
         }
         
     }

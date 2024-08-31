@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SoccerLeaguesDetailView: View {
+    @EnvironmentObject var soccerPageVM: SoccerPageViewModel
     @EnvironmentObject var leagueVM: LeaguesViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var leaguesVM: LeaguesViewModel
@@ -15,10 +16,6 @@ struct SoccerLeaguesDetailView: View {
     @EnvironmentObject var eventVM: EventViewModel
     
     @StateObject var seasonVM = SeasonViewModel()
-    
-    @EnvironmentObject var soccerPageVM: SoccerPageViewModel
-    
-    
     
     var body: some View {
         VStack {
@@ -28,7 +25,6 @@ struct SoccerLeaguesDetailView: View {
                 
                 scheduleVM.getEventsOfPreviousAndNextDayView()
                     .frame(height: UIScreen.main.bounds.height / 1.5)
-                //ScheduleView
                 
                 ListTeamView
                 
@@ -36,7 +32,9 @@ struct SoccerLeaguesDetailView: View {
                 
                 RankingByLeagueAndSeasonView
                 
-                ListEventEachRoundOfLeagueAndSeasonView
+                ListEventEachRoundOfLeagueAndSeasonView(seasonVM: seasonVM)
+                
+                ListEventSpecificView(seasonVM: seasonVM)
                 
                 SoccerLeagueDetailInforView()
                 
@@ -99,64 +97,6 @@ struct SoccerLeaguesDetailView: View {
                     LookuptableLeagueView()
                         .padding(.bottom, 10)
                         .frame(height: UIScreen.main.bounds.height / 2.5)
-                }
-            }
-        }
-    }
-    
-    var ListEventEachRoundOfLeagueAndSeasonView: some View {
-        VStack {
-            if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil {
-                HStack {
-                    if eventVM.currentRound > 1 {
-                        Text("< Previous")
-                            .font(.callout)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    eventVM.listEvent = []
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        eventVM.currentRound -= 1
-                                        eventVM.getListEvent(by: seasonVM.leagueSelected?.idLeague ?? ""
-                                                             , in: "\(eventVM.currentRound)"
-                                                             , of: seasonVM.seasonSelected?.season ?? "") { objs, success in
-                                        }
-                                    }
-                                }
-                            }
-                    }
-                    Text("Round: \(eventVM.currentRound)")
-                        .font(.callout.bold())
-                    
-                    if eventVM.isNextRound == true {
-                        Text("Next >")
-                            .font(.callout)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    eventVM.listEvent = []
-                                    
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        eventVM.currentRound += 1
-                                        eventVM.getListEvent(by: seasonVM.leagueSelected?.idLeague ?? ""
-                                                             , in: "\(eventVM.currentRound)"
-                                                             , of: seasonVM.seasonSelected?.season ?? "") { objs, success in
-                                            eventVM.getEventForNextRound()
-                                        }
-                                    }
-                                }
-                            }
-                    }
-                    
-                    Spacer()
-                }
-                .padding(.horizontal, 15)
-                if eventVM.listEvent.count > 0 {
-                    SoccerEventView()
-                        //.frame(height: UIScreen.main.bounds.height / 2.5)
-                        .frame(maxHeight: UIScreen.main.bounds.height / 2.5)
-                        .onDisappear{
-                            eventVM.listEvent = []
-                        }
                 }
             }
         }
@@ -238,6 +178,7 @@ struct SoccerLeagueDetailInforView: View {
                 Spacer()
             }
             Text(leaguesVM.modelDetail?.descriptionEN ?? "")
+                .font(.caption)
                 .lineLimit(nil)
                 .frame(alignment: .leading)
             
@@ -249,55 +190,7 @@ struct SoccerLeagueDetailInforView: View {
 }
 
 
-struct SeasonForLeagueView: View {
-    @EnvironmentObject var seasonVM: SeasonViewModel
-    @EnvironmentObject var eventVM: EventViewModel
-    
-    @State var league: LeaguesModel
-    
-    var body: some View {
-        VStack {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(seasonVM.models.sorted{ $0.season ?? "" > $1.season ?? "" }, id: \.season) { season in
-                        Text("\(season.season ?? "")")
-                            .font(.callout.bold())
-                            .padding(5)
-                            .background(.thinMaterial.opacity(season.season ?? "" == seasonVM.seasonSelected?.season ?? ""  ? 1 : 0)
-                                        , in: RoundedRectangle(cornerRadius: 25))
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    seasonVM.resetModelRanks()
-                                    seasonVM.resetShowRank()
-                                    seasonVM.resetSeasonSelected()
-                                    seasonVM.setLeagueSelected(by: league)
-                                    seasonVM.setSeasonSelected(by: season)
-                                    seasonVM.getTableRank()
-                                    eventVM.listEvent = []
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
-                                        eventVM.currentRound = 1
-                                        
-                                        eventVM.currentLeagueID = league.idLeague ?? ""
-                                        eventVM.currentSeason = seasonVM.seasonSelected?.season ?? ""
-                                        eventVM.getListEvent(by: eventVM.currentLeagueID
-                                                             , in: "\(eventVM.currentRound)"
-                                                             , of: eventVM.currentSeason) { objs, success in
-                                            
-                                            eventVM.getEventForNextRound()
-                                        }
-                                    }
-                                    
-                                }
-                            }
-                    }
-                }
-            }
-        }
-        .onAppear {
-            seasonVM.getAllSeason(by: league)
-        }
-    }
-}
+
 
 struct LookuptableLeagueView: View {
     @EnvironmentObject var seasonVM: SeasonViewModel
@@ -337,7 +230,7 @@ struct LookuptableLeagueView: View {
                                 .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
                                 .onTapGesture {
                                     withAnimation {
-                                        UIApplication.shared.endEditing() // Dismiss the keyboard
+                                        UIApplication.shared.endEditing()
                                         
                                         guard let team = teamVM.getTeam(by: rank.idTeam ?? "") else { return }
                                         

@@ -15,7 +15,6 @@ struct MotorsportTeamItemMenuView: View {
             .modifier(BadgeCloseItem(action: {
                 withAnimation(.spring()) {
                     motorsportPageVM.removeFrom(.Team)
-                    motorsportPageVM.setCurrent(by: .LeaguesDetail)
                 }
             }))
     }

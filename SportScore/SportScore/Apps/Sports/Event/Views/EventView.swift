@@ -36,14 +36,12 @@ struct EventDetailView: View {
                         .shadow(color: .red, radius: 5)
                 }
                 .onTapGesture {
-                    UIApplication.shared.endEditing() // Dismiss the keyboard
+                    UIApplication.shared.endEditing()
                     guard let model = scheduleVM.modelDetail else { return }
-                    
-                    openURL(URL(string: model.video ?? "")!)
-                    //appVM.showDialogView(with: model.eventName ?? "", and: ScheduleVideoView(model: model).toAnyView())
+                    guard let video = model.video else { return }
+                    guard let url = URL(string: video) else { return }
+                    openURL(url)
                 }
-                
-                
                 
                 HStack {
                     Text("Result:")
@@ -76,7 +74,6 @@ struct EventDetailView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width - 10, height: 100)
-                
                 
                 LazyVGrid(columns: column) {
                     KFImage(URL(string: scheduleVM.modelDetail?.thumb ?? ""))

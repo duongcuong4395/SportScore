@@ -73,7 +73,7 @@ extension SportType {
                 case .LeaguesDetail:
                     return EmptyView().toAnyView()
                 case .Event:
-                    return EmptyView().toAnyView()
+                return MotorsportEventItemMenuView().toAnyView()
                 case .Team:
                     return MotorsportTeamItemMenuView().toAnyView()
                 case .TeamDetail:
@@ -103,7 +103,7 @@ extension SportType {
                 case .Country:
                     return DartsCountryItemMenuView().toAnyView()
                 case .Leagues:
-                    return EmptyView().toAnyView()
+                    return DartsLeagueItemMenuView().toAnyView()
                 case .LeaguesDetail:
                     return EmptyView().toAnyView()
                 case .Event:
@@ -115,8 +115,24 @@ extension SportType {
                 case .EventDetail:
                     return EmptyView().toAnyView()
             }
-        case .Fighting
-            , .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
+        case .Fighting:
+            switch page {
+                case .Country:
+                    return FightingCountryItemMenuView().toAnyView()
+                case .Leagues:
+                    return FightingLeagueItemMenuView().toAnyView()
+                case .LeaguesDetail:
+                    return EmptyView().toAnyView()
+                case .Event:
+                    return EmptyView().toAnyView()
+                case .Team:
+                    return FightingTeamItemMenuView().toAnyView()
+                case .TeamDetail:
+                    return EmptyView().toAnyView()
+                case .EventDetail:
+                    return EmptyView().toAnyView()
+            }
+        case .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
             , .Rugby, .Tennis, .Cricket, .Cycling, .AustralianFootball, .Esports
             , .Volleyball, .Netball, .Handball, .Snooker, .FieldHockey, .Athletics
             , .Badminton, .Climbing, .Equestrian, .Gymnastics, .Shooting
@@ -141,7 +157,8 @@ extension SportType {
                 case .Leagues:
                     return MotorsportLeaguePageView().toAnyView()
                 case .Team:
-                    return MotorsportTeamView().toAnyView()
+                    //return MotorsportTeamView().toAnyView()
+                    return EmptyView().toAnyView()
                 case .Event:
                     return MotorsportEventView().toAnyView()
                 case .LeaguesDetail:
@@ -175,7 +192,7 @@ extension SportType {
             case .Country:
                 return DartsCountryView().toAnyView()
             case .Leagues:
-                return EmptyView().toAnyView()
+                return DartsLeagueView().toAnyView()
             case .LeaguesDetail:
                 return EmptyView().toAnyView()
             case .Event:
@@ -187,8 +204,24 @@ extension SportType {
             case .EventDetail:
                 return EmptyView().toAnyView()
             }
-        case .Fighting
-            , .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
+        case .Fighting:
+            switch page {
+                case .Country:
+                    return FightingCountryView().toAnyView()
+                case .Leagues:
+                    return FightingLeagueView().toAnyView()
+                case .LeaguesDetail:
+                    return FightingLeagueDetailView().toAnyView()
+                case .Event:
+                    return EmptyView().toAnyView()
+                case .Team:
+                    return EmptyView().toAnyView()
+                case .TeamDetail:
+                    return FightingTeamDetailView().toAnyView()
+                case .EventDetail:
+                    return EmptyView().toAnyView()
+            }
+        case .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
             , .Rugby, .Tennis, .Cricket, .Cycling, .AustralianFootball, .Esports
             , .Volleyball, .Netball, .Handball, .Snooker, .FieldHockey, .Athletics
             , .Badminton, .Climbing, .Equestrian, .Gymnastics, .Shooting

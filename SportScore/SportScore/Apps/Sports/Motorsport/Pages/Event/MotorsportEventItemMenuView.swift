@@ -36,16 +36,8 @@ struct MotorsportEventItemMenuView: View {
         }
         .modifier(BadgeCloseItem(action: {
             withAnimation(.spring()) {
-                UIApplication.shared.endEditing() // Dismiss the keyboard
-                //soccerPageVM.removePagesFrom(.Leagues)
-                //soccerPageVM.setCurrentPage(by: .Leagues)
-                //soccerPageVM.removeFrom(.Leagues)
-                //soccerPageVM.setCurrent(by: .Leagues)
-                
-                motorsportPageVM.removeFrom(.EventDetail)
-                motorsportPageVM.setCurrent(by: .LeaguesDetail)
-                //print("motorsportPageVM.removePagesFrom", motorsportPageVM.pages)
-                //appVM.loading = false
+                UIApplication.shared.endEditing()
+                motorsportPageVM.removeFrom(.Event)
             }
         }))
         .scaleEffect(0.85)

@@ -118,7 +118,7 @@ extension ModelCoreData {
                     switch result {
                     case .success(let res):
                         complete(success, res)
-                    case .failure(let err):
+                    case .failure(_):
                         complete(success, false)
                     }
                 }
@@ -127,7 +127,7 @@ extension ModelCoreData {
                     switch result {
                     case .success(let res):
                         complete(success, res)
-                    case .failure(let err):
+                    case .failure(_):
                         complete(success, false)
                     }
                 }

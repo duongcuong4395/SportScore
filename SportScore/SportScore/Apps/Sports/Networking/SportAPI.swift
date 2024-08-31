@@ -54,6 +54,10 @@ enum SportEndPoint<T: Decodable> {
     /// Get List event of league into Round by leagueID and round and season
     /// https://www.thesportsdb.com/api/v1/json/3/eventsround.php?id=4406&r=28&s=2023
     case GetListEvent(by: String, in: String, of: String)
+    
+    /// All events in specific league by season
+    /// https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=4328&s=2014-2015
+    case GetEventsInSpecific(by: String, of: String)
 }
 
 
@@ -90,8 +94,10 @@ extension SportEndPoint: HttpRouter {
             return "api/v1/json/3/lookupplayer.php"
         case .getLastEvent(by: _):
             return "api/v1/json/3/eventslast.php"
-        case .GetListEvent(by: let leagueID, in: let round, of: let season):
+        case .GetListEvent(by: _, in: _, of: _):
             return "api/v1/json/3/eventsround.php"
+        case .GetEventsInSpecific(by: _, of: _):
+            return "api/v1/json/3/eventsseason.php"
         }
     }
     
@@ -132,6 +138,8 @@ extension SportEndPoint: HttpRouter {
             return ["id": teamID]
         case .GetListEvent(by: let leagueID, in: let round, of: let season):
             return ["id": leagueID, "r": round, "s": season]
+        case .GetEventsInSpecific(by: let leagueID, of: let season):
+            return ["id": leagueID, "s": season]
         }
     }
     
@@ -167,6 +175,8 @@ protocol SportAPIEvent {
     
     func getLastEvent<T: Decodable>(by teamID: String, completion: @escaping (Result<T, Error>) -> Void)
     func getListEvent<T: Decodable>(by leagueID: String, in round: String, of season: String, completion: @escaping (Result<T, Error>) -> Void)
+    
+    func getEventsInSpecific<T: Decodable>(by leagueID: String, of season: String, completion: @escaping (Result<T, Error>) -> Void)
 }
 
 extension SportAPIEvent {
@@ -236,6 +246,10 @@ extension SportAPIEvent {
     
     func getListEvent<T: Decodable>(by leagueID: String, in round: String, of season: String, completion: @escaping (Result<T, Error>) -> Void) {
         performRequest(for: .GetListEvent(by: leagueID, in: round, of: season), completion: completion)
+    }
+    
+    func getEventsInSpecific<T: Decodable>(by leagueID: String, of season: String, completion: @escaping (Result<T, Error>) -> Void) {
+        performRequest(for: .GetEventsInSpecific(by: leagueID, of: season), completion: completion)
     }
 }
 

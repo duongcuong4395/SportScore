@@ -21,12 +21,10 @@ class PlayerViewModel: ObservableObject, SportAPIEvent {
                     DispatchQueueManager.share.runOnMain {
                         self.models = data.players ?? []
                     }
-                case.failure(let err):
+                case.failure(_):
                     DispatchQueueManager.share.runOnMain {
                         self.models = []
                     }
-                    
-                    print("getPlayers.error", team.idTeam ?? "", team.teamName ?? "", err)
                 }
             }
         }
@@ -42,7 +40,7 @@ class PlayerViewModel: ObservableObject, SportAPIEvent {
                         self.modelDetail = data.players?[0] ?? nil
                         completiion()
                     }
-                case .failure(let err):
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         completiion()
                     }

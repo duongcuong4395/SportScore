@@ -68,7 +68,7 @@ class APIRequest<Router: HttpRouter> {
                    , parameters: router.parameters
                    , headers: router.headers
         ).responseData { response in
-            print("Enpoint.response:", response.response?.statusCode)
+            //print("Enpoint.response:", response.response?.statusCode)
             let result = self.router.handleResponse(with: response.data, error: response.error)
             completion(result)
         }

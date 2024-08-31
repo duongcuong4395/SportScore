@@ -1,13 +1,13 @@
 //
-//  MotorsportTeamDetailView.swift
+//  FightingTeamDetailView.swift
 //  SportScore
 //
-//  Created by pc on 23/08/2024.
+//  Created by pc on 31/08/2024.
 //
 
 import SwiftUI
 
-struct MotorsportTeamDetailView: View {
+struct FightingTeamDetailView: View {
     @EnvironmentObject var teamVM: TeamViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var playerVM: PlayerViewModel

@@ -37,7 +37,7 @@ class LeaguesViewModel: ObservableObject, SportAPIEvent {
                         self.requestAPIState = .Success
                         completion()
                     }
-                case .failure(let err):
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         self.requestAPIState = .Fail
                         completion()

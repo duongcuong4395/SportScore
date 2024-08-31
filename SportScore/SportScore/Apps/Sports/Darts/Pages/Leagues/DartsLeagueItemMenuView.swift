@@ -1,22 +1,21 @@
 //
-//  SoccerLeaguesItemMenuView.swift
+//  DartsLeagueItemMenuView.swift
 //  SportScore
 //
-//  Created by pc on 18/08/2024.
+//  Created by pc on 30/08/2024.
 //
 
 import SwiftUI
 
-struct SoccerLeaguesItemMenuView: View {
-    @EnvironmentObject var appVM: AppViewModel
-    @EnvironmentObject var soccerPageVM: SoccerPageViewModel
+struct DartsLeagueItemMenuView: View {
+    @EnvironmentObject var dartsPageVM: DartsPageViewModel
     
     var body: some View {
         LeaguesItemMenuView()
             .modifier(BadgeCloseItem(action: {
                 withAnimation(.spring()) {
                     UIApplication.shared.endEditing()
-                    soccerPageVM.removeFrom(.Leagues)
+                    dartsPageVM.removeFrom(.Leagues)
                 }
             }))
             .scaleEffect(0.85)

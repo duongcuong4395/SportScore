@@ -66,12 +66,10 @@ class SeasonViewModel: ObservableObject, SportAPIEvent {
             self.getLookuptable(from: league, and: season) { (result: Result<LookuptableResponse, Error>) in
                 switch result {
                 case .success(let data):
-                    print("=== getLookuptable.success:", league.idLeague ?? "", season.season ?? "", league.leagueName ?? "", data.table?.count ?? 0)
                     DispatchQueueManager.share.runOnMain {
                         self.modelsRank = data.table ?? []
                     }
-                case .failure(let err):
-                    print("=== getLookuptable.error:", league.idLeague ?? "", season.season ?? "", league.leagueName ?? "", err)
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         self.modelsRank = []
                     }
@@ -87,15 +85,13 @@ class SeasonViewModel: ObservableObject, SportAPIEvent {
             self.getLookuptable(from: league, and: season) { (result: Result<LookuptableResponse, Error>) in
                 switch result {
                 case .success(let data):
-                    print("==== getLookuptable.success:", league.idLeague ?? "", season.season ?? "", league.leagueName ?? "", data.table?.count ?? 0)
                     DispatchQueueManager.share.runOnMain {
                         self.modelsRank = data.table?.filter {
                             ($0.teamName ?? "").contains(teamName)
                             && $0.intRank == "1"
                         } ?? []
                     }
-                case .failure(let err):
-                    print("==== getLookuptable.error:", league.idLeague ?? "", season.season ?? "", league.leagueName ?? "", err)
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         self.modelsRank = []
                     }

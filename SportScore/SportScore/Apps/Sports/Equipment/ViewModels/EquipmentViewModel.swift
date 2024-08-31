@@ -20,7 +20,7 @@ class EquipmentViewModel: ObservableObject, SportAPIEvent {
                         self.models = data.equipment ?? []
                         completion()
                     }
-                case .failure(let err):
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         completion()
                     }

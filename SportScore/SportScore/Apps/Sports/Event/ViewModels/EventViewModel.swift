@@ -11,6 +11,9 @@ import Foundation
 class EventViewModel: ObservableObject, SportAPIEvent {
     @Published var modelsPlayer: [PlayerEventModel] = []
     @Published var listEvent: [ScheduleLeagueModel] = []
+    @Published var listEventInSpecific: [ScheduleLeagueModel] = []
+    
+    //@EnvironmentObject var eventVM: EventViewModel
     
     @Published var eventDetail: ScheduleLeagueModel?
     
@@ -19,7 +22,7 @@ class EventViewModel: ObservableObject, SportAPIEvent {
     @Published var currentRound: Int = 1
     @Published var isNextRound: Bool = true
     
-    func fetch(by eventID: String) {
+    func fetch(by eventID: String, completion: @escaping ([PlayerEventModel]) -> Void) {
         DispatchQueueManager.share.runInBackground {
             self.getEventresults(by: eventID) { (result: Result<EventResponse, Error>) in
                 switch result {
@@ -27,9 +30,13 @@ class EventViewModel: ObservableObject, SportAPIEvent {
                     print("getEventresults: \(eventID)", data.players?.count ?? [])
                     DispatchQueueManager.share.runOnMain {
                         self.modelsPlayer = data.players ?? []
+                        completion(self.modelsPlayer)
                     }
                 case .failure(let err):
                     print("getEventresults.error", err)
+                    DispatchQueueManager.share.runOnMain {
+                        completion([])
+                    }
                 }
             }
         }
@@ -72,9 +79,27 @@ class EventViewModel: ObservableObject, SportAPIEvent {
                         }
                         self.isNextRound = events.count > 0 ? true : false
                     }
-                case .failure(let err):
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         self.isNextRound = false
+                    }
+                }
+            }
+        }
+    }
+    
+    func getEventsInSpecific(by leagueID: String, of season: String, completion: @escaping ([ScheduleLeagueModel], Bool) -> Void) {
+        DispatchQueueManager.share.runInBackground {
+            self.getEventsInSpecific(by: leagueID, of: season) { (result: Result<EventsResponse, Error>) in
+                switch result {
+                case .success(let data):
+                    DispatchQueueManager.share.runOnMain {
+                        self.listEventInSpecific = data.events ?? []
+                        completion(self.listEventInSpecific, true)
+                    }
+                case .failure(_):
+                    DispatchQueueManager.share.runOnMain {
+                        completion([], false)
                     }
                 }
             }

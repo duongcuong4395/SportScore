@@ -83,7 +83,7 @@ class ScheduleViewModel: ObservableObject, SportAPIEvent {
                     DispatchQueueManager.share.runOnMain {
                         self.modelsForLastEvents = data.results ?? []
                     }
-                case .failure(let err):
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         self.modelsForLastEvents = []
                     }

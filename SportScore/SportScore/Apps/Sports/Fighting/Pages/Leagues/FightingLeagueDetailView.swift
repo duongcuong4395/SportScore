@@ -1,22 +1,19 @@
 //
-//  MotorsportLeagueDetailView.swift
+//  FightingLeagueDetailView.swift
 //  SportScore
 //
-//  Created by pc on 23/08/2024.
+//  Created by pc on 30/08/2024.
 //
 
 import SwiftUI
-import Kingfisher
-import SwiftfulLoadingIndicators
 
-struct MotorsportLeagueDetailView: View {
+struct FightingLeagueDetailView: View {
+    @EnvironmentObject var fightingPageVM: FightingPageViewModel
     @EnvironmentObject var leagueVM: LeaguesViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var leaguesVM: LeaguesViewModel
     @EnvironmentObject var teamVM: TeamViewModel
     @EnvironmentObject var eventVM: EventViewModel
-    
-    @EnvironmentObject var motorsportPageVM: MotorsportPageViewModel
     
     
     
@@ -57,11 +54,10 @@ struct MotorsportLeagueDetailView: View {
             }
         })
         .environmentObject(seasonVM)
-        
     }
 }
 
-extension MotorsportLeagueDetailView {
+extension FightingLeagueDetailView {
     var ListTeamView: some View {
         VStack {
             HStack {
@@ -70,7 +66,7 @@ extension MotorsportLeagueDetailView {
                 Spacer()
             }
             SportListTeamView {
-                motorsportPageVM.add(by: .Team)
+                fightingPageVM.add(by: .Team)
             }
             .frame(height: UIScreen.main.bounds.height / 2)
         }
@@ -86,7 +82,6 @@ extension MotorsportLeagueDetailView {
                     Spacer()
                 }
                 SeasonForLeagueView(league: league)
-                //MotorsportSeasonForLeagueView(league: league)
             }
         }
     }
@@ -112,25 +107,30 @@ extension MotorsportLeagueDetailView {
     }
 }
 
-struct MotorsportLeagueDetailInforView: View {
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
+struct ListEventSpecificView: View {
+    
+    var seasonVM: SeasonViewModel
+    @EnvironmentObject var eventVM: EventViewModel
     
     var body: some View {
         VStack {
-            
-            HStack {
-                Text("Description:")
-                    .font(.callout.bold())
-                Spacer()
+            VStack {
+                if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil {
+                    if eventVM.listEventInSpecific.count > 0 {
+                        HStack {
+                            Text("Event Specific")
+                                .font(.callout.bold())
+                            Spacer()
+                        }
+                        .padding(.horizontal, 10)
+                        ScheduleListItemView(models: eventVM.listEventInSpecific)
+                            .frame(maxHeight: UIScreen.main.bounds.height / 2.5)
+                            .onDisappear{
+                                eventVM.listEventInSpecific = []
+                            }
+                    }
+                }
             }
-            Text(leaguesVM.modelDetail?.descriptionEN ?? "")
-                .lineLimit(nil)
-                .frame(alignment: .leading)
-            
         }
     }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {}
 }
-

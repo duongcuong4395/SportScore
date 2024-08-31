@@ -144,8 +144,10 @@ struct ScheduleLeagueModelItemView: View {
                 ScheduleMotorsportModelItemView(model: model, optionView: optionView)
             case .Soccer:
                 SoccerScheduleIModeltemView(model: model, optionView: optionView)
-            case .Darts, .Fighting
-                , .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
+            case .Darts: EmptyView()
+            case .Fighting:
+                FightingScheduleIModeltemView(model: model, optionView: optionView)
+            case .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
                 , .Rugby, .Tennis, .Cricket, .Cycling, .AustralianFootball, .Esports
                 , .Volleyball, .Netball, .Handball, .Snooker, .FieldHockey, .Athletics
                 , .Badminton, .Climbing, .Equestrian, .Gymnastics, .Shooting

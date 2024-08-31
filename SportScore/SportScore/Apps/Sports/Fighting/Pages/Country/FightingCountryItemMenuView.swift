@@ -1,5 +1,5 @@
 //
-//  DartsCountryItemMenuView.swift
+//  FightingCountryItemMenuView.swift
 //  SportScore
 //
 //  Created by pc on 30/08/2024.
@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct DartsCountryItemMenuView: View {
-    @EnvironmentObject var dartsPageVM: DartsPageViewModel
+struct FightingCountryItemMenuView: View {
+    @EnvironmentObject var fightingPageVM: FightingPageViewModel
+    
     var body: some View {
         CountryItemMenuView()
             .modifier(BadgeCloseItem(action: {
                 withAnimation(.spring()) {
-                    dartsPageVM.removeFrom(.Country)
+                    fightingPageVM.removeFrom(.Country)
                     UIApplication.shared.endEditing()
                 }
             }))

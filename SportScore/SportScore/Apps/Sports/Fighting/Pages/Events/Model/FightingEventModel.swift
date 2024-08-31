@@ -1,31 +1,25 @@
 //
-//  MotorsportEventDetailView.swift
+//  FightingEventModel.swift
 //  SportScore
 //
-//  Created by pc on 26/08/2024.
+//  Created by pc on 31/08/2024.
 //
 
 import SwiftUI
-
-struct MotorsportEventDetailView: View {
-    var body: some View {
-        EventDetailView()
-    }
-}
-
 import Kingfisher
 import SwiftfulLoadingIndicators
 
-struct ScheduleMotorsportModelItemView: View {
+struct FightingScheduleIModeltemView: View {
+    
     @Environment(\.managedObjectContext) var context
     
-    
-    @EnvironmentObject var motorsportPageVM: MotorsportPageViewModel
+    @EnvironmentObject var fightingPageVM: FightingPageViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
     
     @EnvironmentObject var lnManager: LocalNotificationManager
     @EnvironmentObject var teamVM: TeamViewModel
     @EnvironmentObject var playerVM: PlayerViewModel
+    @EnvironmentObject var appVM: AppViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var equipmentVM: EquipmentViewModel
     @EnvironmentObject var eventVM: EventViewModel
@@ -87,27 +81,27 @@ struct ScheduleMotorsportModelItemView: View {
                     .shadow(color: Color.yellow, radius: 3, x: 0, y: 0)
                     .padding(.leading, 5)
                     .offset(y: -10)
-                    //.background(.ultraThinMaterial, in: Circle())
-                    //.padding(.leading, 5)
+                    .onTapGesture {
+                        eventVM.fetch(by: model.idEvent ?? "") { players in
+                            if players.count > 0 {
+                                scheduleVM.setModelDetail(by: model)
+                                fightingPageVM.add(by: .Event)
+                            }
+                        }
+                        
+                    }
                 Spacer()
             }
             
         }
         .background{
-            KFImage(URL(string: model.banner ?? ""))
+            KFImage(URL(string: model.thumb ?? ""))
                 .resizable()
                 .scaledToFill()
+                .frame(height: 70)
                 .opacity(0.15)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
-                .onTapGesture {
-                    eventVM.fetch(by: model.idEvent ?? "") { players in
-                        if players.count > 0 {
-                            scheduleVM.setModelDetail(by: model)
-                            motorsportPageVM.add(by: .Event)
-                        }
-                    }
-                    
-                }
+                //.frame(height: 50)
             
         }
     }

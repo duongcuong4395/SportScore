@@ -9,21 +9,10 @@ import SwiftUI
 
 struct DartsView: View {
     @StateObject var dartsPageVM = DartsPageViewModel()
-    @EnvironmentObject var sportTypeVM: SportTypeViewModel
     
     var body: some View {
-        VStack {
-            HStack {
-                ForEach(dartsPageVM.pages, id: \.self) { page in
-                    sportTypeVM.selected.getItemMenuView(by: page)
-                }
-            }
-            
-            ZStack {
-                sportTypeVM.selected.getView(by: dartsPageVM.pageSelected)
-            }
-        }
-        .environmentObject(dartsPageVM)
+        SportView(pages: dartsPageVM.pages, pageSelected: dartsPageVM.pageSelected)
+            .environmentObject(dartsPageVM)
     }
 }
 

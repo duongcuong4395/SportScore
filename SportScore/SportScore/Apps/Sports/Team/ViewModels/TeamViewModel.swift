@@ -28,7 +28,7 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
                         self.models = data.teams ?? []
                         self.isLoading = false
                     }
-                case .failure(let err):
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         self.isLoading = false
                     }

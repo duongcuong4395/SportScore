@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct MotorsportCountryItemMenuView: View {
-    @EnvironmentObject var appVM: AppViewModel
     @EnvironmentObject var motorsportPageVM: MotorsportPageViewModel
     var body: some View {
         CountryItemMenuView()
             .modifier(BadgeCloseItem(action: {
                 withAnimation(.spring()) {
-                    motorsportPageVM.setCurrent(by: .Country)
                     motorsportPageVM.removeFrom(.Country)
-                    UIApplication.shared.endEditing() // Dismiss the keyboard
+                    UIApplication.shared.endEditing()
                 }
             }))
             .scaleEffect(0.85)

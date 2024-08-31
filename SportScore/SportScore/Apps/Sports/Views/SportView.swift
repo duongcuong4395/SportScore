@@ -28,35 +28,27 @@ struct SportTypeView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(SportType.allCases, id: \.self) { sport in
-                        VStack {
-                            KFImage(URL(string: sport.getImageUrl(with: sport == sportTypeVM.selected)
-                                       ))
-                                .placeholder { progress in
-                                    LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
-                                }
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 30, height: 30)
-                                
-                            Text(sport.rawValue)
-                                .font(sport == sportTypeVM.selected ? .caption.bold() : .caption)
-                        }
-                        .padding(.horizontal, 5)
                         
-                        .onTapGesture {
-                            withAnimation {
-                                sportTypeVM.selected = sport
-                                //appVM.switchPage(to: .Country)
-                                
-                                /*
-                                countryVM.resetDetail()
-                                leaguesVM.resetDetail()
-                                teamVM.resetDetail()
-                                playerVM.resetDetail()
-                                
-                                
-                                favoriteVM.getCount(from: sportTypeVM.selected.getEntities(), of: sportTypeVM.selected, from: context)
-                                */
+                        if sport != .Darts {
+                            VStack {
+                                KFImage(URL(string: sport.getImageUrl(with: sport == sportTypeVM.selected)
+                                           ))
+                                    .placeholder { progress in
+                                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                                    }
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 30, height: 30)
+                                    
+                                Text(sport.rawValue)
+                                    .font(sport == sportTypeVM.selected ? .caption.bold() : .caption)
+                            }
+                            .padding(.horizontal, 5)
+                            
+                            .onTapGesture {
+                                withAnimation {
+                                    sportTypeVM.selected = sport
+                                }
                             }
                         }
                     }
