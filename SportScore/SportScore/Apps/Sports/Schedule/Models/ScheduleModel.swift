@@ -147,8 +147,19 @@ struct ScheduleLeagueModelItemView: View {
             case .Darts: EmptyView()
             case .Fighting:
                 FightingScheduleIModeltemView(model: model, optionView: optionView)
-            case .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
-                , .Rugby, .Tennis, .Cricket, .Cycling, .AustralianFootball, .Esports
+            case .IceHockey:
+                IceHockeyEventItemView(model: model, optionView: optionView)
+            case .Baseball:
+                BaseballEventItemView(model: model, optionView: optionView)
+            case .Basketball:
+                BasketballEventItemView(model: model, optionView: optionView)
+            case .AmericanFootball:
+                AmericanFootballEventItemView(model: model, optionView: optionView)
+            case .Golf:
+                GolfEventItemView(model: model, optionView: optionView)
+            case .Rugby:
+                RugbyEventItemView(model: model, optionView: optionView)
+            case .Tennis, .Cricket, .Cycling, .AustralianFootball, .Esports
                 , .Volleyball, .Netball, .Handball, .Snooker, .FieldHockey, .Athletics
                 , .Badminton, .Climbing, .Equestrian, .Gymnastics, .Shooting
                 , .ExtremeSports, .TableTennis, .MultiSports, .Watersports

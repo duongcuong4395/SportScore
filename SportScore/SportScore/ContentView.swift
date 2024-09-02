@@ -37,62 +37,7 @@ struct ContentView: View {
         ZStack {
             MapView()
             
-            if !appVM.showMap {
-                Color(.clear)
-                    .background(.ultraThinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
-                    .ignoresSafeArea(.all)
-            }
-            
-            VStack {
-                HStack {
-                    TextFieldSearchView(listModels: []) {
-                        withAnimation(.spring()) {
-                            
-                            
-                            
-                            markerVM.clearAll()
-                            countryVM.filter(by: appVM.textSearch) { objs in
-                                if objs.count > 0 {
-                                    if appVM.showMap {
-                                        let mid: Int = objs.count / 2
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            markerVM.addListMarker(from: objs)
-                                        }
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                            mapVM.moveTo(coordinate: objs[mid].coordinate, zoom: 150)
-                                        }
-                                    }
-                                }
-                            }
-                            
-                            
-                        }
-                        
-                    }
-                    
-                    Image(systemName: "globe.asia.australia")
-                        .font(.title2)
-                        .padding()
-                        .onTapGesture {
-                            withAnimation {
-                                appVM.showMap.toggle()
-                            }
-                        }
-                    NotificationBellView()
-                    
-                }
-                .background(.ultraThinMaterial.opacity(0.01), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
-                .padding(.horizontal, 5)
-                if !appVM.showMap {
-                    //SportMainView()
-                    SportMainView2()
-                    
-                }
-                Spacer()
-                SportTypeView()
-            }
+            MainView()
             GetDialogView()
         }
         .environmentObject(mapVM)
@@ -167,6 +112,91 @@ extension View {
     }
 }
 
+
+struct MainView : View {
+    @EnvironmentObject var markerVM: MarkerViewModel
+    @EnvironmentObject var countryVM: CountryViewModel
+    @EnvironmentObject var appVM: AppViewModel
+    @EnvironmentObject var mapVM: MapViewModel
+    
+    @State var scale: CGFloat = 0.0
+    
+    var body: some View {
+        VStack {
+            HStack {
+                TextFieldSearchView(listModels: []) {
+                    withAnimation(.spring()) {
+                        markerVM.clearAll()
+                        countryVM.filter(by: appVM.textSearch) { objs in
+                            if objs.count > 0 {
+                                if appVM.showMap {
+                                    let mid: Int = objs.count / 2
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        markerVM.addListMarker(from: objs)
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        mapVM.moveTo(coordinate: objs[mid].coordinate, zoom: 150)
+                                    }
+                                }
+                            }
+                        }
+                        
+                        
+                    }
+                    
+                }
+                
+                Image(systemName: "globe.asia.australia")
+                    .font(.title2)
+                    .padding()
+                    .onTapGesture {
+                        withAnimation {
+                            appVM.showMap.toggle()
+                        }
+                    }
+                NotificationBellView()
+                
+            }
+            .background(.ultraThinMaterial.opacity(0.01), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+            .padding(.horizontal, 5)
+            if !appVM.showMap {
+                //SportMainView()
+                SportMainView2()
+                    .scaleEffect(scale)
+                    .onAppear {
+                        withAnimation(.easeInOut(duration: 1.5)) {
+                            scale = appVM.showMap ? 0 : 1
+                        }
+                    }
+                    .onDisappear{
+                        scale = 0
+                    }
+                
+            }
+            Spacer()
+            SportTypeView()
+        }
+        
+        .background{
+            if !appVM.showMap {
+                Color(.clear)
+                    .background(.ultraThinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+                    .ignoresSafeArea(.all)
+                    .scaleEffect(scale)
+                    .onAppear {
+                        withAnimation(.easeInOut(duration: 1.5)) {
+                            scale = appVM.showMap ? 0 : 1
+                        }
+                    }
+                    .onDisappear{
+                        scale = 0
+                    }
+            }
+        }
+    }
+}
 
 struct CustomDialogView: View {
     

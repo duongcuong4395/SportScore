@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		4F08FA312C85EE60006116D7 /* SportsPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08FA302C85EE60006116D7 /* SportsPageViewModel.swift */; };
+		4F08FA392C86095B006116D7 /* IceHockeyEventItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08FA382C86095B006116D7 /* IceHockeyEventItemView.swift */; };
+		4F08FA3D2C860AF6006116D7 /* BaseballEventItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08FA3C2C860AF6006116D7 /* BaseballEventItemView.swift */; };
+		4F08FA422C860C0E006116D7 /* BasketballEventItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08FA412C860C0E006116D7 /* BasketballEventItemView.swift */; };
+		4F08FA462C860CD2006116D7 /* AmericanFootballEventItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08FA452C860CD2006116D7 /* AmericanFootballEventItemView.swift */; };
+		4F08FA4A2C860F08006116D7 /* GolfEventItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08FA492C860F08006116D7 /* GolfEventItemView.swift */; };
+		4F08FA4E2C8611EA006116D7 /* RugbyEventItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08FA4D2C8611EA006116D7 /* RugbyEventItemView.swift */; };
 		4F0E37232C82C39500B85006 /* FightingEventModelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E37222C82C39500B85006 /* FightingEventModelItemView.swift */; };
 		4F0E37262C82C63400B85006 /* FightingEventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E37252C82C63400B85006 /* FightingEventModel.swift */; };
 		4F0E37292C82CAFA00B85006 /* FightingTeamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E37282C82CAFA00B85006 /* FightingTeamDetailView.swift */; };
@@ -134,6 +140,12 @@
 
 /* Begin PBXFileReference section */
 		4F08FA302C85EE60006116D7 /* SportsPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsPageViewModel.swift; sourceTree = "<group>"; };
+		4F08FA382C86095B006116D7 /* IceHockeyEventItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceHockeyEventItemView.swift; sourceTree = "<group>"; };
+		4F08FA3C2C860AF6006116D7 /* BaseballEventItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballEventItemView.swift; sourceTree = "<group>"; };
+		4F08FA412C860C0E006116D7 /* BasketballEventItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketballEventItemView.swift; sourceTree = "<group>"; };
+		4F08FA452C860CD2006116D7 /* AmericanFootballEventItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmericanFootballEventItemView.swift; sourceTree = "<group>"; };
+		4F08FA492C860F08006116D7 /* GolfEventItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfEventItemView.swift; sourceTree = "<group>"; };
+		4F08FA4D2C8611EA006116D7 /* RugbyEventItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RugbyEventItemView.swift; sourceTree = "<group>"; };
 		4F0E37222C82C39500B85006 /* FightingEventModelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightingEventModelItemView.swift; sourceTree = "<group>"; };
 		4F0E37252C82C63400B85006 /* FightingEventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightingEventModel.swift; sourceTree = "<group>"; };
 		4F0E37282C82CAFA00B85006 /* FightingTeamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightingTeamDetailView.swift; sourceTree = "<group>"; };
@@ -317,6 +329,102 @@
 			children = (
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		4F08FA362C8608F6006116D7 /* IceHockey */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA372C8608FF006116D7 /* Model */,
+			);
+			path = IceHockey;
+			sourceTree = "<group>";
+		};
+		4F08FA372C8608FF006116D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA382C86095B006116D7 /* IceHockeyEventItemView.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F08FA3A2C860AD1006116D7 /* Baseball */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA3B2C860ADA006116D7 /* Model */,
+			);
+			path = Baseball;
+			sourceTree = "<group>";
+		};
+		4F08FA3B2C860ADA006116D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA3C2C860AF6006116D7 /* BaseballEventItemView.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F08FA3E2C860BE7006116D7 /* Basketball */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA3F2C860BEE006116D7 /* Model */,
+			);
+			path = Basketball;
+			sourceTree = "<group>";
+		};
+		4F08FA3F2C860BEE006116D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA412C860C0E006116D7 /* BasketballEventItemView.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F08FA432C860CB1006116D7 /* AmericanFootball */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA442C860CBC006116D7 /* Model */,
+			);
+			path = AmericanFootball;
+			sourceTree = "<group>";
+		};
+		4F08FA442C860CBC006116D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA452C860CD2006116D7 /* AmericanFootballEventItemView.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F08FA472C860EEF006116D7 /* Golf */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA482C860EF5006116D7 /* Model */,
+			);
+			path = Golf;
+			sourceTree = "<group>";
+		};
+		4F08FA482C860EF5006116D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA492C860F08006116D7 /* GolfEventItemView.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F08FA4B2C8611CA006116D7 /* Rugby */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA4C2C8611D1006116D7 /* Model */,
+			);
+			path = Rugby;
+			sourceTree = "<group>";
+		};
+		4F08FA4C2C8611D1006116D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA4D2C8611EA006116D7 /* RugbyEventItemView.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		4F0E37202C82C35800B85006 /* Events */ = {
@@ -1241,6 +1349,12 @@
 		4FFD4C672C521A22006E9485 /* Sports */ = {
 			isa = PBXGroup;
 			children = (
+				4F08FA4B2C8611CA006116D7 /* Rugby */,
+				4F08FA472C860EEF006116D7 /* Golf */,
+				4F08FA432C860CB1006116D7 /* AmericanFootball */,
+				4F08FA3E2C860BE7006116D7 /* Basketball */,
+				4F08FA3A2C860AD1006116D7 /* Baseball */,
+				4F08FA362C8608F6006116D7 /* IceHockey */,
 				4F08FA2E2C85EE3F006116D7 /* Pages */,
 				4F77AAB12C8212F600B82BCA /* Fighting */,
 				4F0FAD312C818228002C3331 /* Category */,
@@ -1387,6 +1501,7 @@
 				4FA8CD652C5935F900A4DDFD /* MapView.swift in Sources */,
 				4F9B6C992C6794D900AB03F4 /* TeamModel.swift in Sources */,
 				4F77AAB42C82131500B82BCA /* FightingView.swift in Sources */,
+				4F08FA4A2C860F08006116D7 /* GolfEventItemView.swift in Sources */,
 				4F8B2D742C6870BC00C86717 /* TeamViewModel.swift in Sources */,
 				4F65DB7B2C6B450600B5AE39 /* LocalNotificationManage.swift in Sources */,
 				4FEFBE962C6A5C5100636471 /* EquipmentView.swift in Sources */,
@@ -1406,8 +1521,10 @@
 				4FBC43542C6A178F00EFA4DA /* LeagueDetailView.swift in Sources */,
 				4F7E79492C67BD61001BCC2D /* PlayerModel.swift in Sources */,
 				4FEFBE992C6A5C7F00636471 /* EquipmentViewModel.swift in Sources */,
+				4F08FA3D2C860AF6006116D7 /* BaseballEventItemView.swift in Sources */,
 				4F65DB7E2C6B4E1F00B5AE39 /* NotificationModel.swift in Sources */,
 				4F77AAB02C82114000B82BCA /* DartsLeagueItemMenuView.swift in Sources */,
+				4F08FA462C860CD2006116D7 /* AmericanFootballEventItemView.swift in Sources */,
 				4FFFC3F72C6B0E2B006BCDF0 /* NotificationView.swift in Sources */,
 				4F9B62142C72156B00003AB1 /* SoccerScheduleView.swift in Sources */,
 				4F77AAB82C82135100B82BCA /* FightingPageViewModel.swift in Sources */,
@@ -1423,6 +1540,7 @@
 				4F9B621B2C721F6C00003AB1 /* SoccerCountryItemMenuView.swift in Sources */,
 				4F9711252C526AB600A0DF1C /* AppUtility.swift in Sources */,
 				4FA9A3C52C7836EE002B6DD9 /* MotorsportScheduleView.swift in Sources */,
+				4F08FA422C860C0E006116D7 /* BasketballEventItemView.swift in Sources */,
 				4F9B62272C7250E700003AB1 /* SoccerScheduleIModeltemView.swift in Sources */,
 				4F9B62162C721C4300003AB1 /* SoccerScheduleItemMenuView.swift in Sources */,
 				4F9B6C9C2C67A41100AB03F4 /* CountryViewModel.swift in Sources */,
@@ -1454,12 +1572,14 @@
 				4F77AAC02C8214D500B82BCA /* FightingLeagueView.swift in Sources */,
 				4FA7271C2C7202E8008BB2F4 /* SoccerView.swift in Sources */,
 				4F7E79422C67AFE0001BCC2D /* LeaguesViewModel.swift in Sources */,
+				4F08FA392C86095B006116D7 /* IceHockeyEventItemView.swift in Sources */,
 				4F77AAC42C8215DD00B82BCA /* FightingLeagueDetailView.swift in Sources */,
 				4F9B62232C72480800003AB1 /* SoccerTeamDetailView.swift in Sources */,
 				4F27D0852C706D2400CCE79F /* EventView.swift in Sources */,
 				4F6581572C7788F700B7999A /* MotorsportCountryView.swift in Sources */,
 				4FAC11032C59F501007B4B68 /* TextFieldSearchView.swift in Sources */,
 				4FD08D742C66183C00C67251 /* LeaguesModel.swift in Sources */,
+				4F08FA4E2C8611EA006116D7 /* RugbyEventItemView.swift in Sources */,
 				4FA83AB92C71AB6200D03EE9 /* TestShape.swift in Sources */,
 				4FCBE9B52C6CBC180072FA28 /* ScheduleCD+CoreDataProperties.swift in Sources */,
 				4FA8CD5A2C5928A900A4DDFD /* FIleManage.swift in Sources */,

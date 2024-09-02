@@ -254,14 +254,7 @@ extension SportType {
                 return SportTeamItemMenuView().toAnyView()
             default:
                 return EmptyView().toAnyView()
-            /*
-            case .TeamDetail:
-                return EmptyView().toAnyView()
-            case .EventDetail:
-                return EmptyView().toAnyView()
-            case .LeaguesDetail:
-                return EmptyView().toAnyView()
-             */
+            
         }
     }
     

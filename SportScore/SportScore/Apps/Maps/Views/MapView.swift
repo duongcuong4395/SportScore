@@ -57,7 +57,6 @@ struct MapView:View {
                                             }
                                             
                                         }
-                                        
                                     }
                                 
                                 ct.model.getDetailView()
