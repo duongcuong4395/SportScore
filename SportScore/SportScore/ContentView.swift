@@ -31,6 +31,7 @@ struct ContentView: View {
     @StateObject var playerVM = PlayerViewModel()
     
     @StateObject var equipmentVM = EquipmentViewModel()
+    @StateObject var sportsPageVM = SportsPageViewModel()
     
     var body: some View {
         ZStack {
@@ -52,16 +53,17 @@ struct ContentView: View {
                             markerVM.clearAll()
                             countryVM.filter(by: appVM.textSearch) { objs in
                                 if objs.count > 0 {
-                                    let mid: Int = objs.count / 2
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        markerVM.addListMarker(from: objs)
+                                    if appVM.showMap {
+                                        let mid: Int = objs.count / 2
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            markerVM.addListMarker(from: objs)
+                                        }
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            mapVM.moveTo(coordinate: objs[mid].coordinate, zoom: 150)
+                                        }
                                     }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                        mapVM.moveTo(coordinate: objs[mid].coordinate, zoom: 150)
-                                    }
-                                    
-                                    
                                 }
                             }
                             
@@ -84,7 +86,8 @@ struct ContentView: View {
                 .background(.ultraThinMaterial.opacity(0.01), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
                 .padding(.horizontal, 5)
                 if !appVM.showMap {
-                    SportMainView()
+                    //SportMainView()
+                    SportMainView2()
                     
                 }
                 Spacer()
@@ -108,6 +111,7 @@ struct ContentView: View {
         .environmentObject(favoriteVM)
         .environmentObject(eventVM)
         .environmentObject(sportTypeVM)
+        .environmentObject(sportsPageVM)
         
         
         

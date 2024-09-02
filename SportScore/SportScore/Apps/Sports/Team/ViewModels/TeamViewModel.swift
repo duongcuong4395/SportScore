@@ -38,13 +38,7 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
         
     }
     
-    func resetModels() {
-        self.models = []
-    }
     
-    func resetDetail() {
-        self.modelDetail = nil
-    }
     
     func setDetail(by team: TeamModel) {
         self.modelDetail = team
@@ -73,5 +67,22 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
                 , TeamModel(), TeamModel(), TeamModel()
                 , TeamModel(), TeamModel(), TeamModel()
                 , TeamModel(), TeamModel(), TeamModel()]
+    }
+}
+
+
+extension TeamViewModel {
+    func resetModels() {
+        self.models = []
+    }
+    
+    func resetDetail() {
+        self.modelDetail = nil
+    }
+    
+    func resetAll() {
+        self.models = []
+        self.modelDetail = nil
+        self.modelsFilter = []
     }
 }

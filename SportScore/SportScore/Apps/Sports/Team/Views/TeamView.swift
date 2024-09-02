@@ -16,8 +16,7 @@ struct TeamsView: View {
     @EnvironmentObject var appVM: AppViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var equipmentVM: EquipmentViewModel
-    
-    
+
     var body: some View {
         QGrid(teamVM.models, columns: 3
               , vPadding: 5, hPadding: 5) { team in
@@ -37,7 +36,7 @@ struct TeamsView: View {
                         scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
                         equipmentVM.fetch(from: team) {}
                         //appVM.switchPage(to: .Player)
-                        appVM.switchPage(to: .TeamDetail)
+                        //appVM.switchPage(to: .TeamDetail)
                         
                     }
                 }
@@ -141,6 +140,104 @@ struct SportListTeamView: View {
                       }
                   }
               }
+            }
+        }
+    }
+}
+
+
+
+struct SportTeamItemMenuView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    var body: some View {
+        TeamItemMenuView()
+            .modifier(BadgeCloseItem(action: {
+                withAnimation(.spring()) {
+                    sportsPageVM.removeFrom(.Team)
+                }
+            }))
+    }
+}
+
+struct SportTeamDetailView: View {
+    @EnvironmentObject var teamVM: TeamViewModel
+    @EnvironmentObject var scheduleVM: ScheduleViewModel
+    @EnvironmentObject var playerVM: PlayerViewModel
+    
+    var body: some View {
+        VStack {
+            ScrollView(showsIndicators: false) {
+                if scheduleVM.modelsForNext.count > 0 || scheduleVM.modelsForPrevious.count > 0 {
+                    HStack {
+                        Text("Schedule")
+                            .font(.callout.bold())
+                        Spacer()
+                    }
+                    ScheduleView()
+                        .frame(height: UIScreen.main.bounds.height / 1.5)
+                }
+                if scheduleVM.modelsForLastEvents.count > 0 {
+                    HStack {
+                        Text("Last event:")
+                            .font(.callout.bold())
+                        Spacer()
+                    }
+                    
+                    ScheduleListItemView(models: scheduleVM.modelsForLastEvents)
+                        .onDisappear{
+                            scheduleVM.modelsForLastEvents = []
+                        }
+                }
+                
+                if playerVM.models.count > 0 {
+                    HStack {
+                        Text("Players")
+                            .font(.callout.bold())
+                        Spacer()
+                    }
+                    PlayerView()
+                        .frame(height: UIScreen.main.bounds.height / 2)
+                }
+                
+                
+                HStack {
+                    Text("Equipments")
+                        .font(.callout.bold())
+                    Spacer()
+                }
+                EquipmentView()
+                
+                
+                HStack {
+                    Text("Trophies:")
+                        .font(.callout.bold())
+                    Spacer()
+                }
+                ListTrophyOfTeamView()
+                
+                HStack {
+                    Text("Description:")
+                        .font(.callout.bold())
+                    Spacer()
+                }
+                Text(teamVM.modelDetail?.descriptionEN ?? "")
+                
+                if let team = teamVM.modelDetail {
+                    TeamAdsView(team: team)
+                }
+            }
+        }
+        .onAppear{
+            scheduleVM.getLastEvents(by: teamVM.modelDetail?.idTeam ?? "0")
+        }
+        .overlay {
+            HStack{
+                Spacer()
+                if let team = teamVM.modelDetail {
+                    TeamSocialView(team: team)
+                }
+                
             }
         }
     }

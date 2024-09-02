@@ -17,6 +17,8 @@ struct SportTypeView: View {
     @EnvironmentObject var playerVM: PlayerViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
     var body: some View {
         HStack {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -45,13 +47,11 @@ struct SportTypeView: View {
                                         return
                                     }
                                     sportTypeVM.selected = sport
-                                    
-                                    leaguesVM.resetModels()
-                                    leaguesVM.resetModels()
-                                    teamVM.resetModels()
-                                    teamVM.resetModels()
-                                    playerVM.resetModels()
-                                    scheduleVM.resetModels()
+                                    sportsPageVM.removeFrom(.Country)
+                                    leaguesVM.resetAll()
+                                    teamVM.resetAll()
+                                    playerVM.resetAll()
+                                    scheduleVM.resetAll()
                                 }
                             }
                         }

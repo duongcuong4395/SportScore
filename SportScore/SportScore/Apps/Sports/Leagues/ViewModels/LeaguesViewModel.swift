@@ -48,13 +48,7 @@ class LeaguesViewModel: ObservableObject, SportAPIEvent {
         
     }
     
-    func resetDetail() {
-        self.modelDetail = nil
-    }
     
-    func resetModels() {
-        self.models = []
-    }
     
     func setDetail(by leagues: LeaguesModel) {
         self.modelDetail = leagues
@@ -72,6 +66,22 @@ class LeaguesViewModel: ObservableObject, SportAPIEvent {
         return [LeaguesModel(), LeaguesModel(), LeaguesModel()
                 ,LeaguesModel(), LeaguesModel(), LeaguesModel()
                 ,LeaguesModel(), LeaguesModel(), LeaguesModel()]
+    }
+}
+
+extension LeaguesViewModel {
+    func resetDetail() {
+        self.modelDetail = nil
+    }
+    
+    func resetModels() {
+        self.models = []
+    }
+    
+    func resetAll() {
+        self.models = []
+        self.modelDetail = nil
+        self.modelsFilter = []
     }
 }
 

@@ -32,45 +32,30 @@ struct SportMainView: View {
     
     var body: some View {
         VStack {
-            /*
-            HStack {
-                TextFieldSearchView(listModels: []) {
-                    
-                }
-                NotificationBellView()
-            }
-            .padding(.horizontal, 5)
-            */
             sportTypeVM.selected.getView()
                 .padding(0)
-            
-            
-        }
-        .onAppear{
-            //countryVM.fetch()
-        }
-        .onChange(of: appVM.textSearch) { olddVl, newVl in
-            withAnimation(.spring()) {
-                
-            }
         }
     }
 }
-/*
- 
- .onChange(of: appVM.textSearch) { olddVl, newVl in
-     withAnimation(.spring()) {
-         filterCountry(by: appVM.textSearch)
-     }
- }
- .task {
-     favoriteVM.getCount(from: sportTypeVM.selected.getEntities(), of: sportTypeVM.selected, from: context)
- }
- 
- 
- 
- */
 
+
+struct SportMainView2: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    @EnvironmentObject var countryVM: CountryViewModel
+    @EnvironmentObject var leaguesVM: LeaguesViewModel
+    
+    var body: some View {
+        VStack {
+            SportView2(pages: sportsPageVM.pages, pageSelected: sportsPageVM.pageSelected)
+                .onAppear{
+                    if countryVM.modelDetail != nil, leaguesVM.modelDetail == nil {
+                        sportsPageVM.add(.Country)
+                    }
+                }
+        }
+    }
+}
 
 
 struct BadgeCloseView: View {
@@ -110,6 +95,28 @@ struct SportView: View {
             }
             ZStack {
                 sportTypeVM.selected.getView(by: pageSelected)
+            }
+            
+        }
+    }
+}
+
+
+
+struct SportView2: View {
+    @EnvironmentObject var sportTypeVM: SportTypeViewModel
+    var pages: [SportPage]
+    var pageSelected: SportPage = .Country
+    
+    var body: some View {
+        VStack {
+            HStack {
+                ForEach(pages, id: \.self) { page in
+                    sportTypeVM.selected.getItemMenuView2(by: page)
+                }
+            }
+            ZStack {
+                sportTypeVM.selected.getView2(by: pageSelected)
             }
             
         }

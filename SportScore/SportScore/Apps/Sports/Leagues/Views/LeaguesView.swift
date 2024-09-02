@@ -8,6 +8,43 @@
 import SwiftUI
 import QGrid
 
+
+
+struct SportLeagueItemMenuView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    var body: some View {
+        LeaguesItemMenuView()
+            .modifier(BadgeCloseItem(action: {
+                withAnimation(.spring()) {
+                    UIApplication.shared.endEditing()
+                    sportsPageVM.removeFrom(.Leagues)
+                }
+            }))
+            .scaleEffect(0.85)
+    }
+}
+
+
+struct SportLeagueDetailView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    var body: some View {
+        LeaguesDetailGenView(sportPageVM: sportsPageVM)
+    }
+}
+
+
+struct SportListLeagueView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    var body: some View {
+        SportLeaguesView{
+            sportsPageVM.add(.Leagues)
+        }
+    }
+}
+
 struct LeaguesView: View {
     
     @EnvironmentObject var appVM: AppViewModel
@@ -36,8 +73,8 @@ struct LeaguesView: View {
                         
                         scheduleVM.fetch(from: leagues, for: .Next, from: context) { success in
                             scheduleVM.fetch(from: leagues, for: .Previous, from: context) { success in
-                                appVM.switchPage(to: .LeagueDetail)
-                                appVM.loading = false
+                                //appVM.switchPage(to: .LeagueDetail)
+                                //appVM.loading = false
                             }
                         }
                         

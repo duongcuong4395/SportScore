@@ -85,11 +85,6 @@ struct ScheduleListItemView: View {
                }
             }
         }
-        .onChange(of: models) { vl, nvl in
-            print("ScheduleListItemView:", showModels.count, models.count)
-            
-            
-        }
     }
 }
 

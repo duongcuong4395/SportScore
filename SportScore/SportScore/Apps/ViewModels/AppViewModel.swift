@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+/*
 enum Page: String {
     case Main
     case Country
@@ -69,6 +69,7 @@ extension Page {
         }
     }
 }
+*/
 
 struct LeaguesItemPageSelectedView: View {
     @EnvironmentObject var leaguesVM: LeaguesViewModel
@@ -90,7 +91,7 @@ struct LeaguesItemPageSelectedView: View {
                                     leaguesVM.resetDetail()
                                     teamVM.resetDetail()
                                     playerVM.resetDetail()
-                                    appVM.switchPage(to: .League)
+                                    //appVM.switchPage(to: .League)
                                 }
                             }
                     }
@@ -124,7 +125,7 @@ struct CountryItemPageSelectedView: View {
                                     leaguesVM.resetDetail()
                                     teamVM.resetDetail()
                                     playerVM.resetDetail()
-                                    appVM.switchPage(to: .Country)
+                                    //appVM.switchPage(to: .Country)
                                 }
                             }
                     }
@@ -147,8 +148,8 @@ class AppViewModel: ObservableObject {
     
     
     
-    @Published var page: Page = .Country
-    @Published var pagesSelected: [Page] = []
+    //@Published var page: Page = .Country
+    //@Published var pagesSelected: [Page] = []
     
     @Published var sizeImage: (width: CGFloat, height: CGFloat) = (width: 70.0, height: 70.0)
     
@@ -172,8 +173,9 @@ class AppViewModel: ObservableObject {
     func resetTextSearch() {
         self.textSearch = ""
     }
-    
+    /*
     func switchPage(to newPage: Page) {
         self.page = newPage
     }
+    */
 }

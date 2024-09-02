@@ -63,7 +63,7 @@ struct SportPageSelectedView: View {
                                             leaguesVM.resetDetail()
                                             teamVM.resetDetail()
                                             playerVM.resetDetail()
-                                            appVM.switchPage(to: .League)
+                                            //appVM.switchPage(to: .League)
                                         }
                                     }
                             }
@@ -96,7 +96,7 @@ struct SportPageSelectedView: View {
                                                     appVM.loading = false
                                                 }
                                             }
-                                            appVM.switchPage(to: .LeagueDetail)
+                                            //appVM.switchPage(to: .LeagueDetail)
                                         }
                                     }
                             }

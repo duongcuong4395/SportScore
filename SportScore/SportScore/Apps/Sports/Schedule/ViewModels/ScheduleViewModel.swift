@@ -93,10 +93,7 @@ class ScheduleViewModel: ObservableObject, SportAPIEvent {
         
     }
     
-    func resetModels() {
-        self.modelsForNext = []
-        self.modelsForPrevious = []
-    }
+    
     
     
     func updateIsFavoriteStatus(from context: NSManagedObjectContext) {
@@ -149,6 +146,22 @@ class ScheduleViewModel: ObservableObject, SportAPIEvent {
                 models[i].isNotify = notificationIds.contains(id)
             }
         }
+    }
+}
+
+extension ScheduleViewModel {
+    func resetModels() {
+        self.modelsForNext = []
+        self.modelsForPrevious = []
+    }
+    
+    func resetAll() {
+        self.models = []
+        self.modelsForNext = []
+        self.modelsForPrevious = []
+        self.modelsForLastEvents = []
+        
+        self.modelDetail = nil
     }
 }
 

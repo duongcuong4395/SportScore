@@ -61,21 +61,3 @@ class SportPageViewModel: ObservableObject {
        customRemovePageLogic(page: page)
     }
 }
-
-/*
-extension SportPageViewModel: SportSpecificPageHandling {
-    func customAddPageLogic(page: SportPage) {
-        if !self.pages.contains(page) {
-            self.pages.append(page)
-            setCurrent(by: page.getCurrentPage() ?? page)
-        }
-    }
-    
-    func customRemovePageLogic(page: SportPage) {
-        if let index = self.pages.firstIndex(of: page) {
-            self.pages.removeSubrange(index..<self.pages.count)
-            setCurrent(by: pages.last ?? .Country)
-        }
-    }
-}
-*/

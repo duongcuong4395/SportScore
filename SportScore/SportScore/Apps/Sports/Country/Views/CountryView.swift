@@ -8,75 +8,32 @@
 import SwiftUI
 import QGrid
 
-struct CountryView: View {
-    @EnvironmentObject var appVM: AppViewModel
-    @EnvironmentObject var countryVM: CountryViewModel
-    
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    
-    @EnvironmentObject var sportTypeVM: SportTypeViewModel
-    
+
+
+struct SportCountryItemMenuView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
     var body: some View {
-        QGrid(appVM.textSearch.isEmpty ? countryVM.models : countryVM.modelsFilter
-                , columns: 3) { country in
-            country.getItemView(with: getOptionView)
-                .padding(0)
-                .onTapGesture {
-                    appVM.loading = true
-                    withAnimation(.spring()) {
-                        UIApplication.shared.endEditing() // Dismiss the keyboard
-                        appVM.pagesSelected.append(.Country)
-                        appVM.switchPage(to: .League)
-                        appVM.resetTextSearch()
-                        countryVM.resetFilter()
-                        countryVM.setDetail(by: country)
-                        leaguesVM.resetModels()
-                        leaguesVM.fetch(from: country, by: sportTypeVM.selected) {
-                            appVM.loading = false
-                        }
-                        
-                        
-                    }
+        CountryItemMenuView()
+            .modifier(BadgeCloseItem(action: {
+                withAnimation(.spring()) {
+                    sportsPageVM.removeFrom(.Country)
+                    UIApplication.shared.endEditing()
                 }
-        }
-    }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {
-        //EmptyView()
+            }))
+            .scaleEffect(0.85)
     }
 }
-
-struct CountryDetailView: View {
-    @EnvironmentObject var countryVM: CountryViewModel
-    
-    var body: some View {
-        if let model = countryVM.modelDetail {
-            model.getItemView(with: getOptionView)
-        }
-    }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {}
-}
-
-struct CountryItemMenuView: View {
-    @EnvironmentObject var countryVM: CountryViewModel
-    
-    var body: some View {
-        if let model = countryVM.modelDetail {
-            model.getItemView(with: getOptionView)
-        }
-    }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {}
-}
-
-
 
 // MARK: - For Country
-
+struct SportListCountryView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    var body: some View {
+        SportCountryView {
+            sportsPageVM.add(.Country)
+        }
+    }
+}
 
 struct SportCountryView: View {
     @EnvironmentObject var countryVM: CountryViewModel
@@ -116,4 +73,30 @@ struct SportCountryView: View {
             }
         }
     }
+}
+
+struct CountryDetailView: View {
+    @EnvironmentObject var countryVM: CountryViewModel
+    
+    var body: some View {
+        if let model = countryVM.modelDetail {
+            model.getItemView(with: getOptionView)
+        }
+    }
+    
+    @ViewBuilder
+    func getOptionView() -> some View {}
+}
+
+struct CountryItemMenuView: View {
+    @EnvironmentObject var countryVM: CountryViewModel
+    
+    var body: some View {
+        if let model = countryVM.modelDetail {
+            model.getItemView(with: getOptionView)
+        }
+    }
+    
+    @ViewBuilder
+    func getOptionView() -> some View {}
 }

@@ -80,11 +80,13 @@ struct CountryMarkerIConView: View {
     var model: CountryModel
     var body: some View {
         VStack(spacing: 0) {
+            /*
             Text(model.fullName)
                 .font(.caption2)
                 .multilineTextAlignment(.center)
                 .frame(width: 50)
                 .padding(0)
+             */
             KFImage(URL(string: model.getFlag(by: .Medium)))
                 .placeholder {
                     LoadingIndicator(animation: .circleBars, size: .small, speed: .normal)

@@ -50,15 +50,24 @@ class PlayerViewModel: ObservableObject, SportAPIEvent {
         
     }
     
+    func setDetail(by player: PlayerModel) {
+        self.modelDetail = player
+    }
+}
+
+
+extension PlayerViewModel {
     func resetDetail() {
         self.modelDetail = nil
     }
     
-    func setDetail(by player: PlayerModel) {
-        self.modelDetail = player
-    }
-    
     func resetModels() {
         self.models = []
+    }
+    
+    func resetAll() {
+        self.models = []
+        
+        self.modelDetail = nil
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F08FA312C85EE60006116D7 /* SportsPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08FA302C85EE60006116D7 /* SportsPageViewModel.swift */; };
 		4F0E37232C82C39500B85006 /* FightingEventModelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E37222C82C39500B85006 /* FightingEventModelItemView.swift */; };
 		4F0E37262C82C63400B85006 /* FightingEventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E37252C82C63400B85006 /* FightingEventModel.swift */; };
 		4F0E37292C82CAFA00B85006 /* FightingTeamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0E37282C82CAFA00B85006 /* FightingTeamDetailView.swift */; };
@@ -132,6 +133,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F08FA302C85EE60006116D7 /* SportsPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsPageViewModel.swift; sourceTree = "<group>"; };
 		4F0E37222C82C39500B85006 /* FightingEventModelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightingEventModelItemView.swift; sourceTree = "<group>"; };
 		4F0E37252C82C63400B85006 /* FightingEventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightingEventModel.swift; sourceTree = "<group>"; };
 		4F0E37282C82CAFA00B85006 /* FightingTeamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightingTeamDetailView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F08FA2E2C85EE3F006116D7 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA352C85F197006116D7 /* Event */,
+				4F08FA342C85F17E006116D7 /* Team */,
+				4F08FA332C85F166006116D7 /* Leagues */,
+				4F08FA322C85F156006116D7 /* Country */,
+				4F08FA2F2C85EE4E006116D7 /* ViewModels */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		4F08FA2F2C85EE4E006116D7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4F08FA302C85EE60006116D7 /* SportsPageViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4F08FA322C85F156006116D7 /* Country */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Country;
+			sourceTree = "<group>";
+		};
+		4F08FA332C85F166006116D7 /* Leagues */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Leagues;
+			sourceTree = "<group>";
+		};
+		4F08FA342C85F17E006116D7 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
+		4F08FA352C85F197006116D7 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
 		4F0E37202C82C35800B85006 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -1191,6 +1241,7 @@
 		4FFD4C672C521A22006E9485 /* Sports */ = {
 			isa = PBXGroup;
 			children = (
+				4F08FA2E2C85EE3F006116D7 /* Pages */,
 				4F77AAB12C8212F600B82BCA /* Fighting */,
 				4F0FAD312C818228002C3331 /* Category */,
 				4F0FAD232C8173D7002C3331 /* Darts */,
@@ -1383,6 +1434,7 @@
 				4F1CBC562C79877100FB827A /* ShimmeringView.swift in Sources */,
 				4F8B2D712C686D2B00C86717 /* PlayerViewModel.swift in Sources */,
 				4F9B62212C72355900003AB1 /* SoccerLeaguesDetailView.swift in Sources */,
+				4F08FA312C85EE60006116D7 /* SportsPageViewModel.swift in Sources */,
 				4F9B62192C721DB900003AB1 /* SoccerCountryView.swift in Sources */,
 				4F1273AD2C6F487100D52EF2 /* FavoriteView.swift in Sources */,
 				4FCF5EDD2C74A07400804225 /* SeasonViewModel.swift in Sources */,
