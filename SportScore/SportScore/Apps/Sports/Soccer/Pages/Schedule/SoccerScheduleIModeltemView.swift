@@ -64,23 +64,8 @@ struct SoccerScheduleIModeltemView: View {
                     .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
                     .onTapGesture {
                         withAnimation {
-                            
-                            
-                            var homeTeam = TeamModel()
-                            homeTeam.idTeam = model.idHomeTeam // idAwayTeam
-                            homeTeam.teamName = model.homeTeamName ?? ""
-                            homeTeam.badge = model.homeTeamBadge ?? ""
-                            teamVM.setDetail(by: homeTeam)
-                            
-                            playerVM.resetModels()
-                            playerVM.fetch(by: homeTeam)
-                            scheduleVM.resetModels()
-                            scheduleVM.fetch(by: Int(homeTeam.idTeam ?? "0") ?? 0, for: .Next, from: context)
-                            scheduleVM.fetch(by: Int(homeTeam.idTeam ?? "0") ?? 0, for: .Previous, from: context)
-                            equipmentVM.fetch(from: homeTeam) {}
-                            //appVM.switchPage(to: .TeamDetail)
-                            
-                            soccerPageVM.add(by: .Team)
+                            guard let team = teamVM.getTeam(by: model.homeTeamName ?? "") else { return }
+                            selectTeam(from: team)
                         }
                        
                     }
@@ -118,25 +103,10 @@ struct SoccerScheduleIModeltemView: View {
                     .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
                     .onTapGesture {
                         withAnimation {
-                            var awayTeam = TeamModel()
-                            awayTeam.idTeam = model.idAwayTeam
-                            awayTeam.teamName = model.awayTeamName ?? ""
-                            awayTeam.badge = model.awayTeamBadge ?? ""
-                            teamVM.setDetail(by: awayTeam)
-                            
-                            playerVM.resetModels()
-                            playerVM.fetch(by: awayTeam)
-                            scheduleVM.resetModels()
-                            scheduleVM.fetch(by: Int(awayTeam.idTeam ?? "0") ?? 0, for: .Next, from: context)
-                            scheduleVM.fetch(by: Int(awayTeam.idTeam ?? "0") ?? 0, for: .Previous, from: context)
-                            equipmentVM.fetch(from: awayTeam){}
-                            
-                            soccerPageVM.add(by: .Team)
+                            guard let team = teamVM.getTeam(by: model.awayTeamName ?? "") else { return }
+                            selectTeam(from: team)
                         }
-                        
                     }
-                
-                
             }
             .padding(0)
             .padding(.vertical, 5)
@@ -146,6 +116,21 @@ struct SoccerScheduleIModeltemView: View {
                     .padding(.horizontal, 25)
                     .padding(.vertical, 5)
             )
+        }
+    }
+    
+    func selectTeam(from team: TeamModel) {
+        teamVM.setDetail(by: team)
+        playerVM.resetModels()
+        playerVM.fetch(by: team)
+        scheduleVM.resetModels()
+        scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Next, from: context)
+        scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
+        equipmentVM.fetch(from: team) {}
+        soccerPageVM.add(.Team)
+        scheduleVM.modelsForLastEvents = []
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            scheduleVM.getLastEvents(by: team.idTeam ?? "0")
         }
     }
 }

@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct FightingView: View {
+    @EnvironmentObject var countryVM: CountryViewModel
+    @EnvironmentObject var leaguesVM: LeaguesViewModel
     @StateObject var fightingPageVM = FightingPageViewModel()
     
     var body: some View {
         SportView(pages: fightingPageVM.pages, pageSelected: fightingPageVM.pageSelected)
             .environmentObject(fightingPageVM)
+            .onAppear{
+                if countryVM.modelDetail != nil, leaguesVM.modelDetail == nil {
+                    fightingPageVM.add(.Country)
+                }
+            }
     }
 }

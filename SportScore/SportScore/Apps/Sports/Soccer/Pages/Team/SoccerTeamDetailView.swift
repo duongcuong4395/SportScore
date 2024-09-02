@@ -77,8 +77,11 @@ struct SoccerTeamDetailView: View {
             }
         }
         .onAppear{
-            scheduleVM.getLastEvents(by: teamVM.modelDetail?.idTeam ?? "0")
+            //scheduleVM.getLastEvents(by: teamVM.modelDetail?.idTeam ?? "0")
         }
+        .onChange(of: teamVM.modelDetail, { oldValue, newValue in
+            //scheduleVM.getLastEvents(by: teamVM.modelDetail?.idTeam ?? "0")
+        })
         .overlay {
             HStack{
                 Spacer()

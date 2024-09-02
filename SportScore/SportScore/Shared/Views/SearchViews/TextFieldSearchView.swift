@@ -8,27 +8,28 @@
 import SwiftUI
 
 struct TextFieldSearchView: View {
-    //@EnvironmentObject var appVM: AppViewModel
+    @EnvironmentObject var appVM: AppViewModel
     
     @Environment(\.colorScheme) var appMode
     @State var listModels: [[Any]]
-    @Binding var textSearch: String
+    //@Binding var textSearch: String
 
     @State var showClear: Bool = true
+    
+    var action: () -> Void
+    
     var body: some View {
-        
-        
         HStack{
             Image(systemName: "magnifyingglass")
                 .foregroundStyleItemView(by: appMode)
                 .padding(.leading, 5)
-            TextField("Enter text", text: $textSearch)
+            TextField("Enter country", text: $appVM.textSearch)
                 .foregroundStyleItemView(by: appMode)
                 
             if showClear {
-                if !textSearch.isEmpty {
+                if !appVM.textSearch.isEmpty {
                     Button(action: {
-                        self.textSearch = ""
+                        self.appVM.textSearch = ""
                         for i in 0..<listModels.count {
                             listModels[i] = []
                         }
@@ -40,13 +41,15 @@ struct TextFieldSearchView: View {
                 }
             }
         }
-        //.avoidKeyboard()
         .padding(.vertical, 3)
         .background(
             .ultraThinMaterial,
             in: RoundedRectangle(cornerRadius: 10, style: .continuous)
         )
         //.edgesIgnoringSafeArea(.bottom)
+        .onChange(of: appVM.textSearch) { oldValue, newValue in
+            action()
+        }
     }
 }
 

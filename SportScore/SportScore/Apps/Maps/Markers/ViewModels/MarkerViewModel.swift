@@ -64,6 +64,7 @@ struct Location: Codable {
 }
 
 enum MarkerType: String {
+    case Country
     case Weather
     case Humidity
     case WindDirection
@@ -109,7 +110,7 @@ class MarkerViewModel: ObservableObject{
         let ind = markers.firstIndex { $0.model.title == data.title && $0.model.getMarkerType() == data.getMarkerType() }
         guard let ind = ind else { return }
         DispatchQueue.main.async {
-            self.markers[ind].showDetail.toggle()
+            //self.markers[ind].showDetail.toggle()
         }
     }
     

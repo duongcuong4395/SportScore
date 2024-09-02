@@ -9,12 +9,7 @@ import Foundation
 
 class SeasonViewModel: ObservableObject, SportAPIEvent {
     @Published var models: [SeasonModel] = []
-    
-    
-    
     @Published var modelsRank: [RankModel] = []
-    
-    
     @Published var seasonSelected: SeasonModel?
     @Published var leagueSelected: LeaguesModel?
     
@@ -25,12 +20,10 @@ class SeasonViewModel: ObservableObject, SportAPIEvent {
             self.getSeason(from: league) { (result: Result<SeasonResponse, Error>) in
                 switch result {
                 case .success(let data):
-                    print("== getSeason: \(league.idLeague ?? "") - \(league.leagueName ?? "")", data.seasons ?? [])
                     DispatchQueueManager.share.runOnMain {
                         self.models = data.seasons ?? []
                     }
-                case .failure(let err):
-                    print("getSeason.error:", league.idLeague ?? "", league.leagueName ?? "", err)
+                case .failure(_):
                     DispatchQueueManager.share.runOnMain {
                         self.models = []
                     }

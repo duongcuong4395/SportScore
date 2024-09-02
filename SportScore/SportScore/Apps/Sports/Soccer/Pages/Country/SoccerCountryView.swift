@@ -14,7 +14,7 @@ struct SoccerCountryView: View {
     var body: some View {
         SportCountryView {
             withAnimation {
-                soccerPageVM.add(by: .Country)
+                soccerPageVM.add(.Country)
             }
         }
     }

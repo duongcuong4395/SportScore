@@ -14,7 +14,7 @@ struct SoccerLeaguesView: View {
     
     var body: some View {
         SportLeaguesView{
-            soccerPageVM.add(by: .Leagues)
+            soccerPageVM.add(.Leagues)
         }
     }
 }

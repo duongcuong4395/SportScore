@@ -59,10 +59,12 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
         }
     }
     
-    func getTeam(by teamID: String) -> TeamModel? {
-        return models.first { team in
-            team.idTeam == teamID
+    func getTeam(by text: String) -> TeamModel? {
+        let team = models.first { team in
+            team.idTeam == text || team.teamName == text
         }
+        print("=== getTeam:", text, team?.teamName ?? "", team?.idTeam ?? "")
+        return team
     }
     
     

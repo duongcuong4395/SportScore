@@ -9,54 +9,13 @@ import SwiftUI
 
 struct FightingLeagueDetailView: View {
     @EnvironmentObject var fightingPageVM: FightingPageViewModel
-    @EnvironmentObject var leagueVM: LeaguesViewModel
-    @EnvironmentObject var scheduleVM: ScheduleViewModel
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    @EnvironmentObject var teamVM: TeamViewModel
-    @EnvironmentObject var eventVM: EventViewModel
-    
-    
-    
-    @StateObject var seasonVM = SeasonViewModel()
-    
-    
     
     var body: some View {
-        VStack {
-            ScrollView(showsIndicators: false) {
-                leaguesVM.getTrophyView()
-                
-                scheduleVM.getEventsOfPreviousAndNextDayView()
-                
-                ListTeamView
-                
-                ListSeasonOfLeagueView
-                
-                RankingByLeagueAndSeasonView
-                
-                ListEventEachRoundOfLeagueAndSeasonView(seasonVM: seasonVM)
-                
-                ListEventSpecificView(seasonVM: seasonVM)
-                
-                MotorsportLeagueDetailInforView()
-                
-                if let league = leaguesVM.modelDetail {
-                    LeaguesAdsView(league: league)
-                }
-            }
-        }
-        .overlay(content: {
-            HStack {
-                Spacer()
-                if let league = leagueVM.modelDetail {
-                    SoccerLeaguesSocisalView(league: league)
-                }
-            }
-        })
-        .environmentObject(seasonVM)
+        LeaguesDetailGenView(sportPageVM: fightingPageVM)
     }
 }
 
+/*
 extension FightingLeagueDetailView {
     var ListTeamView: some View {
         VStack {
@@ -66,7 +25,7 @@ extension FightingLeagueDetailView {
                 Spacer()
             }
             SportListTeamView {
-                fightingPageVM.add(by: .Team)
+                fightingPageVM.add(.Team)
             }
             .frame(height: UIScreen.main.bounds.height / 2)
         }
@@ -106,6 +65,7 @@ extension FightingLeagueDetailView {
         }
     }
 }
+*/
 
 struct ListEventSpecificView: View {
     

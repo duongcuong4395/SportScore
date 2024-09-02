@@ -7,83 +7,17 @@
 
 import SwiftUI
 
-struct SoccerLeaguesDetailView: View {
-    @EnvironmentObject var soccerPageVM: SoccerPageViewModel
-    @EnvironmentObject var leagueVM: LeaguesViewModel
-    @EnvironmentObject var scheduleVM: ScheduleViewModel
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    @EnvironmentObject var teamVM: TeamViewModel
-    @EnvironmentObject var eventVM: EventViewModel
+protocol LeaguesDetailDelegate {
     
-    @StateObject var seasonVM = SeasonViewModel()
+    var seasonVM: SeasonViewModel { get }
+    var eventVM: EventViewModel { get }
+    var leaguesVM: LeaguesViewModel { get }
+}
+
+extension LeaguesDetailDelegate {
     
-    var body: some View {
-        VStack {
-            ScrollView(showsIndicators: false) {
-                leaguesVM.getTrophyView()
-                
-                
-                scheduleVM.getEventsOfPreviousAndNextDayView()
-                    .frame(height: UIScreen.main.bounds.height / 1.5)
-                
-                ListTeamView
-                
-                ListSeasonOfLeagueView
-                
-                RankingByLeagueAndSeasonView
-                
-                ListEventEachRoundOfLeagueAndSeasonView(seasonVM: seasonVM)
-                
-                ListEventSpecificView(seasonVM: seasonVM)
-                
-                SoccerLeagueDetailInforView()
-                
-                if let league = leaguesVM.modelDetail {
-                    LeaguesAdsView(league: league)
-                }
-            }
-        }
-        .overlay(content: {
-            HStack {
-                Spacer()
-                if let league = leagueVM.modelDetail {
-                    SoccerLeaguesSocisalView(league: league)
-                }
-            }
-        })
-        .environmentObject(seasonVM)
-        
-    }
-    
-    var ListTeamView: some View {
-        VStack {
-            HStack {
-                Text("Teams")
-                    .font(.callout.bold())
-                Spacer()
-            }
-            SportListTeamView {
-                soccerPageVM.add(by: .Team)
-            }
-            .frame(height: UIScreen.main.bounds.height / 2)
-        }
-    }
-    
-    var ListSeasonOfLeagueView: some View {
-        VStack {
-            if let league = leagueVM.modelDetail {
-                HStack {
-                    Text("Seasons:")
-                        .font(.callout.bold())
-                        
-                    Spacer()
-                }
-                SeasonForLeagueView(league: league)
-            }
-        }
-    }
-    
-    var RankingByLeagueAndSeasonView: some View {
+    @ViewBuilder
+    func getRankingByLeagueAndSeasonView() -> some View {
         VStack {
             if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil  {
                 if seasonVM.modelsRank.count > 0 {
@@ -98,13 +32,199 @@ struct SoccerLeaguesDetailView: View {
                         .padding(.bottom, 10)
                         .frame(height: UIScreen.main.bounds.height / 2.5)
                 }
+                
             }
+        }
+    }
+    
+    @ViewBuilder
+    func getListEventEachRoundOfLeagueAndSeasonView() -> some View {
+        VStack {
+            if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil {
+                HStack {
+                    if eventVM.currentRound > 1 {
+                        Text("< Previous")
+                            .font(.callout)
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    eventVM.listEvent = []
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        eventVM.currentRound -= 1
+                                        eventVM.getListEvent(by: seasonVM.leagueSelected?.idLeague ?? ""
+                                                             , in: "\(eventVM.currentRound)"
+                                                             , of: seasonVM.seasonSelected?.season ?? "") { objs, success in
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                    Text("Round: \(eventVM.currentRound)")
+                        .font(.callout.bold())
+                    
+                    if eventVM.isNextRound == true {
+                        Text("Next >")
+                            .font(.callout)
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    eventVM.listEvent = []
+                                    
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        eventVM.currentRound += 1
+                                        eventVM.getListEvent(by: seasonVM.leagueSelected?.idLeague ?? ""
+                                                             , in: "\(eventVM.currentRound)"
+                                                             , of: seasonVM.seasonSelected?.season ?? "") { objs, success in
+                                            eventVM.getEventForNextRound()
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 15)
+                if eventVM.listEvent.count > 0 {
+                    ScheduleListItemView(models: eventVM.listEvent)
+                        .frame(maxHeight: UIScreen.main.bounds.height / 2.5)
+                        .onDisappear{
+                            eventVM.listEvent = []
+                        }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func getListEventSpecificView() -> some View {
+        VStack {
+            VStack {
+                if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil {
+                    if eventVM.listEventInSpecific.count > 0 {
+                        HStack {
+                            Text("Event Specific")
+                                .font(.callout.bold())
+                            Spacer()
+                        }
+                        .padding(.horizontal, 10)
+                        ScheduleListItemView(models: eventVM.listEventInSpecific)
+                            .frame(maxHeight: UIScreen.main.bounds.height / 2.5)
+                            .onDisappear{
+                                eventVM.listEventInSpecific = []
+                            }
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func getLeagueDetailInforView() -> some View {
+        VStack {
+            HStack {
+                Text("Description:")
+                    .font(.callout.bold())
+                Spacer()
+            }
+            Text(leaguesVM.modelDetail?.descriptionEN ?? "")
+                .font(.caption)
+                .lineLimit(nil)
+                .frame(alignment: .leading)
+            
+        }
+    }
+    
+    @ViewBuilder
+    func getListSeasonOfLeagueView() -> some View {
+        VStack {
+            if let league = leaguesVM.modelDetail {
+                HStack {
+                    Text("Seasons:")
+                        .font(.callout.bold())
+                        
+                    Spacer()
+                }
+                SeasonForLeagueView(league: league)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func getListTeamView(with action: @escaping () -> Void) -> some View {
+        VStack {
+            HStack {
+                Text("Teams")
+                    .font(.callout.bold())
+                Spacer()
+            }
+            SportListTeamView {
+                action()
+            }
+            .frame(height: UIScreen.main.bounds.height / 2)
         }
     }
 }
 
+// LeaguesDetailDelegate
+struct SoccerLeaguesDetailView: View {
+    @EnvironmentObject var soccerPageVM: SoccerPageViewModel
+    
+    var body: some View {
+        LeaguesDetailGenView(sportPageVM: soccerPageVM)
+    }
+}
 
-struct SoccerLeaguesSocisalView: View {
+
+
+struct LeaguesDetailGenView<sportPageVM: SportPageViewModel>: View, LeaguesDetailDelegate {
+    var sportPageVM: sportPageVM
+    @EnvironmentObject var scheduleVM: ScheduleViewModel
+    @EnvironmentObject var leaguesVM: LeaguesViewModel
+    @EnvironmentObject var teamVM: TeamViewModel
+    @EnvironmentObject var eventVM: EventViewModel
+    @StateObject var seasonVM = SeasonViewModel()
+    
+    var body: some View {
+        VStack {
+            ScrollView(showsIndicators: false) {
+                leaguesVM.getTrophyView()
+                
+                scheduleVM.getEventsOfPreviousAndNextDayView()
+                    .frame(height: UIScreen.main.bounds.height / 1.5)
+                
+                getListTeamView {
+                    self.sportPageVM.add(.Team)
+                }
+                
+                getListSeasonOfLeagueView()
+                
+                getRankingByLeagueAndSeasonView()
+                
+                getListEventEachRoundOfLeagueAndSeasonView()
+                
+                getListEventSpecificView()
+                
+                getLeagueDetailInforView()
+                
+                if let league = leaguesVM.modelDetail {
+                    LeaguesAdsView(league: league)
+                }
+            }
+        }
+        .overlay(content: {
+            HStack {
+                Spacer()
+                if let league = leaguesVM.modelDetail {
+                    LeaguesSocisalView(league: league)
+                }
+            }
+        })
+        .environmentObject(seasonVM)
+    }
+}
+
+
+struct LeaguesSocisalView: View {
     @Environment(\.openURL) var openURL
     var league : LeaguesModel
     
@@ -166,32 +286,6 @@ struct SoccerLeaguesSocisalView: View {
 import Kingfisher
 import SwiftfulLoadingIndicators
 
-struct SoccerLeagueDetailInforView: View {
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    
-    var body: some View {
-        VStack {
-            
-            HStack {
-                Text("Description:")
-                    .font(.callout.bold())
-                Spacer()
-            }
-            Text(leaguesVM.modelDetail?.descriptionEN ?? "")
-                .font(.caption)
-                .lineLimit(nil)
-                .frame(alignment: .leading)
-            
-        }
-    }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {}
-}
-
-
-
-
 struct LookuptableLeagueView: View {
     @EnvironmentObject var seasonVM: SeasonViewModel
     @EnvironmentObject var teamVM: TeamViewModel
@@ -231,23 +325,8 @@ struct LookuptableLeagueView: View {
                                 .onTapGesture {
                                     withAnimation {
                                         UIApplication.shared.endEditing()
-                                        
                                         guard let team = teamVM.getTeam(by: rank.idTeam ?? "") else { return }
-                                        
-                                        soccerPageVM.add(by: .Team)
-                                        
-                                        teamVM.setDetail(by: team)
-                                        
-                                        playerVM.resetModels()
-                                        playerVM.fetch(by: team)
-                                        
-                                        scheduleVM.resetModels()
-                                        scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Next, from: context)
-                                        scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
-                                        scheduleVM.getLastEvents(by: team.idTeam ?? "0")
-                                        
-                                        equipmentVM.fetch(from: team) {}
-                                        
+                                        selectTeam(from: team)
                                     }
                                 }
                             VStack {
@@ -313,7 +392,24 @@ struct LookuptableLeagueView: View {
             seasonVM.resetSeasonSelected()
         }
     }
+       
+    
+    func selectTeam(from team: TeamModel) {
+        teamVM.setDetail(by: team)
+        playerVM.resetModels()
+        playerVM.fetch(by: team)
+        scheduleVM.resetModels()
+        scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Next, from: context)
+        scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
+        equipmentVM.fetch(from: team) {}
+        soccerPageVM.add(.Team)
+        scheduleVM.modelsForLastEvents = []
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            scheduleVM.getLastEvents(by: team.idTeam ?? "0")
+        }
         
+        
+    }
 }
 
 

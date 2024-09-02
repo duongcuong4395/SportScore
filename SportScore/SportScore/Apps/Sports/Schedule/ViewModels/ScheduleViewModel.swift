@@ -79,7 +79,7 @@ class ScheduleViewModel: ObservableObject, SportAPIEvent {
         DispatchQueueManager.share.runInBackground {
             self.getLastEvent(by: teamID) { (result: Result<LastEventsResponse, Error>) in
                 switch result {
-                case .success(let data):
+                case .success(var data):
                     DispatchQueueManager.share.runOnMain {
                         self.modelsForLastEvents = data.results ?? []
                     }
@@ -87,8 +87,6 @@ class ScheduleViewModel: ObservableObject, SportAPIEvent {
                     DispatchQueueManager.share.runOnMain {
                         self.modelsForLastEvents = []
                     }
-                    
-                    print("")
                 }
             }
         }
@@ -140,7 +138,6 @@ class ScheduleViewModel: ObservableObject, SportAPIEvent {
             updateModelsNotifyStatus(for: &self.modelsForNext, notificationIds: notificationIds)
             updateModelsNotifyStatus(for: &self.modelsForPrevious, notificationIds: notificationIds)
             DispatchQueue.main.async {
-                
                 self.objectWillChange.send()
             }
         }

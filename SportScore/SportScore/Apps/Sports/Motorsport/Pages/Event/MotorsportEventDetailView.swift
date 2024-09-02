@@ -103,7 +103,7 @@ struct ScheduleMotorsportModelItemView: View {
                     eventVM.fetch(by: model.idEvent ?? "") { players in
                         if players.count > 0 {
                             scheduleVM.setModelDetail(by: model)
-                            motorsportPageVM.add(by: .Event)
+                            motorsportPageVM.add(.Event)
                         }
                     }
                     

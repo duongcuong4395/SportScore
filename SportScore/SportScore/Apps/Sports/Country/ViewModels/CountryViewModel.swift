@@ -8,6 +8,13 @@
 import Foundation
 import SwiftUI
 
+class CountrySevice {
+    static func fetchCountry() -> [CountryModel] {
+        let data : [CountryModel] = FileManage().load(by: "Country.json") ?? []
+        return data
+    }
+}
+
 class CountryViewModel: ObservableObject, SportAPIEvent {
     @Published var models: [CountryModel] = []
     @Published var modelDetail: CountryModel?
@@ -17,7 +24,14 @@ class CountryViewModel: ObservableObject, SportAPIEvent {
     @Published var columns: [GridItem] = [GridItem(), GridItem(), GridItem()]
     
     init() {
-        // fetch()
+        
+    }
+    
+    func fetchCountry(completion: @escaping ([CountryModel]) -> Void) {
+        DispatchQueue.main.async {
+            self.models = CountrySevice.fetchCountry()
+            completion(self.models)
+        }
     }
     
     func fetch() {
@@ -51,14 +65,17 @@ class CountryViewModel: ObservableObject, SportAPIEvent {
         self.models = []
     }
     
-    func filter(by text: String) {
+    func filter(by text: String, completion: ([CountryModel]) -> Void) {
         if text.isEmpty {
             self.modelsFilter = []
+            completion(self.models)
         } else {
             let textSearch = text.lowercased()
             self.modelsFilter = self.models.filter {
                 $0.fullName.lowercased().contains(textSearch)
             }
+            
+            completion(self.modelsFilter)
         }
         
     }

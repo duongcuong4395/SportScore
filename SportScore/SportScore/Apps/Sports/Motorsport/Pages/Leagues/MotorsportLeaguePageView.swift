@@ -12,7 +12,7 @@ struct MotorsportLeaguePageView: View {
     
     var body: some View {
         SportLeaguesView{
-            motorsportPageVM.add(by: .Leagues)
+            motorsportPageVM.add(.Leagues)
         }
     }
 }

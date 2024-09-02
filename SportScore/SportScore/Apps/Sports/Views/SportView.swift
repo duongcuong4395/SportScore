@@ -11,17 +11,11 @@ import Kingfisher
 import SwiftfulLoadingIndicators
 
 struct SportTypeView: View {
-    @Environment(\.managedObjectContext) var context
-    @EnvironmentObject var appVM: AppViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
-    
-    @EnvironmentObject var countryVM: CountryViewModel
     @EnvironmentObject var leaguesVM: LeaguesViewModel
     @EnvironmentObject var teamVM: TeamViewModel
     @EnvironmentObject var playerVM: PlayerViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
-    
-    @EnvironmentObject var favoriteVM: FavoriteViewModel
     
     var body: some View {
         HStack {
@@ -47,7 +41,17 @@ struct SportTypeView: View {
                             
                             .onTapGesture {
                                 withAnimation {
+                                    if sportTypeVM.selected == sport {
+                                        return
+                                    }
                                     sportTypeVM.selected = sport
+                                    
+                                    leaguesVM.resetModels()
+                                    leaguesVM.resetModels()
+                                    teamVM.resetModels()
+                                    teamVM.resetModels()
+                                    playerVM.resetModels()
+                                    scheduleVM.resetModels()
                                 }
                             }
                         }

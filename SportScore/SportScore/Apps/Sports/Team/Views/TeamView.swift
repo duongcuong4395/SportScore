@@ -115,10 +115,13 @@ struct SportListTeamView: View {
                                 scheduleVM.resetModels()
                                 scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Next, from: context)
                                 scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
-                                //scheduleVM.getLastEvents(by: team.idTeam ?? "0")
                                 
                                 equipmentVM.fetch(from: team) {}
                                 
+                                scheduleVM.modelsForLastEvents = []
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    scheduleVM.getLastEvents(by: team.idTeam ?? "0")
+                                }
                             }
                         }
                         

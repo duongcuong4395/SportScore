@@ -99,7 +99,7 @@ struct NotificationBellView: View {
     var body: some View {
         HStack {
             Image(systemName: "heart")
-                .font(.callout.bold())
+                .font(.title2)
                 
                 .overlay(content: {
                     NotificationCountView(value: .constant(favoriteVM.number))
@@ -117,7 +117,7 @@ struct NotificationBellView: View {
                 }
                 .padding()
             Image(systemName: "bell")
-                .font(.callout.bold())
+                .font(.title2)
                 .overlay(content: {
                     NotificationCountView(value: .constant(lnManager.pendingRequests.count))
                 })

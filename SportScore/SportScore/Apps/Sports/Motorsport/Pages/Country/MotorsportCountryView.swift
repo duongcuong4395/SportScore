@@ -13,7 +13,7 @@ struct MotorsportCountryView: View {
     
     var body: some View {
         SportCountryView {
-            motorsportPageVM.add(by: .Country)
+            motorsportPageVM.add(.Country)
         }
     }
 }

@@ -24,75 +24,54 @@ enum DateEnum: String, CaseIterable {
     }
 }
 
-
-
 struct SportMainView: View {
-    @Environment(\.managedObjectContext) var context
-    @EnvironmentObject var favoriteVM: FavoriteViewModel
-    @EnvironmentObject var mapVM: MapViewModel
+    
     @EnvironmentObject var appVM: AppViewModel
-    
-    @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
-    
     @EnvironmentObject var countryVM: CountryViewModel
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    @EnvironmentObject var teamVM: TeamViewModel
-    @EnvironmentObject var playerVM: PlayerViewModel
-
-    @State var isShow: Bool = true
-    @State var dateSelected: DateEnum = .Today
     
     var body: some View {
         VStack {
-            
+            /*
             HStack {
-                TextFieldSearchView(listModels: []
-                                    , textSearch: $appVM.textSearch)
-                NotificationBellView()
+                TextFieldSearchView(listModels: []) {
                     
+                }
+                NotificationBellView()
             }
             .padding(.horizontal, 5)
-            
+            */
             sportTypeVM.selected.getView()
                 .padding(0)
             
-            Spacer()
-            SportTypeView()
+            
         }
-        
-        .environmentObject(scheduleVM)
         .onAppear{
-            countryVM.fetch()
+            //countryVM.fetch()
         }
-        .onTapGesture {
-            UIApplication.shared.endEditing()
-        }
-        
         .onChange(of: appVM.textSearch) { olddVl, newVl in
             withAnimation(.spring()) {
-                filterCountry(by: appVM.textSearch)
+                
             }
         }
-        .task {
-            favoriteVM.getCount(from: sportTypeVM.selected.getEntities(), of: sportTypeVM.selected, from: context)
-        }
-    }
-    
-    func filterCountry(by text: String) {
-        countryVM.filter(by: appVM.textSearch)
-    }
-    
-    func filterLeague(by text: String) {
-        guard leaguesVM.modelDetail == nil else{ return }
-        leaguesVM.filter(by: appVM.textSearch)
-    }
-    
-    func filterTeam(by text: String) {
-        guard teamVM.modelDetail == nil else{ return }
-        teamVM.filter(by: appVM.textSearch)
     }
 }
+/*
+ 
+ .onChange(of: appVM.textSearch) { olddVl, newVl in
+     withAnimation(.spring()) {
+         filterCountry(by: appVM.textSearch)
+     }
+ }
+ .task {
+     favoriteVM.getCount(from: sportTypeVM.selected.getEntities(), of: sportTypeVM.selected, from: context)
+ }
+ 
+ 
+ 
+ */
+
+
 
 struct BadgeCloseView: View {
     var body: some View {

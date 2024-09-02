@@ -25,7 +25,6 @@ struct ContentView: View {
     
     @StateObject var sportTypeVM = SportTypeViewModel()
     
-    
     @StateObject var countryVM = CountryViewModel()
     @StateObject var leaguesVM = LeaguesViewModel()
     @StateObject var teamVM = TeamViewModel()
@@ -36,17 +35,61 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             MapView()
-            if appVM.showBlurMap {
+            
+            if !appVM.showMap {
                 Color(.clear)
-                    .background(.ultraThinMaterial.opacity(0.95), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+                    .background(.ultraThinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
                     .ignoresSafeArea(.all)
             }
             
-            SportMainView()
+            VStack {
+                HStack {
+                    TextFieldSearchView(listModels: []) {
+                        withAnimation(.spring()) {
+                            
+                            
+                            
+                            markerVM.clearAll()
+                            countryVM.filter(by: appVM.textSearch) { objs in
+                                if objs.count > 0 {
+                                    let mid: Int = objs.count / 2
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        markerVM.addListMarker(from: objs)
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        mapVM.moveTo(coordinate: objs[mid].coordinate, zoom: 150)
+                                    }
+                                    
+                                    
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                    
+                    Image(systemName: "globe.asia.australia")
+                        .font(.title2)
+                        .padding()
+                        .onTapGesture {
+                            withAnimation {
+                                appVM.showMap.toggle()
+                            }
+                        }
+                    NotificationBellView()
+                    
+                }
+                .background(.ultraThinMaterial.opacity(0.01), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
                 .padding(.horizontal, 5)
-            
-            //TestAnimationView()
-            
+                if !appVM.showMap {
+                    SportMainView()
+                    
+                }
+                Spacer()
+                SportTypeView()
+            }
             GetDialogView()
         }
         .environmentObject(mapVM)
@@ -66,7 +109,14 @@ struct ContentView: View {
         .environmentObject(eventVM)
         .environmentObject(sportTypeVM)
         
+        
+        
         .environment(\.managedObjectContext, sportCoreDataManage.container.viewContext)
+        .onAppear{
+            countryVM.fetchCountry { objs in
+                markerVM.addListMarker(from: objs)
+            }
+        }
         .task {
             try? await lnManager.requestAuthorization()
         }

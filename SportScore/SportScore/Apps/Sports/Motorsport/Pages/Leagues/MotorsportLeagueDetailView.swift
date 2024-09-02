@@ -9,22 +9,21 @@ import SwiftUI
 import Kingfisher
 import SwiftfulLoadingIndicators
 
-struct MotorsportLeagueDetailView: View {
+struct MotorsportLeagueDetailView: View, LeaguesDetailDelegate {
+    @EnvironmentObject var motorsportPageVM: MotorsportPageViewModel
+    
     @EnvironmentObject var leagueVM: LeaguesViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var leaguesVM: LeaguesViewModel
     @EnvironmentObject var teamVM: TeamViewModel
     @EnvironmentObject var eventVM: EventViewModel
     
-    @EnvironmentObject var motorsportPageVM: MotorsportPageViewModel
-    
-    
     
     @StateObject var seasonVM = SeasonViewModel()
     
-    
-    
     var body: some View {
+        LeaguesDetailGenView(sportPageVM: motorsportPageVM)
+        /*
         VStack {
             ScrollView(showsIndicators: false) {
                 leaguesVM.getTrophyView()
@@ -35,13 +34,11 @@ struct MotorsportLeagueDetailView: View {
                 
                 ListSeasonOfLeagueView
                 
-                RankingByLeagueAndSeasonView
-                
+                getRankingByLeagueAndSeasonView()
                 ListEventEachRoundOfLeagueAndSeasonView(seasonVM: seasonVM)
-                
                 ListEventSpecificView(seasonVM: seasonVM)
                 
-                MotorsportLeagueDetailInforView()
+                DescriptionView(text: leaguesVM.modelDetail?.descriptionEN ?? "")
                 
                 if let league = leaguesVM.modelDetail {
                     LeaguesAdsView(league: league)
@@ -57,10 +54,11 @@ struct MotorsportLeagueDetailView: View {
             }
         })
         .environmentObject(seasonVM)
-        
+        */
     }
 }
 
+/*
 extension MotorsportLeagueDetailView {
     var ListTeamView: some View {
         VStack {
@@ -70,7 +68,7 @@ extension MotorsportLeagueDetailView {
                 Spacer()
             }
             SportListTeamView {
-                motorsportPageVM.add(by: .Team)
+                motorsportPageVM.add(.Team)
             }
             .frame(height: UIScreen.main.bounds.height / 2)
         }
@@ -86,11 +84,11 @@ extension MotorsportLeagueDetailView {
                     Spacer()
                 }
                 SeasonForLeagueView(league: league)
-                //MotorsportSeasonForLeagueView(league: league)
             }
         }
     }
     
+    /*
     var RankingByLeagueAndSeasonView: some View {
         VStack {
             if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil  {
@@ -110,27 +108,25 @@ extension MotorsportLeagueDetailView {
             }
         }
     }
+    */
 }
+*/
 
-struct MotorsportLeagueDetailInforView: View {
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    
+struct DescriptionView: View {
+    var text: String
     var body: some View {
         VStack {
-            
             HStack {
                 Text("Description:")
                     .font(.callout.bold())
                 Spacer()
             }
-            Text(leaguesVM.modelDetail?.descriptionEN ?? "")
+            Text(text)
                 .lineLimit(nil)
                 .frame(alignment: .leading)
             
         }
     }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {}
 }
+
 

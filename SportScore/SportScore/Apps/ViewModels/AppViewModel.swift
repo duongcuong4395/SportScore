@@ -143,6 +143,10 @@ class AppViewModel: ObservableObject {
     
     @Published var showBlurMap: Bool = true
     
+    @Published var showMap: Bool = true
+    
+    
+    
     @Published var page: Page = .Country
     @Published var pagesSelected: [Page] = []
     
