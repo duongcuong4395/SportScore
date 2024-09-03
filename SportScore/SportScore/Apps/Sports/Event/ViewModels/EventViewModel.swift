@@ -40,7 +40,6 @@ class EventViewModel: ObservableObject, SportAPIEvent {
                 }
             }
         }
-        
     }
     
     /// Get List event of league into Round of season

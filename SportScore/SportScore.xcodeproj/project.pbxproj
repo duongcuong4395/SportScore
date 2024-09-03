@@ -101,6 +101,7 @@
 		4FA9A3CC2C784413002B6DD9 /* MotorsportTeamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA9A3CB2C784413002B6DD9 /* MotorsportTeamDetailView.swift */; };
 		4FAC11032C59F501007B4B68 /* TextFieldSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC11022C59F501007B4B68 /* TextFieldSearchView.swift */; };
 		4FAC11062C59F967007B4B68 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC11052C59F967007B4B68 /* AppViewModel.swift */; };
+		4FAD205D2C86C6FD009EC778 /* EventItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD205C2C86C6FD009EC778 /* EventItemView.swift */; };
 		4FAF118E2C68C06300D4DFE4 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAF118D2C68C06300D4DFE4 /* PlayerView.swift */; };
 		4FB534652C7C9ADA00B305C9 /* MotorsportEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB534642C7C9ADA00B305C9 /* MotorsportEventView.swift */; };
 		4FB534672C7C9B1000B305C9 /* MotorsportEventItemMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB534662C7C9B1000B305C9 /* MotorsportEventItemMenuView.swift */; };
@@ -227,6 +228,7 @@
 		4FA9A3CB2C784413002B6DD9 /* MotorsportTeamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotorsportTeamDetailView.swift; sourceTree = "<group>"; };
 		4FAC11022C59F501007B4B68 /* TextFieldSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldSearchView.swift; sourceTree = "<group>"; };
 		4FAC11052C59F967007B4B68 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		4FAD205C2C86C6FD009EC778 /* EventItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventItemView.swift; sourceTree = "<group>"; };
 		4FAF118D2C68C06300D4DFE4 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		4FB534642C7C9ADA00B305C9 /* MotorsportEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotorsportEventView.swift; sourceTree = "<group>"; };
 		4FB534662C7C9B1000B305C9 /* MotorsportEventItemMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotorsportEventItemMenuView.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 			children = (
 				4F27D0842C706D2400CCE79F /* EventView.swift */,
 				4F99C7112C81E38C009FF697 /* ListEventEachRoundOfLeagueAndSeasonView.swift */,
+				4FAD205C2C86C6FD009EC778 /* EventItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1527,6 +1530,7 @@
 				4F08FA462C860CD2006116D7 /* AmericanFootballEventItemView.swift in Sources */,
 				4FFFC3F72C6B0E2B006BCDF0 /* NotificationView.swift in Sources */,
 				4F9B62142C72156B00003AB1 /* SoccerScheduleView.swift in Sources */,
+				4FAD205D2C86C6FD009EC778 /* EventItemView.swift in Sources */,
 				4F77AAB82C82135100B82BCA /* FightingPageViewModel.swift in Sources */,
 				4F65815B2C778B2500B7999A /* MotorsportLeaguePageView.swift in Sources */,
 				4F0E37262C82C63400B85006 /* FightingEventModel.swift in Sources */,

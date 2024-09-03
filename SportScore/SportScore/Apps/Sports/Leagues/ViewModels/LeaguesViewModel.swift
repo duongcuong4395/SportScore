@@ -26,28 +26,40 @@ class LeaguesViewModel: ObservableObject, SportAPIEvent {
     
     @Published var columns: [GridItem] = [GridItem(), GridItem(), GridItem()]
     
-    func fetch(from country: CountryModel, by sportType: SportType, completion: @escaping () -> Void) {
+    func fetch(from country: CountryModel, by sportType: String, completion: @escaping () -> Void) {
         self.requestAPIState = .Loading
+        
+        self.getLeagues(from: country, by: "") { objs in
+            self.getLeagues(from: country, by: sportType) { objs2 in
+                var res = objs + objs2
+                res = res.filter({ $0.sportType?.rawValue == sportType})
+                res = Array(Set(res))
+                print("=== getLeagues", res)
+                self.models = res
+                
+                //self.models = Array(Set(self.models))
+                self.requestAPIState = .Success
+            }
+        }
+    }
+    
+    func getLeagues(from country: CountryModel, by sportType: String, completion: @escaping ([LeaguesModel]) -> Void) {
         DispatchQueueManager.share.runInBackground {
             self.getLeagues(from: country, by: sportType) { (result: Result<LeaguesResponse, Error>) in
                 switch result {
                 case .success(let data):
                     DispatchQueueManager.share.runOnMain {
-                        self.models = data.leagues?.filter({ $0.sportType == sportType}) ?? []
-                        self.requestAPIState = .Success
-                        completion()
+                        guard let leagues = data.leagues else { completion([]); return }
+                        completion(leagues)
                     }
                 case .failure(_):
                     DispatchQueueManager.share.runOnMain {
-                        self.requestAPIState = .Fail
-                        completion()
+                        completion([])
                     }
                 }
             }
         }
-        
     }
-    
     
     
     func setDetail(by leagues: LeaguesModel) {
@@ -108,8 +120,6 @@ extension LeaguesViewModel {
                 .resizable()
                 .scaledToFill()
                 .frame(width: 200, height: 200)
-                //.revealEffect(duration: 0.2, direction: .bottomToTop)
-                //.rotateOnAppear(axis: .y)
                 .fadeInEffect(duration: 1)
         }
     }

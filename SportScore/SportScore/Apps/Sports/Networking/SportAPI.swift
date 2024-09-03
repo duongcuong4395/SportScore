@@ -17,7 +17,7 @@ enum SportEndPoint<T: Decodable> {
     // https://www.thesportsdb.com/api/v1/json/3/all_countries.php
     case GetCountries
     // https://www.thesportsdb.com/api/v1/json/3/search_all_leagues.php?c=England
-    case GetLeagues(from: CountryModel, by: SportType)
+    case GetLeagues(from: CountryModel, by: String) // SportType
     
     /// Get ALL Season by League
     /// https://www.thesportsdb.com/api/v1/json/3/search_all_seasons.php?id=4328
@@ -113,9 +113,12 @@ extension SportEndPoint: HttpRouter {
         switch self {
         case .GetCountries:
             return nil
-        case .GetLeagues(from: let countryModel, by: _):
-            //return ["c": countryModel.fullName, "s": sportType.rawValue]
-            return ["c": countryModel.fullName]
+        case .GetLeagues(from: let countryModel, by: let sportType):
+            if sportType.isEmpty {
+                return ["c": countryModel.fullName]
+            } else {
+                return ["c": countryModel.fullName, "s": sportType]
+            }
         case .GetSeason(from: let leaguesModel):
             return ["id": leaguesModel.idLeague ?? ""]
         case .GetTeams(from: let leaguesModel):
@@ -153,7 +156,7 @@ extension SportEndPoint: HttpRouter {
 protocol SportAPIEvent {
     func getCountries<T: Decodable>(completion: @escaping (Result<T, Error>) -> Void)
     func getLeagues<T: Decodable>(from country: CountryModel
-                                  , by sportType: SportType
+                                  , by sportType: String
                                   , completion: @escaping (Result<T, Error>) -> Void)
     func getSeason<T: Decodable>(from leagues: LeaguesModel, completion: @escaping (Result<T, Error>) -> Void)
     func getTeams<T: Decodable>(from leagues: LeaguesModel, completion: @escaping (Result<T, Error>) -> Void)
@@ -211,7 +214,7 @@ extension SportAPIEvent {
     }
     
     func getLeagues<T: Decodable>(from country: CountryModel
-                                  , by sportType: SportType
+                                  , by sportType: String
                                   , completion: @escaping (Result<T, Error>) -> Void) {
         performRequest(for: .GetLeagues(from: country, by: sportType), completion: completion)
     }

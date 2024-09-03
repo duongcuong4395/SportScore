@@ -15,8 +15,8 @@ struct LeaguesResponse: Codable {
     }
 }
 
-struct LeaguesModel: Codable, Identifiable {
-    var id: UUID = UUID()
+struct LeaguesModel: Codable, Identifiable, Hashable {
+    var id: String = "" //UUID = UUID()
     var idLeague: String? = ""
     var idSoccerXML: String? = ""
     var idAPIfootball: String? = ""
@@ -72,6 +72,8 @@ struct LeaguesModel: Codable, Identifiable {
     var naming: String? = ""
     var complete: String? = ""
     var locked: String? = ""
+    
+    
     
     enum CodingKeys: String, CodingKey {
         case idLeague, idSoccerXML

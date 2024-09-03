@@ -64,7 +64,7 @@ struct SportCountryView: View {
                                 countryVM.setDetail(by: country)
                                 
                                 leaguesVM.resetModels()
-                                leaguesVM.fetch(from: country, by: sportTypeVM.selected) {
+                                leaguesVM.fetch(from: country, by: sportTypeVM.selected.rawValue) {
                                 }
                             }
                         }

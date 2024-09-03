@@ -10,7 +10,7 @@ import Kingfisher
 import SwiftfulLoadingIndicators
 
 struct FightingScheduleIModeltemView: View {
-    
+    /*
     @Environment(\.managedObjectContext) var context
     
     @EnvironmentObject var fightingPageVM: FightingPageViewModel
@@ -23,11 +23,13 @@ struct FightingScheduleIModeltemView: View {
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var equipmentVM: EquipmentViewModel
     @EnvironmentObject var eventVM: EventViewModel
-    
+    */
     var model: ScheduleLeagueModel
     var optionView: AnyView
     
     var body: some View {
+        SportSingleEventItemView(model: model, optionView: optionView)
+        /*
         VStack {
             // MARK: - Date Time
             HStack {
@@ -104,5 +106,6 @@ struct FightingScheduleIModeltemView: View {
                 //.frame(height: 50)
             
         }
+        */
     }
 }
