@@ -14,15 +14,11 @@ struct PlayerView: View {
     var body: some View {
         QGrid(playerVM.models, columns: 2
               , vPadding: 5, hPadding: 5) { player in
-            player.getView(with: getOptionView)
+            player.getView { EmptyView().toAnyView() }
                 .padding(0)
                 .onTapGesture {
-                    UIApplication.shared.endEditing() // Dismiss the keyboard
-                    print("Player:", player)
+                    UIApplication.shared.endEditing()
                 }
         }
     }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {}
 }

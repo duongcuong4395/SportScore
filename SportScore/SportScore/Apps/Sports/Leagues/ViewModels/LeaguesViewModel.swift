@@ -34,10 +34,8 @@ class LeaguesViewModel: ObservableObject, SportAPIEvent {
                 var res = objs + objs2
                 res = res.filter({ $0.sportType?.rawValue == sportType})
                 res = Array(Set(res))
-                print("=== getLeagues", res)
+                //print("=== getLeagues", res)
                 self.models = res
-                
-                //self.models = Array(Set(self.models))
                 self.requestAPIState = .Success
             }
         }

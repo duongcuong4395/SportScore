@@ -144,7 +144,7 @@ class AppViewModel: ObservableObject {
     
     @Published var showBlurMap: Bool = true
     
-    @Published var showMap: Bool = true
+    @Published var showMap: Bool = false
     
     
     

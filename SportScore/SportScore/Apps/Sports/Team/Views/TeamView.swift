@@ -20,31 +20,23 @@ struct TeamsView: View {
     var body: some View {
         QGrid(teamVM.models, columns: 3
               , vPadding: 5, hPadding: 5) { team in
-            team.getOptionView(with: getOptionView)
+            team.getOptionView { EmptyView().toAnyView() }
                 .padding(0)
                 .onTapGesture {
                     
                     withAnimation {
-                        UIApplication.shared.endEditing() // Dismiss the keyboard
+                        UIApplication.shared.endEditing()
                         teamVM.setDetail(by: team)
-                        
-                        //appVM.switchPage(to: .Team)
                         playerVM.resetModels()
                         playerVM.fetch(by: team)
                         scheduleVM.resetModels()
                         scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Next, from: context)
                         scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
                         equipmentVM.fetch(from: team) {}
-                        //appVM.switchPage(to: .Player)
-                        //appVM.switchPage(to: .TeamDetail)
-                        
                     }
                 }
         }
     }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {}
 }
 
 
@@ -53,13 +45,10 @@ struct TeamDetailMenuView: View {
     
     var body: some View {
         if let model = teamVM.modelDetail {
-            model.getOptionView(with: getOptionView)
+            model.getOptionView { EmptyView().toAnyView() }
                 .padding(0)
         }
     }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {}
 }
 
 

@@ -240,7 +240,6 @@ struct PlayerEventView: View {
             }
             
         }
-        //.frame(height: 30)
         .onAppear{
             print("playerDetail: ", playerEvent.idPlayer ?? "")
             playerVM.getPlayerDetail(by: playerEvent.idPlayer ?? "") {
@@ -266,14 +265,8 @@ struct EventItemMenuView: View {
     
     var body: some View {
         if let model = eventVM.eventDetail {
-            model.getItemView(and: getOptionView)
-                //.matchedGeometryEffect(id: "Lague_\(model.leagueName ?? "")", in: aniamtion)
+            model.getItemView { EmptyView().toAnyView() }
         }
-    }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {
-        
     }
 }
 

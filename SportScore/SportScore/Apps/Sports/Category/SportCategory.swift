@@ -209,28 +209,21 @@ extension SportType{
             return [ScheduleCD.self]
         }
     }
-    
-    func getView() -> AnyView {
-        switch self {
-        case .Motorsport:
-            return MotorsportView().toAnyView()
-        case .Soccer:
-            return SoccerView().toAnyView()
-        case .Darts:
-            return DartsView().toAnyView()
-        case .Fighting:
-            return FightingView().toAnyView()
-        case .Baseball, .Basketball, .AmericanFootball, .IceHockey, .Golf
-            , .Rugby, .Tennis, .Cricket, .Cycling, .AustralianFootball, .Esports
-            , .Volleyball, .Netball, .Handball, .Snooker, .FieldHockey, .Athletics
-            , .Badminton, .Climbing, .Equestrian, .Gymnastics, .Shooting
-            , .ExtremeSports, .TableTennis, .MultiSports, .Watersports
-            , .Weightlifting, .Skiing, .Skating, .Wintersports
-            , .Lacrosse, .Gambling:
-            
-            return EmptyView().toAnyView()
-        }
-    }
 }
 
 
+extension SportType {
+    func getFieldImage() -> Image {
+        switch self {
+        case .Soccer, .Motorsport, .Fighting, .Baseball, .Basketball, .AmericanFootball
+            , .IceHockey, .Golf, .Rugby, .Tennis, .Cricket, .Cycling, .AustralianFootball
+            , .Esports, .Volleyball, .Netball, .Handball, .Snooker, .FieldHockey, .Athletics
+            , .Badminton, .Climbing, .Equestrian, .Gymnastics, .Shooting, .ExtremeSports
+            , .TableTennis, .MultiSports, .Watersports, .Weightlifting, .Skiing, .Skating
+            , .Wintersports, .Lacrosse, .Gambling:
+            return Image("\(self.rawValue)_Field")
+        default:
+            return Image("Soccer_Field")
+        }
+    }
+}
