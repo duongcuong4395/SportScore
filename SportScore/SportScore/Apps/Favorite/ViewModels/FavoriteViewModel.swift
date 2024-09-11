@@ -44,4 +44,9 @@ class FavoriteViewModel: ObservableObject {
             }
         }
     }
+    
+    func removeAll() {
+        self.objs = []
+        self.number = 0
+    }
 }

@@ -34,16 +34,18 @@ class CountryViewModel: ObservableObject, SportAPIEvent {
         }
     }
     
-    func fetch() {
+    func fetch(completion: @escaping ([CountryModel]) -> Void) {
         DispatchQueueManager.share.runInBackground {
             self.getCountries { (result: Result<CountryResponse, Error>) in
                 switch result {
                 case .success(let data):
                     DispatchQueueManager.share.runOnMain {
                         self.models = data.countries
+                        completion(self.models)
                     }
                 case .failure(let err):
                     print("getCountries.error", err)
+                    completion([])
                 }
             }
         }

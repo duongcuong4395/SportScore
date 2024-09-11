@@ -191,6 +191,8 @@ struct TeamModel: Codable, Identifiable, Equatable {
 }
 
 
+extension TeamModel: ChatGeminiEvent {}
+
 import SwiftUI
 import Kingfisher
 import SwiftfulLoadingIndicators

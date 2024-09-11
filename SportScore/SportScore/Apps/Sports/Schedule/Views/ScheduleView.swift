@@ -37,8 +37,7 @@ struct ScheduleListItemView: View {
                     LazyVStack(spacing: 15) {
                         ForEach(Array(models.enumerated()), id: \.element.id) { index, model in
                             ScheduleItemView(model: model)
-                                .sequentiallyAnimating(isVisible: showModels.indices.contains(index) ?
-                                                       $showModels[index] : .constant(false), delay: Double(index) * 0.2, direction: .leftToRight)
+                                .rotateOnAppear()
                                 .onAppear{
                                     //.easeInOut(duration: 0.1)
                                     withAnimation {
@@ -53,8 +52,12 @@ struct ScheduleListItemView: View {
                 LazyVStack(spacing: 15) {
                     ForEach(Array(models.enumerated()), id: \.element.id) { index, model in
                         ScheduleItemView(model: model)
+                            .rotateOnAppear()
+                            
+                        /*
                             .sequentiallyAnimating(isVisible: showModels.indices.contains(index) ?
                                                    $showModels[index] : .constant(false), delay: Double(index) * 0.2, direction: .leftToRight)
+                        */
                             .onAppear{
                                 //.easeInOut(duration: 0.1)
                                 withAnimation {
@@ -73,15 +76,6 @@ struct ScheduleListItemView: View {
             withAnimation {
                 if showModels.count != models.count {
                     self.showModels = Array(repeating: false, count: models.count)
-                    /*
-                    for index in models.indices {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.2) {
-                            withAnimation(.easeInOut(duration: 0.5)) {
-                                showModels[index] = true
-                            }
-                        }
-                    }
-                    */
                }
             }
         }

@@ -12,6 +12,34 @@ class PlayerViewModel: ObservableObject, SportAPIEvent {
     
     @Published var modelDetail: PlayerModel?
     
+    @Published var listPlayerName: [String] = []
+    
+    func searchPlayers() {
+        Task {
+            // Loop through each player name in `listPlayerName`
+            for playerName in listPlayerName {
+                await searchAndAppendPlayer(by: playerName)
+            }
+        }
+    }
+    
+    // Function to search and append player to models
+   private func searchAndAppendPlayer(by playerName: String) async {
+       await withCheckedContinuation { continuation in
+           self.searchPlayer(by: playerName) { (result: Result<PlayerDetailResponse, Error>) in
+               switch result {
+               case .success(let data):
+                   if let player = data.player, !player.isEmpty {
+                       self.models.append(player[0])
+                   }
+               case .failure(_):
+                   // Handle the failure case if needed
+                   break
+               }
+               continuation.resume() // Resume the continuation after the async work
+           }
+       }
+   }
     
     func fetch(by team: TeamModel) {
         DispatchQueueManager.share.runInBackground {
@@ -28,7 +56,6 @@ class PlayerViewModel: ObservableObject, SportAPIEvent {
                 }
             }
         }
-        
     }
     
     func getPlayerDetail(by playerID: String, completiion: @escaping () -> Void) {
@@ -47,12 +74,13 @@ class PlayerViewModel: ObservableObject, SportAPIEvent {
                 }
             }
         }
-        
     }
     
     func setDetail(by player: PlayerModel) {
         self.modelDetail = player
     }
+    
+    
 }
 
 

@@ -23,6 +23,11 @@
 		4F1CBC592C7989A900FB827A /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4F1CBC582C7989A900FB827A /* SkeletonUI */; };
 		4F2454222C6BADF3002F767A /* SportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2454212C6BADF3002F767A /* SportView.swift */; };
 		4F27D0852C706D2400CCE79F /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D0842C706D2400CCE79F /* EventView.swift */; };
+		4F357C972C91ED56001D9CB9 /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 4F357C962C91ED56001D9CB9 /* GoogleGenerativeAI */; };
+		4F357C9A2C91ED93001D9CB9 /* GeminiAIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F357C992C91ED93001D9CB9 /* GeminiAIModel.swift */; };
+		4F357CA02C91EF9C001D9CB9 /* GeminiAI+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F357C9E2C91EF9C001D9CB9 /* GeminiAI+CoreDataClass.swift */; };
+		4F357CA12C91EF9C001D9CB9 /* GeminiAI+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F357C9F2C91EF9C001D9CB9 /* GeminiAI+CoreDataProperties.swift */; };
+		4F357CA32C91EFE2001D9CB9 /* GeminiAIManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F357CA22C91EFE2001D9CB9 /* GeminiAIManage.swift */; };
 		4F55B88E2C6DC62A00F7B72D /* OptionItemViewManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F55B88D2C6DC62A00F7B72D /* OptionItemViewManage.swift */; };
 		4F55B8902C6DC75C00F7B72D /* ScheduleOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F55B88F2C6DC75C00F7B72D /* ScheduleOptionModel.swift */; };
 		4F6581482C7778D500B7999A /* RotateModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6581472C7778D500B7999A /* RotateModifier.swift */; };
@@ -35,6 +40,9 @@
 		4F8B2D712C686D2B00C86717 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B2D702C686D2B00C86717 /* PlayerViewModel.swift */; };
 		4F8B2D742C6870BC00C86717 /* TeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B2D732C6870BC00C86717 /* TeamViewModel.swift */; };
 		4F8B2D772C68880400C86717 /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B2D762C68880400C86717 /* TeamView.swift */; };
+		4F8CF8982C89F9E00055D687 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8CF8972C89F9E00055D687 /* OnboardingView.swift */; };
+		4F8CF89A2C89FC270055D687 /* OnboardingListSportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8CF8992C89FC270055D687 /* OnboardingListSportView.swift */; };
+		4F8CF89C2C89FD0B0055D687 /* OnboardingListCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8CF89B2C89FD0B0055D687 /* OnboardingListCountryView.swift */; };
 		4F94B1982C8497A4009361AE /* Collapsible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F94B1972C8497A4009361AE /* Collapsible.swift */; };
 		4F94B19A2C84A64F009361AE /* Country.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F94B1992C84A64F009361AE /* Country.json */; };
 		4F96B9072C6719F7000B6D42 /* SeasonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F96B9062C6719F7000B6D42 /* SeasonModel.swift */; };
@@ -72,6 +80,7 @@
 		4FD08D702C66161F00C67251 /* SportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD08D6F2C66161F00C67251 /* SportAPI.swift */; };
 		4FD08D742C66183C00C67251 /* LeaguesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD08D732C66183C00C67251 /* LeaguesModel.swift */; };
 		4FDD24622C6E0C520091C5DD /* WebViewManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDD24612C6E0C520091C5DD /* WebViewManage.swift */; };
+		4FE92D602C8AB9510072A981 /* OnboardingListLeaguesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE92D5F2C8AB9510072A981 /* OnboardingListLeaguesView.swift */; };
 		4FEFBE8F2C6A548300636471 /* TeamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEFBE8E2C6A548300636471 /* TeamDetailView.swift */; };
 		4FEFBE932C6A5A1E00636471 /* EquipmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEFBE922C6A5A1E00636471 /* EquipmentModel.swift */; };
 		4FEFBE962C6A5C5100636471 /* EquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEFBE952C6A5C5100636471 /* EquipmentView.swift */; };
@@ -100,6 +109,10 @@
 		4F1CBC552C79877100FB827A /* ShimmeringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmeringView.swift; sourceTree = "<group>"; };
 		4F2454212C6BADF3002F767A /* SportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportView.swift; sourceTree = "<group>"; };
 		4F27D0842C706D2400CCE79F /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		4F357C992C91ED93001D9CB9 /* GeminiAIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiAIModel.swift; sourceTree = "<group>"; };
+		4F357C9E2C91EF9C001D9CB9 /* GeminiAI+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeminiAI+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4F357C9F2C91EF9C001D9CB9 /* GeminiAI+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeminiAI+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4F357CA22C91EFE2001D9CB9 /* GeminiAIManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiAIManage.swift; sourceTree = "<group>"; };
 		4F55B88D2C6DC62A00F7B72D /* OptionItemViewManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionItemViewManage.swift; sourceTree = "<group>"; };
 		4F55B88F2C6DC75C00F7B72D /* ScheduleOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleOptionModel.swift; sourceTree = "<group>"; };
 		4F6581472C7778D500B7999A /* RotateModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateModifier.swift; sourceTree = "<group>"; };
@@ -112,6 +125,9 @@
 		4F8B2D702C686D2B00C86717 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		4F8B2D732C6870BC00C86717 /* TeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamViewModel.swift; sourceTree = "<group>"; };
 		4F8B2D762C68880400C86717 /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
+		4F8CF8972C89F9E00055D687 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		4F8CF8992C89FC270055D687 /* OnboardingListSportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingListSportView.swift; sourceTree = "<group>"; };
+		4F8CF89B2C89FD0B0055D687 /* OnboardingListCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingListCountryView.swift; sourceTree = "<group>"; };
 		4F94B1972C8497A4009361AE /* Collapsible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collapsible.swift; sourceTree = "<group>"; };
 		4F94B1992C84A64F009361AE /* Country.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Country.json; sourceTree = "<group>"; };
 		4F96B9062C6719F7000B6D42 /* SeasonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonModel.swift; sourceTree = "<group>"; };
@@ -148,6 +164,7 @@
 		4FD08D6F2C66161F00C67251 /* SportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportAPI.swift; sourceTree = "<group>"; };
 		4FD08D732C66183C00C67251 /* LeaguesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesModel.swift; sourceTree = "<group>"; };
 		4FDD24612C6E0C520091C5DD /* WebViewManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewManage.swift; sourceTree = "<group>"; };
+		4FE92D5F2C8AB9510072A981 /* OnboardingListLeaguesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingListLeaguesView.swift; sourceTree = "<group>"; };
 		4FEFBE8E2C6A548300636471 /* TeamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailView.swift; sourceTree = "<group>"; };
 		4FEFBE922C6A5A1E00636471 /* EquipmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentModel.swift; sourceTree = "<group>"; };
 		4FEFBE952C6A5C5100636471 /* EquipmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentView.swift; sourceTree = "<group>"; };
@@ -173,6 +190,7 @@
 				4F122D822C5A919000F48E9E /* QGrid in Frameworks */,
 				4F9711302C527C6300A0DF1C /* Kingfisher in Frameworks */,
 				4FFD4C612C5213ED006E9485 /* Alamofire in Frameworks */,
+				4F357C972C91ED56001D9CB9 /* GoogleGenerativeAI in Frameworks */,
 				4F122D7D2C5A8D4C00F48E9E /* SVGKitSwift in Frameworks */,
 				4F1CBC592C7989A900FB827A /* SkeletonUI in Frameworks */,
 				4F122D7B2C5A8D4C00F48E9E /* SVGKit in Frameworks */,
@@ -257,6 +275,17 @@
 				4FAD205C2C86C6FD009EC778 /* EventItemView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4F357C982C91ED6A001D9CB9 /* GeminiAI */ = {
+			isa = PBXGroup;
+			children = (
+				4F357C9E2C91EF9C001D9CB9 /* GeminiAI+CoreDataClass.swift */,
+				4F357C9F2C91EF9C001D9CB9 /* GeminiAI+CoreDataProperties.swift */,
+				4F357C992C91ED93001D9CB9 /* GeminiAIModel.swift */,
+				4F357CA22C91EFE2001D9CB9 /* GeminiAIManage.swift */,
+			);
+			path = GeminiAI;
 			sourceTree = "<group>";
 		};
 		4F55B88C2C6DC5F100F7B72D /* OptionsItemView */ = {
@@ -347,6 +376,25 @@
 			children = (
 				4F8B2D762C68880400C86717 /* TeamView.swift */,
 				4FEFBE8E2C6A548300636471 /* TeamDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4F8CF8942C89F9BD0055D687 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4F8CF8952C89F9C60055D687 /* Views */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		4F8CF8952C89F9C60055D687 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4F8CF8972C89F9E00055D687 /* OnboardingView.swift */,
+				4F8CF8992C89FC270055D687 /* OnboardingListSportView.swift */,
+				4F8CF89B2C89FD0B0055D687 /* OnboardingListCountryView.swift */,
+				4FE92D5F2C8AB9510072A981 /* OnboardingListLeaguesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -790,6 +838,8 @@
 		4FFD4C662C521A01006E9485 /* Apps */ = {
 			isa = PBXGroup;
 			children = (
+				4F357C982C91ED6A001D9CB9 /* GeminiAI */,
+				4F8CF8942C89F9BD0055D687 /* Onboarding */,
 				4F1273AA2C6F484900D52EF2 /* Favorite */,
 				4FFFC3F52C6B0E13006BCDF0 /* Notification */,
 				4FAC11042C59F951007B4B68 /* ViewModels */,
@@ -863,6 +913,7 @@
 				4F122D7C2C5A8D4C00F48E9E /* SVGKitSwift */,
 				4F122D812C5A919000F48E9E /* QGrid */,
 				4F1CBC582C7989A900FB827A /* SkeletonUI */,
+				4F357C962C91ED56001D9CB9 /* GoogleGenerativeAI */,
 			);
 			productName = SportScore;
 			productReference = 4FFD4C4D2C520FC1006E9485 /* SportScore.app */;
@@ -899,6 +950,7 @@
 				4F122D792C5A8D4C00F48E9E /* XCRemoteSwiftPackageReference "SVGKit" */,
 				4F122D802C5A919000F48E9E /* XCRemoteSwiftPackageReference "QGrid" */,
 				4F1CBC572C7989A900FB827A /* XCRemoteSwiftPackageReference "SkeletonUI" */,
+				4F357C952C91ED56001D9CB9 /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
 			);
 			productRefGroup = 4FFD4C4E2C520FC1006E9485 /* Products */;
 			projectDirPath = "";
@@ -937,15 +989,19 @@
 				4FF63BDD2C6FA9C400A76AB2 /* EventViewModel.swift in Sources */,
 				4FD08D6D2C66115B00C67251 /* CountryModel.swift in Sources */,
 				4F7E79452C67B11C001BCC2D /* LeaguesView.swift in Sources */,
+				4F357CA02C91EF9C001D9CB9 /* GeminiAI+CoreDataClass.swift in Sources */,
 				4FA8CD652C5935F900A4DDFD /* MapView.swift in Sources */,
 				4F9B6C992C6794D900AB03F4 /* TeamModel.swift in Sources */,
 				4F8B2D742C6870BC00C86717 /* TeamViewModel.swift in Sources */,
+				4F8CF8982C89F9E00055D687 /* OnboardingView.swift in Sources */,
 				4F65DB7B2C6B450600B5AE39 /* LocalNotificationManage.swift in Sources */,
 				4FEFBE962C6A5C5100636471 /* EquipmentView.swift in Sources */,
+				4F357CA32C91EFE2001D9CB9 /* GeminiAIManage.swift in Sources */,
 				4FAF118E2C68C06300D4DFE4 /* PlayerView.swift in Sources */,
 				4F122D7F2C5A8DAE00F48E9E /* SVGView.swift in Sources */,
 				4F55B8902C6DC75C00F7B72D /* ScheduleOptionModel.swift in Sources */,
 				4FFD4C652C52141D006E9485 /* Networking.swift in Sources */,
+				4F8CF89A2C89FC270055D687 /* OnboardingListSportView.swift in Sources */,
 				4FC9A6642C69DEBD00B2769B /* ScheduleModel.swift in Sources */,
 				4F6581482C7778D500B7999A /* RotateModifier.swift in Sources */,
 				4FCBE9B42C6CBC180072FA28 /* ScheduleCD+CoreDataClass.swift in Sources */,
@@ -954,9 +1010,11 @@
 				4F7E79492C67BD61001BCC2D /* PlayerModel.swift in Sources */,
 				4FEFBE992C6A5C7F00636471 /* EquipmentViewModel.swift in Sources */,
 				4F65DB7E2C6B4E1F00B5AE39 /* NotificationModel.swift in Sources */,
+				4F357CA12C91EF9C001D9CB9 /* GeminiAI+CoreDataProperties.swift in Sources */,
 				4FFFC3F72C6B0E2B006BCDF0 /* NotificationView.swift in Sources */,
 				4FAD205D2C86C6FD009EC778 /* EventItemView.swift in Sources */,
 				4FA8CD6B2C5938FA00A4DDFD /* MapGeocodingModel.swift in Sources */,
+				4F357C9A2C91ED93001D9CB9 /* GeminiAIModel.swift in Sources */,
 				4F1559142C5B89FC008A9D66 /* TestAnimtionView.swift in Sources */,
 				4F9B62112C720F2A00003AB1 /* SportPageSelectedView.swift in Sources */,
 				4F0FAD332C818249002C3331 /* SportCategory.swift in Sources */,
@@ -965,6 +1023,7 @@
 				4FFD4C732C521BFD006E9485 /* SportMainView.swift in Sources */,
 				4F0FAD352C818273002C3331 /* SportCategoryView.swift in Sources */,
 				4FFD4C532C520FC1006E9485 /* ContentView.swift in Sources */,
+				4F8CF89C2C89FD0B0055D687 /* OnboardingListCountryView.swift in Sources */,
 				4F1CBC562C79877100FB827A /* ShimmeringView.swift in Sources */,
 				4F8B2D712C686D2B00C86717 /* PlayerViewModel.swift in Sources */,
 				4F08FA312C85EE60006116D7 /* SportsPageViewModel.swift in Sources */,
@@ -987,6 +1046,7 @@
 				4FA8CD5A2C5928A900A4DDFD /* FIleManage.swift in Sources */,
 				4FCBE9A72C6CAAD00072FA28 /* ScheduleCoreData.swift in Sources */,
 				4FA8CD5E2C59355600A4DDFD /* MapViewModel.swift in Sources */,
+				4FE92D602C8AB9510072A981 /* OnboardingListLeaguesView.swift in Sources */,
 				4FEFBE932C6A5A1E00636471 /* EquipmentModel.swift in Sources */,
 				4FCBE9AD2C6CABBA0072FA28 /* SportCoreDataManage.swift in Sources */,
 				4FDD24622C6E0C520091C5DD /* WebViewManage.swift in Sources */,
@@ -1144,7 +1204,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.CuongDD.SportScore.SportScore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CuongDD.SportScore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1179,7 +1239,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.CuongDD.SportScore.SportScore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CuongDD.SportScore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1247,6 +1307,14 @@
 				minimumVersion = 2.0.2;
 			};
 		};
+		4F357C952C91ED56001D9CB9 /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google-gemini/generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.6;
+			};
+		};
 		4F97112E2C527C6200A0DF1C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1290,6 +1358,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4F1CBC572C7989A900FB827A /* XCRemoteSwiftPackageReference "SkeletonUI" */;
 			productName = SkeletonUI;
+		};
+		4F357C962C91ED56001D9CB9 /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F357C952C91ED56001D9CB9 /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
 		};
 		4F97112F2C527C6300A0DF1C /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

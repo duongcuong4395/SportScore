@@ -22,7 +22,10 @@ struct Sport2vs2EventItemView: View {
     @EnvironmentObject var equipmentVM: EquipmentViewModel
     
     
-    var model: ScheduleLeagueModel
+    @State var homeTeam: TeamModel = TeamModel()
+    @State var awayTeam: TeamModel = TeamModel()
+    
+    @State var model: ScheduleLeagueModel
     
     var optionView: AnyView
     
@@ -51,71 +54,147 @@ struct Sport2vs2EventItemView: View {
             
             // MARK: - Home and Away
             HStack {
-                
-                KFImage(URL(string: model.homeTeamBadge ?? ""))
-                    .placeholder { progress in
-                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
-                    }
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40)
-                    .offset(y: -20)
-                
-                    .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
-                    .onTapGesture {
-                        withAnimation {
-                            guard let team = teamVM.getTeam(by: model.homeTeamName ?? "") else { return }
-                            selectTeam(from: team)
+                HStack {
+                    
+                    
+                        
+                   
+                    Text(model.homeTeamName ?? "")
+                        .font(.caption2)
+                        .foregroundStyle(.white)
+                        .lineLimit(2)
+                        .frame(width: UIScreen.main.bounds.width/2 - 50.0)
+                        .background {
+                            ArrowShape()
+                                //.fill(.green)
+                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.white.opacity(0.5), .black, .black, .black]), startPoint: .leading, endPoint: .trailing))
+                                .frame(width: UIScreen.main.bounds.width/2 - 50.0, height: 30) // width: 40,
+                                .overlay {
+                                    //Text(rank.intRank ?? "")
+                                        //.font(.callout.bold())
+                                        //.foregroundStyle(.black)
+                                    HStack {
+                                        KFImage(URL(string: model.homeTeamBadge ?? ""))
+                                            .placeholder { progress in
+                                                
+                                                LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                                            }
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 40, height: 40)
+                                            .offset(y: -25)
+                                            .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
+                                        Spacer()
+                                    }
+                                }
                         }
-                       
-                    }
-            
-                Text(model.homeTeamName ?? "")
-                    .font(.caption.bold())
-                    .lineLimit(2)
-                    .frame(width: 90)
-                Spacer()
                 
-                if ((model.homeScore?.isEmpty) == nil) || model.homeScore == "" {
-                    Text("VS")
-                        .font(.callout.bold())
-                } else {
-                    Text("\(model.homeScore ?? "") - \(model.awayScore ?? "")")
-                        .font(.callout)
-                        .font(.system(size: 9, weight: .bold, design: .default))
+                    
+                }
+                .onTapGesture {
+                    withAnimation {
+                        guard let team = teamVM.getTeam(by: model.homeTeamName ?? "") else {
+                            teamVM.getTeamDetail(by: model.homeTeamName ?? "") { team in
+                                guard let team = team else { return }
+                                selectTeam(from: team)
+                            }
+                            return
+                        }
+                        selectTeam(from: team)
+                    }
+                   
                 }
                 
+                Spacer()
+                
+                HStack {
+                    if ((model.homeScore?.isEmpty) == nil) || model.homeScore == "" {
+                        Text("VS")
+                            //.font(.callout.bold())
+                            .font(.system(size: 14, weight: .bold, design: .monospaced))
+                            
+                    } else {
+                        Text("\(model.homeScore ?? "") - \(model.awayScore ?? "")")
+                            .font(.callout)
+                            .font(.system(size: 9, weight: .bold, design: .default))
+                    }
+                }
+                .frame(width: 70)
+                
+                
                 
                 Spacer()
-                Text(model.awayTeamName ?? "")
-                    .font(.caption.bold())
-                    .lineLimit(2)
-                    .frame(width: 90)
-                
-                KFImage(URL(string: model.awayTeamBadge ?? ""))
-                    .placeholder { progress in
-                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
-                    }
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40)
-                    .offset(y: -20)
-                    .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
-                    .onTapGesture {
-                        withAnimation {
-                            guard let team = teamVM.getTeam(by: model.awayTeamName ?? "") else { return }
-                            selectTeam(from: team)
+                HStack {
+                   
+                    
+                    Text(model.awayTeamName ?? "")
+                        .font(.caption)
+                        .foregroundStyle(.white)
+                        .lineLimit(2)
+                        .frame(width: UIScreen.main.bounds.width/2 - 50.0)
+                        .background {
+                            ArrowShape()
+                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .white.opacity(0.5)]), startPoint: .trailing, endPoint: .leading))
+                                .rotation3DEffect(Angle(degrees: 180), axis: (0, 1, 0))
+                                .frame(width: UIScreen.main.bounds.width/2 - 50.0, height: 30) // width: 40,
+                                .overlay {
+                                    //Text(rank.intRank ?? "")
+                                        //.font(.callout.bold())
+                                        //.foregroundStyle(.black)
+                                    HStack {
+                                        Spacer()
+                                        KFImage(URL(string: model.awayTeamBadge ?? ""))
+                                            .placeholder { progress in
+                                                LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                                            }
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 40, height: 40)
+                                            .offset(y: -25)
+                                            .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
+                                    }
+                                }
                         }
+                    
+                    
+                    
+                    /*
+                        .onAppear{
+                            if model.awayTeamBadge == nil {
+                                teamVM.getTeamDetail(by: model.awayTeamName ?? "") { team in
+                                    guard let team = team else { return }
+                                    self.model.awayTeamBadge = team.badge
+                                }
+                            }
+                        }
+                    */
+                        
+                }
+                .onTapGesture {
+                    withAnimation {
+                        guard let team = teamVM.getTeam(by: model.awayTeamName ?? "") else {
+                            teamVM.getTeamDetail(by: model.awayTeamName ?? "") { team in
+                                guard let team = team else { return }
+                                selectTeam(from: team)
+                            }
+                            return
+                        }
+                        
+                        selectTeam(from: team)
                     }
+                }
+                
             }
             .padding(0)
             .padding(.vertical, 5)
+            /*
             .background(
                 EmptyView()
                     .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 25, style: .continuous))
                     .padding(.horizontal, 25)
                     .padding(.vertical, 5)
             )
+            */
         }
     }
     

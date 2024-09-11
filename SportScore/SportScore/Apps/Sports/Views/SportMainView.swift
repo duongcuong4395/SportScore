@@ -134,52 +134,7 @@ struct ListEventSpecificView: View {
     }
 }
 
-struct LeaguesDetailGenView<sportPageVM: SportPageViewModel>: View, LeaguesDetailDelegate {
-    var sportPageVM: sportPageVM
-    @EnvironmentObject var scheduleVM: ScheduleViewModel
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    @EnvironmentObject var teamVM: TeamViewModel
-    @EnvironmentObject var eventVM: EventViewModel
-    @StateObject var seasonVM = SeasonViewModel()
-    
-    var body: some View {
-        VStack {
-            ScrollView(showsIndicators: false) {
-                leaguesVM.getTrophyView()
-                
-                scheduleVM.getEventsOfPreviousAndNextDayView()
-                    .frame(height: UIScreen.main.bounds.height / 1.5)
-                
-                getListTeamView {
-                    self.sportPageVM.add(.Team)
-                }
-                
-                getListSeasonOfLeagueView()
-                
-                getRankingByLeagueAndSeasonView()
-                
-                getListEventEachRoundOfLeagueAndSeasonView()
-                
-                getListEventSpecificView()
-                
-                getLeagueDetailInforView()
-                
-                if let league = leaguesVM.modelDetail {
-                    LeaguesAdsView(league: league)
-                }
-            }
-        }
-        .overlay(content: {
-            HStack {
-                Spacer()
-                if let league = leaguesVM.modelDetail {
-                    LeaguesSocisalView(league: league)
-                }
-            }
-        })
-        .environmentObject(seasonVM)
-    }
-}
+
 
 
 protocol LeaguesDetailDelegate {
@@ -305,8 +260,8 @@ extension LeaguesDetailDelegate {
                 .font(.caption)
                 .lineLimit(nil)
                 .frame(alignment: .leading)
-            
         }
+        .padding(.horizontal, 10)
     }
     
     @ViewBuilder
@@ -319,6 +274,7 @@ extension LeaguesDetailDelegate {
                         
                     Spacer()
                 }
+                .padding(.horizontal, 10)
                 SeasonForLeagueView(league: league)
             }
         }
@@ -332,6 +288,7 @@ extension LeaguesDetailDelegate {
                     .font(.callout.bold())
                 Spacer()
             }
+            .padding(.horizontal, 10)
             SportListTeamView {
                 action()
             }
@@ -345,7 +302,7 @@ struct LeaguesSocisalView: View {
     var league : LeaguesModel
     
     var body: some View {
-        VStack(spacing: 30) {
+        HStack(spacing: 50) {
             Button (action: {
                 openURL(URL(string: "https://\(league.youtube ?? "")")!)
             }, label: {
@@ -395,6 +352,7 @@ struct LeaguesSocisalView: View {
                     .frame(width: 30, height: 30)
             })
         }.padding(5)
+            .padding(.horizontal, 10)
             .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 15, style: .continuous))
     }
 }
@@ -422,15 +380,15 @@ struct LookuptableLeagueView: View {
                     ForEach(Array(seasonVM.modelsRank.enumerated()), id: \.element.id) { index, rank in
                         HStack {
                             ArrowShape()
-                                .fill(.green)
+                                //.fill(.green)
+                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.blue, .white, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing))
                                 .frame(width: 40, height: 30)
                                 .overlay {
                                     Text(rank.intRank ?? "")
                                         .font(.callout.bold())
-                                        .foregroundStyle(.white)
+                                        .foregroundStyle(.black)
                                 }
                                 
-                            
                             KFImage(URL(string: rank.badge ?? ""))
                                 .placeholder { progress in
                                     LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
@@ -644,7 +602,7 @@ struct TeamSocialView: View {
     var team: TeamModel
     
     var body: some View {
-        VStack(spacing: 30) {
+        HStack(spacing: 50) {
             Button (action: {
                 openURL(URL(string: "https://\(team.youtube ?? "")")!)
             }, label: {
@@ -690,6 +648,7 @@ struct TeamSocialView: View {
                     .frame(width: 30, height: 30)
             })
         }.padding(5)
+            .padding(.horizontal, 10)
             .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 15, style: .continuous))
         
     }

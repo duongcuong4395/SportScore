@@ -35,6 +35,8 @@ class LeaguesViewModel: ObservableObject, SportAPIEvent {
                 res = res.filter({ $0.sportType?.rawValue == sportType})
                 res = Array(Set(res))
                 //print("=== getLeagues", res)
+                
+                res = res.sorted(by: { $0.leagueName ?? "" >  $1.leagueName ?? "" })
                 self.models = res
                 self.requestAPIState = .Success
             }
@@ -118,7 +120,10 @@ extension LeaguesViewModel {
                 .resizable()
                 .scaledToFill()
                 .frame(width: 200, height: 200)
+                .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
                 .fadeInEffect(duration: 1)
+            
         }
+        .padding(.horizontal, 10)
     }
 }

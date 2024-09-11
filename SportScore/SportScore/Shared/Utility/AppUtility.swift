@@ -59,7 +59,14 @@ class AppUtility {
         return formattedDateString
     }
     
-    
+    static func getCurrentLanguage() -> (full: String, tet: String) {
+       guard let languageCode = Locale.preferredLanguages.first else {
+           return ("Không xác định", "ko")
+       }
+
+        let te = languageCode.split(separator: "-")
+        return (full: "\(languageCode)", tet: String(te[0]))
+   }
 }
 
 

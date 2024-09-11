@@ -13,6 +13,11 @@ struct PlayerResponse: Codable {
     var players: [PlayerModel]?
 }
 
+// MARK: - TwoHourWeatherForecast
+struct PlayerDetailResponse: Codable {
+    var player: [PlayerModel]?
+}
+
 // MARK: - Player
 struct PlayerModel: Codable, Identifiable {
     var id: UUID = UUID()

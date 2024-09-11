@@ -8,6 +8,68 @@
 import SwiftUI
 import QGrid
 
+struct SportListLeagueView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    var body: some View {
+        SportLeaguesView{
+            sportsPageVM.add(.Leagues)
+        }
+    }
+}
+
+struct SportLeaguesView: View {
+    @EnvironmentObject var leaguesVM: LeaguesViewModel
+    @EnvironmentObject var teamVM: TeamViewModel
+    @EnvironmentObject var scheduleVM: ScheduleViewModel
+    @Environment(\.managedObjectContext) var context
+    
+    var action: () -> Void
+    
+    var body: some View {
+        switch leaguesVM.requestAPIState {
+        case .Idle:
+            EmptyView()
+        case .Loading:
+            QGrid(leaguesVM.getListEmptyModels(), columns: 3
+                  , vPadding: 5, hPadding: 5) { leagues in
+                leagues.getItemView(with: {
+                    EmptyView()
+                })
+                .redacted(reason: .placeholder)
+                
+            }
+        case .Success:
+            QGrid(leaguesVM.models, columns: 3
+                  , vPadding: 5, hPadding: 5) { leagues in
+                leagues.getItemView(with: {
+                    EmptyView()
+                })
+                    .padding(0)
+                    .rotateOnAppear(angle: -90, duration: 0.5, axis: .y)
+                    .onTapGesture {
+                        withAnimation(.spring()) {
+                            UIApplication.shared.endEditing()
+                            
+                            action()
+                            
+                            
+                            leaguesVM.setDetail(by: leagues)
+                            teamVM.fetch(from: leagues)
+                            
+                            scheduleVM.fetch(from: leagues, for: .Next, from: context) { success in
+                                scheduleVM.fetch(from: leagues, for: .Previous, from: context) { success in
+                                }
+                            }
+                        }
+                    }
+            }
+        case .Fail:
+            EmptyView()
+        }
+        
+    }
+}
 
 
 struct SportLeagueItemMenuView: View {
@@ -25,25 +87,23 @@ struct SportLeagueItemMenuView: View {
     }
 }
 
-
-struct SportLeagueDetailView: View {
-    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+struct LeaguesItemMenuView: View {
+    @EnvironmentObject var leaguesVM: LeaguesViewModel
+    @Namespace var aniamtion
     
     var body: some View {
-        LeaguesDetailGenView(sportPageVM: sportsPageVM)
-    }
-}
-
-
-struct SportListLeagueView: View {
-    @EnvironmentObject var sportsPageVM: SportsPageViewModel
-    
-    var body: some View {
-        SportLeaguesView{
-            sportsPageVM.add(.Leagues)
+        if let model = leaguesVM.modelDetail {
+            model.getItemView{ EmptyView() }
+                .matchedGeometryEffect(id: "Lague_\(model.leagueName ?? "")", in: aniamtion)
         }
     }
 }
+
+
+
+
+
+
 
 struct LeaguesView: View {
     
@@ -110,74 +170,8 @@ struct LeaguesDetailView: View {
 
 
 
-struct LeaguesItemMenuView: View {
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    @Namespace var aniamtion
-    
-    var body: some View {
-        if let model = leaguesVM.modelDetail {
-            model.getItemView(with: getOptionView)
-                .matchedGeometryEffect(id: "Lague_\(model.leagueName ?? "")", in: aniamtion)
-        }
-    }
-    
-    @ViewBuilder
-    func getOptionView() -> some View {
-        
-    }
-}
 
 
 
-struct SportLeaguesView: View {
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    @EnvironmentObject var teamVM: TeamViewModel
-    @EnvironmentObject var scheduleVM: ScheduleViewModel
-    @Environment(\.managedObjectContext) var context
-    
-    var action: () -> Void
-    
-    var body: some View {
-        switch leaguesVM.requestAPIState {
-        case .Idle:
-            EmptyView()
-        case .Loading:
-            QGrid(leaguesVM.getListEmptyModels(), columns: 3
-                  , vPadding: 5, hPadding: 5) { leagues in
-                leagues.getItemView(with: {
-                    EmptyView()
-                })
-                .redacted(reason: .placeholder)
-                
-            }
-        case .Success:
-            QGrid(leaguesVM.models, columns: 3
-                  , vPadding: 5, hPadding: 5) { leagues in
-                leagues.getItemView(with: {
-                    EmptyView()
-                })
-                    .padding(0)
-                    .rotateOnAppear(angle: -90, duration: 0.5, axis: .y)
-                    .onTapGesture {
-                        withAnimation(.spring()) {
-                            UIApplication.shared.endEditing()
-                            
-                            action()
-                            
-                            
-                            leaguesVM.setDetail(by: leagues)
-                            teamVM.fetch(from: leagues)
-                            
-                            scheduleVM.fetch(from: leagues, for: .Next, from: context) { success in
-                                scheduleVM.fetch(from: leagues, for: .Previous, from: context) { success in
-                                }
-                            }
-                        }
-                    }
-            }
-        case .Fail:
-            EmptyView()
-        }
-        
-    }
-}
+
+

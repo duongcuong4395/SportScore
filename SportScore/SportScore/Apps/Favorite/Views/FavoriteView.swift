@@ -23,6 +23,32 @@ struct FavoriteListItemView: View {
                     }
                 }
             }
+            HStack {
+                Spacer()
+                if favoriteVM.objs.count > 0 {
+                    Button(action: {
+                        let model = ScheduleLeagueModel()
+                        try? model.removeAllCoreData(by: "ScheduleCD", into: context) { (result: Result<Bool, Error>) in
+                            switch result {
+                            case .success(let success):
+                                guard success else { return }
+                                withAnimation {
+                                    favoriteVM.removeAll()
+                                }
+                            case .failure(let error):
+                                print("=== removeAllCoreData.error", error)
+                            }
+                        }
+                    }, label: {
+                        Image(systemName: "trash")
+                            .font(.title2)
+                            .foregroundStyle(.red)
+                    })
+                    .padding(5)
+                    .background(.ultraThinMaterial, in: Circle())
+                }
+                
+            }
         }
         .padding(0)
     }

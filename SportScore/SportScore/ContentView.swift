@@ -34,12 +34,19 @@ struct ContentView: View {
     @StateObject var sportsPageVM = SportsPageViewModel()
     @StateObject var sportTypeVM = SportTypeViewModel()
     
+    @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true
+    //@State private var isFirstLaunch: Bool = true
+    
     var body: some View {
         ZStack {
-            //MapView()
+            if isFirstLaunch {
+                OnboardingView(isFirstLaunch: $isFirstLaunch)
+            } else {
+                //MapView()
+                MainView()
+                GetDialogView()
+            }
             
-            MainView()
-            GetDialogView()
         }
         .environmentObject(mapVM)
         .environmentObject(markerVM)
@@ -249,29 +256,22 @@ struct MainView : View {
                 SportMainView()
                     .scaleEffect(scale)
                     .onAppear {
-                        withAnimation(.easeInOut(duration: 1)) {
+                        withAnimation(.easeInOut(duration: 0.5)) {
                             scale = appVM.showMap ? 0 : 1
                         }
                     }
-                    .onDisappear{
-                        scale = 0
-                    }
+                    .onDisappear{ scale = 0 }
                 
             }
             Spacer()
             SportTypeView()
         }
-        //.background(.ultraThinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
         .background{
             if !appVM.showMap {
                 ZStack {
-                    //Image("\(sportTypeVM.selected.rawValue)_Field")
                     sportTypeVM.selected.getFieldImage()
-                        
                         .resizable()
                         .frame(width: .infinity, height: .infinity)
-                        //.rotationEffect(Angle(degrees: 90))
-                        
                         .ignoresSafeArea(.all)
                     
                     Color(.clear)
@@ -281,20 +281,14 @@ struct MainView : View {
                 }
                 .scaleEffect(scale)
                 .onAppear {
-                    withAnimation(.easeInOut(duration: 1)) {
+                    withAnimation(.easeInOut(duration: 0.5)) {
                         scale = appVM.showMap ? 0 : 1
                     }
                 }
                 .onDisappear{
                     scale = 0
                 }
-                
             }
         }
     }
 }
-
-
-
-
-

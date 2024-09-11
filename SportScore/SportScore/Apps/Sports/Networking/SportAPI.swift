@@ -58,6 +58,14 @@ enum SportEndPoint<T: Decodable> {
     /// All events in specific league by season
     /// https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=4328&s=2014-2015
     case GetEventsInSpecific(by: String, of: String)
+    
+    /// Get detail of Team
+    /// https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=manchester%20united
+    case GetTeamDetail(by: String)
+ 
+    /// Search for players by name
+    /// api/v1/json/3/searchplayers.php?p=Danny_Welbeck
+    case SearchPlayer(by: String)
 }
 
 
@@ -98,6 +106,10 @@ extension SportEndPoint: HttpRouter {
             return "api/v1/json/3/eventsround.php"
         case .GetEventsInSpecific(by: _, of: _):
             return "api/v1/json/3/eventsseason.php"
+        case .GetTeamDetail(by: _):
+            return "api/v1/json/3/searchteams.php"
+        case .SearchPlayer(by: _):
+            return "api/v1/json/3/searchplayers.php"
         }
     }
     
@@ -143,6 +155,10 @@ extension SportEndPoint: HttpRouter {
             return ["id": leagueID, "r": round, "s": season]
         case .GetEventsInSpecific(by: let leagueID, of: let season):
             return ["id": leagueID, "s": season]
+        case .GetTeamDetail(by: let teamName):
+            return ["t": teamName]
+        case .SearchPlayer(by: let name):
+            return ["p": name]
         }
     }
     
@@ -180,6 +196,10 @@ protocol SportAPIEvent {
     func getListEvent<T: Decodable>(by leagueID: String, in round: String, of season: String, completion: @escaping (Result<T, Error>) -> Void)
     
     func getEventsInSpecific<T: Decodable>(by leagueID: String, of season: String, completion: @escaping (Result<T, Error>) -> Void)
+    
+    func getTeamDetail<T: Decodable>(by teamName: String, completion: @escaping (Result<T, Error>) -> Void)
+    func searchPlayer<T: Decodable>(by playerName: String, completion: @escaping (Result<T, Error>) -> Void)
+    
 }
 
 extension SportAPIEvent {
@@ -253,6 +273,14 @@ extension SportAPIEvent {
     
     func getEventsInSpecific<T: Decodable>(by leagueID: String, of season: String, completion: @escaping (Result<T, Error>) -> Void) {
         performRequest(for: .GetEventsInSpecific(by: leagueID, of: season), completion: completion)
+    }
+    
+    func getTeamDetail<T: Decodable>(by teamName: String, completion: @escaping (Result<T, Error>) -> Void) {
+        performRequest(for: .GetTeamDetail(by: teamName), completion: completion)
+    }
+    
+    func searchPlayer<T: Decodable>(by playerName: String, completion: @escaping (Result<T, Error>) -> Void) {
+        performRequest(for: .SearchPlayer(by: playerName), completion: completion)
     }
 }
 

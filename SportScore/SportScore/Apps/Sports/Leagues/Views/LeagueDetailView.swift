@@ -7,6 +7,69 @@
 
 import SwiftUI
 
+struct SportLeagueDetailView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    var body: some View {
+        LeaguesDetailGenView(sportPageVM: sportsPageVM)
+    }
+}
+
+struct LeaguesDetailGenView<sportPageVM: SportPageViewModel>: View, LeaguesDetailDelegate {
+    var sportPageVM: sportPageVM
+    @EnvironmentObject var scheduleVM: ScheduleViewModel
+    @EnvironmentObject var leaguesVM: LeaguesViewModel
+    @EnvironmentObject var teamVM: TeamViewModel
+    @EnvironmentObject var eventVM: EventViewModel
+    @StateObject var seasonVM = SeasonViewModel()
+    
+    var body: some View {
+        VStack {
+            ScrollView(showsIndicators: false) {
+                leaguesVM.getTrophyView()
+                
+                if let league = leaguesVM.modelDetail {
+                    LeaguesSocisalView(league: league)
+                        .padding()
+                }
+                
+                scheduleVM.getEventsOfPreviousAndNextDayView()
+                    .frame(height: UIScreen.main.bounds.height / 1.5)
+                
+                getListTeamView {
+                    self.sportPageVM.add(.Team)
+                }
+                
+                getListSeasonOfLeagueView()
+                
+                getRankingByLeagueAndSeasonView()
+                
+                getListEventEachRoundOfLeagueAndSeasonView()
+                
+                getListEventSpecificView()
+                
+                getLeagueDetailInforView()
+                
+                if let league = leaguesVM.modelDetail {
+                    LeaguesAdsView(league: league)
+                }
+            }
+        }
+        /*
+        .overlay(content: {
+            HStack {
+                Spacer()
+                if let league = leaguesVM.modelDetail {
+                    LeaguesSocisalView(league: league)
+                }
+            }
+        })
+        */
+        .environmentObject(seasonVM)
+    }
+}
+
+
 struct LeagueDetailView: View {
     @EnvironmentObject var teamVM: TeamViewModel
     @EnvironmentObject var leagueVM: LeaguesViewModel

@@ -57,7 +57,7 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
         let team = models.first { team in
             team.idTeam == text || team.teamName == text
         }
-        print("=== getTeam:", text, team?.teamName ?? "", team?.idTeam ?? "")
+        print("=== getTeam:", text, team?.teamName ?? "empty Team Name", team?.idTeam ?? "empty Team id")
         return team
     }
     
@@ -68,6 +68,20 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
                 , TeamModel(), TeamModel(), TeamModel()
                 , TeamModel(), TeamModel(), TeamModel()]
     }
+    
+    func getTeamDetail(by teamName: String, completion: @escaping (TeamModel?) -> Void) {
+        self.getTeamDetail(by: teamName) { (result: Result<TeamResponse, Error>) in
+            switch result {
+            case .success(let data):
+                print("=== getTeamDetail", data.teams)
+                completion(data.teams?[0] ?? nil)
+            case .failure(let err):
+                print("=== getTeamDetail", "Empty")
+                completion(nil)
+            }
+        }
+    }
+    
 }
 
 
