@@ -50,7 +50,12 @@ struct MapView:View {
                                                 countryVM.setDetail(by: ct.model as! CountryModel)
                                                 
                                                 leaguesVM.resetModels()
+                                                /*
                                                 leaguesVM.fetch(from: ct.model as! CountryModel, by: sportTypeVM.selected.rawValue) {
+                                                }
+                                                 */
+                                                Task {
+                                                    await leaguesVM.fetchLeagues(from: ct.model as! CountryModel, by: sportTypeVM.selected.rawValue)
                                                 }
                                                 
                                                 appVM.showMap.toggle()

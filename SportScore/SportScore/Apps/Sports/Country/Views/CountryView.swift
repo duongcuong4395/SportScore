@@ -48,23 +48,24 @@ struct SportCountryView: View {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: countryVM.columns) {
                     ForEach(countryVM.modelsFilter.count > 0 ? countryVM.modelsFilter : countryVM.models, id: \.id) { country in
-                        country.getItemView(with: {
-                            EmptyView()
-                        })
+                        SportCountryItemView(country: country)
                         .padding(0)
                         .rotateOnAppear(angle: -90, duration: 0.5, axis: .y)
+                        
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 UIApplication.shared.endEditing()
-                                
-                                action()
-                                
-                                appVM.resetTextSearch()
-                                countryVM.resetFilter()
-                                countryVM.setDetail(by: country)
-                                
-                                leaguesVM.resetModels()
-                                leaguesVM.fetch(from: country, by: sportTypeVM.selected.rawValue) {
+                                Task {
+                                    appVM.resetTextSearch()
+                                    countryVM.resetFilter()
+                                    countryVM.setDetail(by: country)
+                                    leaguesVM.resetModels()
+                                    await leaguesVM.fetchLeagues(from: country, by: sportTypeVM.selected.rawValue)
+                                    if leaguesVM.models.count > 0 {
+                                        action()
+                                    } else {
+                                        appVM.showDialogView(with: " What a pity! 􀙌", and: NoLeaguesView(objName: country.fullName).toAnyView(), then: true)
+                                    }
                                 }
                             }
                         }
@@ -72,6 +73,56 @@ struct SportCountryView: View {
                 }
             }
         }
+    }
+}
+
+struct NoLeaguesView: View {
+    var objName: String
+    var body: some View {
+        Text(Image(systemName: "face.dashed.fill"))
+            .font(.system(size: 13, design: .serif))
+        +
+        Text(" We couldn't find any leagues in \(objName)! ")
+            .font(.system(size: 13, design: .serif))
+        +
+        Text(Image(systemName: "face.dashed.fill"))
+            .font(.system(size: 13, design: .serif))
+    }
+}
+
+struct SportCountryItemView: View {
+    @EnvironmentObject var sportTypeVM: SportTypeViewModel
+    @EnvironmentObject var leaguesVM: LeaguesViewModel
+    @State var numb: Int = 0
+    var country: CountryModel
+    
+    var body: some View {
+        country.getItemView(with: {
+            EmptyView()
+        })
+        /*
+        .overlay {
+            Text("\(numb)")
+        }
+        .onChange(of: sportTypeVM.selected, { oldValue, newValue in
+            if let cachedCount = leaguesVM.leagueCounts["\(country.fullName)_\(sportTypeVM.selected.rawValue)"] {
+                self.numb = cachedCount  // Use cached value
+            } else {
+                Task {
+                    self.numb = await leaguesVM.countLeagues2(from: country, by: sportTypeVM.selected.rawValue)
+                }
+            }
+        })
+        .onAppear{
+            if let cachedCount = leaguesVM.leagueCounts["\(country.fullName)_\(sportTypeVM.selected.rawValue)"] {
+                self.numb = cachedCount  // Use cached value
+            } else {
+                Task {
+                    self.numb = await leaguesVM.countLeagues2(from: country, by: sportTypeVM.selected.rawValue)
+                }
+            }
+        }
+        */
     }
 }
 

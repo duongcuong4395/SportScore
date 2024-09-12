@@ -37,7 +37,7 @@ struct OnboardingPageModel {
 struct OnboardingView: View {
     
     @StateObject var countryVM = CountryViewModel()
-    @StateObject var leagueVM = LeaguesViewModel()
+    @StateObject var leagueVM = LeaguesViewModel(leagueRepository: RemoteLeagueRepository(sportAPI: LeaguesSportAPIEvent()))
     
     @Binding var isFirstLaunch: Bool
     @State private var currentPage = 0
@@ -147,8 +147,14 @@ struct OnboardingView: View {
         .onAppear{
             countryVM.fetch { countries in
                 countryVM.filter(by: "England") { countriesFT in
+                    /*
                     leagueVM.fetch(from: countriesFT[0], by: SportType.Soccer.rawValue) {
                         print("=== leagueVM.fetch", leagueVM.models.count)
+                    }
+                     */
+                    
+                    Task {
+                        await leagueVM.fetchLeagues(from: countriesFT[0], by: SportType.Soccer.rawValue)
                     }
                 }
             }

@@ -200,6 +200,65 @@ protocol SportAPIEvent {
     func getTeamDetail<T: Decodable>(by teamName: String, completion: @escaping (Result<T, Error>) -> Void)
     func searchPlayer<T: Decodable>(by playerName: String, completion: @escaping (Result<T, Error>) -> Void)
     
+    // MARK: - FOR Async/Await
+    func getCountries<T: Decodable>() async throws -> T
+    func getLeagues<T: Decodable>(from country: CountryModel, by sportType: String) async throws -> T
+    func getSeason<T: Decodable>(from league: LeaguesModel) async throws -> T
+    func getTeams<T: Decodable>(from league: LeaguesModel) async throws -> T
+    func getPlayers<T: Decodable>(from team: TeamModel) async throws -> T
+    func getSchedule<T: Decodable>(from league: LeaguesModel, for dateGet: NextAndPrevious) async throws -> T
+    func getEventResults<T: Decodable>(by eventID: String) async throws -> T
+    func getPlayerDetail<T: Decodable>(by playerID: String) async throws -> T
+    
+}
+
+// MARK: - For Async/Await
+extension SportAPIEvent {
+    func performRequest<T: Decodable>(for api: SportEndPoint<T>) async throws -> T {
+        return try await withCheckedThrowingContinuation { continuation in
+            let request = APIRequest(router: api)
+            request.callAPI { result in
+                switch result {
+                case .Successs(let data):
+                    continuation.resume(returning: data)
+                case .Failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+
+    func getPlayerDetail<T: Decodable>(by playerID: String) async throws -> T {
+        return try await performRequest(for: .GetPlayerDetail(by: playerID))
+    }
+
+    func getEventResults<T: Decodable>(by eventID: String) async throws -> T {
+        return try await performRequest(for: .GetEventresults(by: eventID))
+    }
+
+    func getCountries<T: Decodable>() async throws -> T {
+        return try await performRequest(for: .GetCountries)
+    }
+
+    func getLeagues<T: Decodable>(from country: CountryModel, by sportType: String) async throws -> T {
+        return try await performRequest(for: .GetLeagues(from: country, by: sportType))
+    }
+
+    func getSeason<T: Decodable>(from league: LeaguesModel) async throws -> T {
+        return try await performRequest(for: .GetSeason(from: league))
+    }
+
+    func getTeams<T: Decodable>(from league: LeaguesModel) async throws -> T {
+        return try await performRequest(for: .GetTeams(from: league))
+    }
+    
+    func getPlayers<T: Decodable>(from team: TeamModel) async throws -> T {
+        return try await performRequest(for: .GetPlayers(from: team))
+    }
+
+    func getSchedule<T: Decodable>(from league: LeaguesModel, for dateGet: NextAndPrevious) async throws -> T {
+        return try await performRequest(for: .GetSchedule(from: league, for: dateGet))
+    }
 }
 
 extension SportAPIEvent {

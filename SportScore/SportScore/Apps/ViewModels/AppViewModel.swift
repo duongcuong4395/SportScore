@@ -159,11 +159,16 @@ class AppViewModel: ObservableObject {
     @Published var titleButonAction: String = ""
     @Published var bodyDialog = AnyView(Text("This is my content"))
     @Published var loading: Bool = false
+    @Published var autoCloseView: Bool = false
     
-    func showDialogView(with title: String, and body: AnyView) {
+    
+    func showDialogView(with title: String, and body: AnyView, then autoCloseView: Bool = false) {
         self.titleDialog = title
         self.bodyDialog = body
         self.showDialog = true
+        self.autoCloseView = autoCloseView
+        
+        
     }
     
     func showBlurView() {

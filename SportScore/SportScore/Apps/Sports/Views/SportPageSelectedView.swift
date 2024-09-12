@@ -31,14 +31,8 @@ struct SportPageSelectedView: View {
                                     .frame(alignment: .topTrailing)
                                     .onTapGesture {
                                         withAnimation(.spring()) {
-                                            //appVM.switchPage(to: .Country)
-                                            UIApplication.shared.endEditing() // Dismiss the keyboard
+                                            UIApplication.shared.endEditing()
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                //countryVM.resetDetail()
-                                                //leaguesVM.resetDetail()
-                                                //teamVM.resetDetail()
-                                                //playerVM.resetDetail()
-                                                
                                             }
                                             
                                         }

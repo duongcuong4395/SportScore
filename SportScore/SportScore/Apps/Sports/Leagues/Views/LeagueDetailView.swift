@@ -55,16 +55,6 @@ struct LeaguesDetailGenView<sportPageVM: SportPageViewModel>: View, LeaguesDetai
                 }
             }
         }
-        /*
-        .overlay(content: {
-            HStack {
-                Spacer()
-                if let league = leaguesVM.modelDetail {
-                    LeaguesSocisalView(league: league)
-                }
-            }
-        })
-        */
         .environmentObject(seasonVM)
     }
 }

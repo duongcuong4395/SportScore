@@ -27,10 +27,10 @@ struct SportLeaguesView: View {
     var action: () -> Void
     
     var body: some View {
-        switch leaguesVM.requestAPIState {
-        case .Idle:
+        switch leaguesVM.state {
+        case .idle:
             EmptyView()
-        case .Loading:
+        case .loading:
             QGrid(leaguesVM.getListEmptyModels(), columns: 3
                   , vPadding: 5, hPadding: 5) { leagues in
                 leagues.getItemView(with: {
@@ -39,7 +39,7 @@ struct SportLeaguesView: View {
                 .redacted(reason: .placeholder)
                 
             }
-        case .Success:
+        case .success(let leagues):
             QGrid(leaguesVM.models, columns: 3
                   , vPadding: 5, hPadding: 5) { leagues in
                 leagues.getItemView(with: {
@@ -64,7 +64,7 @@ struct SportLeaguesView: View {
                         }
                     }
             }
-        case .Fail:
+        case .failure(let err):
             EmptyView()
         }
         

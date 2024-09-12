@@ -26,7 +26,7 @@ struct ContentView: View {
     
     
     @StateObject var countryVM = CountryViewModel()
-    @StateObject var leaguesVM = LeaguesViewModel()
+    @StateObject var leaguesVM = LeaguesViewModel(leagueRepository: RemoteLeagueRepository(sportAPI: LeaguesSportAPIEvent()))
     @StateObject var teamVM = TeamViewModel()
     @StateObject var playerVM = PlayerViewModel()
     
@@ -35,7 +35,6 @@ struct ContentView: View {
     @StateObject var sportTypeVM = SportTypeViewModel()
     
     @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true
-    //@State private var isFirstLaunch: Bool = true
     
     var body: some View {
         ZStack {
@@ -46,7 +45,6 @@ struct ContentView: View {
                 MainView()
                 GetDialogView()
             }
-            
         }
         .environmentObject(mapVM)
         .environmentObject(markerVM)
@@ -69,7 +67,7 @@ struct ContentView: View {
         .environment(\.managedObjectContext, sportCoreDataManage.container.viewContext)
         .onAppear{
             countryVM.fetchCountry { objs in
-                markerVM.addListMarker(from: objs)
+                //markerVM.addListMarker(from: objs)
             }
         }
         .task {
@@ -108,6 +106,15 @@ extension ContentView {
                 }, content: appVM.bodyDialog)
             }
             .zIndex(9)
+            .onAppear {
+                if appVM.autoCloseView {
+                    Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { timer in
+                        withAnimation(.easeInOut(duration: 2)) {
+                            appVM.showDialog.toggle()
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -216,21 +223,8 @@ struct HeaderView: View {
                             }
                         }
                     }
-                    
-                    
                 }
-                
             }
-            /*
-            Image(systemName: "globe.asia.australia")
-                .font(.title2)
-                .padding()
-                .onTapGesture {
-                    withAnimation {
-                        appVM.showMap.toggle()
-                    }
-                }
-            */
             NotificationBellView()
             
         }
@@ -261,7 +255,6 @@ struct MainView : View {
                         }
                     }
                     .onDisappear{ scale = 0 }
-                
             }
             Spacer()
             SportTypeView()

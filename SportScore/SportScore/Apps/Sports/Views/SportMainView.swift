@@ -57,7 +57,6 @@ struct SportView: View {
             ZStack {
                 sportTypeVM.selected.getView(by: pageSelected)
             }
-            
         }
     }
 }
