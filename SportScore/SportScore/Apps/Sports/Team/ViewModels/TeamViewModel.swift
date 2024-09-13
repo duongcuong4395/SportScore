@@ -9,9 +9,10 @@ import Foundation
 import SwiftUI
 
 class TeamViewModel: ObservableObject, SportAPIEvent {
+    
+    @Published var apiState: APIState<TeamModel> = .idle
     @Published var models: [TeamModel] = []
     @Published var modelDetail: TeamModel?
-
     @Published var modelsFilter: [TeamModel] = []
     
     @Published var isLoading: Bool = false
@@ -20,6 +21,7 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
     
     func fetch(from league: LeaguesModel) {
         self.isLoading = true
+        self.apiState = .loading
         DispatchQueueManager.share.runInBackground {
             self.getTeams(from: league) { (result: Result<TeamResponse, Error>) in
                 switch result {
@@ -27,23 +29,21 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
                     DispatchQueueManager.share.runOnMain {
                         self.models = data.teams ?? []
                         self.isLoading = false
+                        self.apiState = .success(self.models)
                     }
-                case .failure(_):
+                case .failure(let err):
                     DispatchQueueManager.share.runOnMain {
                         self.isLoading = false
+                        self.apiState = .failure(err)
                     }
                 }
             }
         }
-        
     }
-    
-    
     
     func setDetail(by team: TeamModel) {
         self.modelDetail = team
     }
-    
     
     func filter(by text: String) {
         let textSearch = text.lowercased()
@@ -61,27 +61,24 @@ class TeamViewModel: ObservableObject, SportAPIEvent {
         return team
     }
     
-    
-    func getListEmptyModels() -> [TeamModel] {
-        return [TeamModel(), TeamModel(), TeamModel()
-                , TeamModel(), TeamModel(), TeamModel()
-                , TeamModel(), TeamModel(), TeamModel()
-                , TeamModel(), TeamModel(), TeamModel()]
-    }
-    
     func getTeamDetail(by teamName: String, completion: @escaping (TeamModel?) -> Void) {
         self.getTeamDetail(by: teamName) { (result: Result<TeamResponse, Error>) in
             switch result {
             case .success(let data):
-                print("=== getTeamDetail", data.teams)
                 completion(data.teams?[0] ?? nil)
-            case .failure(let err):
-                print("=== getTeamDetail", "Empty")
+            case .failure(_):
                 completion(nil)
             }
         }
     }
     
+    func getListEmptyModels() -> [TeamModel] {
+        return [TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United")
+                ,TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United")
+                ,TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United")
+                ,TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United")
+                ,TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United"), TeamModel(teamName: "Manchester United")]
+    }
 }
 
 

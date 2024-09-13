@@ -39,7 +39,6 @@ struct ScheduleListItemView: View {
                             ScheduleItemView(model: model)
                                 .rotateOnAppear()
                                 .onAppear{
-                                    //.easeInOut(duration: 0.1)
                                     withAnimation {
                                         showModels[index] = true
                                     }

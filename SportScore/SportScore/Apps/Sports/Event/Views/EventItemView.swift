@@ -26,7 +26,6 @@ struct Sport2vs2EventItemView: View {
     @State var awayTeam: TeamModel = TeamModel()
     
     @State var model: ScheduleLeagueModel
-    
     var optionView: AnyView
     
     var body: some View {
@@ -52,13 +51,9 @@ struct Sport2vs2EventItemView: View {
             .padding(.horizontal, 50)
             .padding(.trailing, 20)
             
-            // MARK: - Home and Away
             HStack {
+                // MARK: - Home Team
                 HStack {
-                    
-                    
-                        
-                   
                     Text(model.homeTeamName ?? "")
                         .font(.caption2)
                         .foregroundStyle(.white)
@@ -67,12 +62,9 @@ struct Sport2vs2EventItemView: View {
                         .background {
                             ArrowShape()
                                 //.fill(.green)
-                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.white.opacity(0.5), .black, .black, .black]), startPoint: .leading, endPoint: .trailing))
-                                .frame(width: UIScreen.main.bounds.width/2 - 50.0, height: 30) // width: 40,
+                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.white.opacity(0.1), .black, .black, .black]), startPoint: .leading, endPoint: .trailing))
+                                .frame(width: UIScreen.main.bounds.width/2 - 50.0, height: 30)
                                 .overlay {
-                                    //Text(rank.intRank ?? "")
-                                        //.font(.callout.bold())
-                                        //.foregroundStyle(.black)
                                     HStack {
                                         KFImage(URL(string: model.homeTeamBadge ?? ""))
                                             .placeholder { progress in
@@ -91,6 +83,7 @@ struct Sport2vs2EventItemView: View {
                 
                     
                 }
+                .slideInEffect(direction: .leftToRight)
                 .onTapGesture {
                     withAnimation {
                         guard let team = teamVM.getTeam(by: model.homeTeamName ?? "") else {
@@ -102,31 +95,28 @@ struct Sport2vs2EventItemView: View {
                         }
                         selectTeam(from: team)
                     }
-                   
                 }
                 
                 Spacer()
                 
+                // MARK: - Score
                 HStack {
                     if ((model.homeScore?.isEmpty) == nil) || model.homeScore == "" {
                         Text("VS")
-                            //.font(.callout.bold())
                             .font(.system(size: 14, weight: .bold, design: .monospaced))
                             
                     } else {
                         Text("\(model.homeScore ?? "") - \(model.awayScore ?? "")")
                             .font(.callout)
-                            .font(.system(size: 9, weight: .bold, design: .default))
+                            .font(.system(size: 14, weight: .bold, design: .default))
                     }
                 }
                 .frame(width: 70)
                 
-                
-                
                 Spacer()
+                
+                // MARK: - Away team
                 HStack {
-                   
-                    
                     Text(model.awayTeamName ?? "")
                         .font(.caption)
                         .foregroundStyle(.white)
@@ -134,13 +124,10 @@ struct Sport2vs2EventItemView: View {
                         .frame(width: UIScreen.main.bounds.width/2 - 50.0)
                         .background {
                             ArrowShape()
-                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .white.opacity(0.5)]), startPoint: .trailing, endPoint: .leading))
+                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .white.opacity(0.1)]), startPoint: .trailing, endPoint: .leading))
                                 .rotation3DEffect(Angle(degrees: 180), axis: (0, 1, 0))
                                 .frame(width: UIScreen.main.bounds.width/2 - 50.0, height: 30) // width: 40,
                                 .overlay {
-                                    //Text(rank.intRank ?? "")
-                                        //.font(.callout.bold())
-                                        //.foregroundStyle(.black)
                                     HStack {
                                         Spacer()
                                         KFImage(URL(string: model.awayTeamBadge ?? ""))
@@ -155,21 +142,8 @@ struct Sport2vs2EventItemView: View {
                                     }
                                 }
                         }
-                    
-                    
-                    
-                    /*
-                        .onAppear{
-                            if model.awayTeamBadge == nil {
-                                teamVM.getTeamDetail(by: model.awayTeamName ?? "") { team in
-                                    guard let team = team else { return }
-                                    self.model.awayTeamBadge = team.badge
-                                }
-                            }
-                        }
-                    */
-                        
                 }
+                .slideInEffect(direction: .rightToLeft)
                 .onTapGesture {
                     withAnimation {
                         guard let team = teamVM.getTeam(by: model.awayTeamName ?? "") else {
@@ -183,18 +157,9 @@ struct Sport2vs2EventItemView: View {
                         selectTeam(from: team)
                     }
                 }
-                
             }
             .padding(0)
             .padding(.vertical, 5)
-            /*
-            .background(
-                EmptyView()
-                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 25, style: .continuous))
-                    .padding(.horizontal, 25)
-                    .padding(.vertical, 5)
-            )
-            */
         }
     }
     
@@ -217,8 +182,6 @@ struct Sport2vs2EventItemView: View {
 struct SportSingleEventItemView: View {
     @Environment(\.managedObjectContext) var context
     
-    
-    //@EnvironmentObject var motorsportPageVM: MotorsportPageViewModel
     @EnvironmentObject var sportsPageVM: SportsPageViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
     
@@ -238,11 +201,8 @@ struct SportSingleEventItemView: View {
             HStack {
                 HStack {
                     Text(AppUtility.formatDate(from: model.timestamp, to: "dd/MM") ?? "")
-                        //.font(.caption2)
                     Text(model.roundNumber ?? "")
-                        //.font(.caption2.bold())
                     Text(AppUtility.formatDate(from: model.timestamp, to: "hh:mm") ?? "")
-                        //.font(.caption2.bold())
                 }
                 .font(.caption2)
                 .padding(5)
@@ -272,7 +232,6 @@ struct SportSingleEventItemView: View {
             .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 15, style: .continuous))
             .padding(.trailing, 10)
             .padding(.leading, 20)
-            
         }
         .overlay {
             HStack {
@@ -294,11 +253,8 @@ struct SportSingleEventItemView: View {
                             }
                         }
                     }
-                    //.background(.ultraThinMaterial, in: Circle())
-                    //.padding(.leading, 5)
                 Spacer()
             }
-            
         }
         .background{
             KFImage(URL(string: model.banner ?? ""))

@@ -37,10 +37,10 @@ struct SportLeaguesView: View {
                     EmptyView()
                 })
                 .redacted(reason: .placeholder)
-                
+                .fadeInEffect(duration: 1, isLoop: true)
             }
         case .success(let leagues):
-            QGrid(leaguesVM.models, columns: 3
+            QGrid(leagues, columns: 3
                   , vPadding: 5, hPadding: 5) { leagues in
                 leagues.getItemView(with: {
                     EmptyView()
@@ -50,10 +50,7 @@ struct SportLeaguesView: View {
                     .onTapGesture {
                         withAnimation(.spring()) {
                             UIApplication.shared.endEditing()
-                            
                             action()
-                            
-                            
                             leaguesVM.setDetail(by: leagues)
                             teamVM.fetch(from: leagues)
                             
@@ -64,7 +61,7 @@ struct SportLeaguesView: View {
                         }
                     }
             }
-        case .failure(let err):
+        case .failure(_):
             EmptyView()
         }
         

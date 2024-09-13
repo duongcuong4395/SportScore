@@ -365,7 +365,6 @@ struct LookuptableLeagueView: View {
     @EnvironmentObject var playerVM: PlayerViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var equipmentVM: EquipmentViewModel
-    //@EnvironmentObject var soccerPageVM: SoccerPageViewModel
     @EnvironmentObject var sportsPageVM: SportsPageViewModel
     
     @Environment(\.managedObjectContext) var context
@@ -379,7 +378,6 @@ struct LookuptableLeagueView: View {
                     ForEach(Array(seasonVM.modelsRank.enumerated()), id: \.element.id) { index, rank in
                         HStack {
                             ArrowShape()
-                                //.fill(.green)
                                 .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.blue, .white, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing))
                                 .frame(width: 40, height: 30)
                                 .overlay {
@@ -390,7 +388,14 @@ struct LookuptableLeagueView: View {
                                 
                             KFImage(URL(string: rank.badge ?? ""))
                                 .placeholder { progress in
-                                    LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                                    //LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                                    Image("Sports")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .foregroundStyle(.black)
+                                        .opacity(0.3)
+                                        //.redacted(reason: .placeholder)
+                                        .fadeInEffect(duration: 1, isLoop: true)
                                 }
                                 .resizable()
                                 .scaledToFill()
@@ -419,14 +424,10 @@ struct LookuptableLeagueView: View {
                                 }
                             }
                             Spacer()
-                            
                         }
                         .sequentiallyAnimating(isVisible: seasonVM.showRanks.indices.contains(index) ?
-                                               $seasonVM.showRanks[index] : .constant(false), delay: Double(index) * 0.2, direction: .leftToRight)
+                                               $seasonVM.showRanks[index] : .constant(false), delay: Double(index) * 0.1, direction: .leftToRight)
                         .onAppear{
-                            // .easeInOut(duration: 0.5)
-                            //withAnimation {}
-                            
                             seasonVM.showRanks[index] = true
                         }
                     }

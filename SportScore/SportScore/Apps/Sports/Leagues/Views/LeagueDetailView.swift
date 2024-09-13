@@ -78,8 +78,6 @@ struct LeagueDetailView: View {
                         Text("Teams")
                             .font(.callout.bold())
                     }
-                    //TeamsView()
-                        //.frame(height: UIScreen.main.bounds.height / 2)
                 }
                 LeagueDetailInforView()
             }

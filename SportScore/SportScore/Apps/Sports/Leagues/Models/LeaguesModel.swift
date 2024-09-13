@@ -157,7 +157,12 @@ struct LeaguesItemView: View {
         VStack {
             KFImage(URL(string: model.badge ?? ""))
                 .placeholder({ progress in
-                    LoadingIndicator(animation: .circleBars, size: .small, speed: .normal)
+                    //LoadingIndicator(animation: .circleBars, size: .small, speed: .normal)
+                    
+                    Image("website")
+                        .resizable()
+                        .scaledToFill()
+                        //.clipShape(Circle())
                 })
                 .resizable()
                 .scaledToFill()

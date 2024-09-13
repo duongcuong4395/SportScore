@@ -160,17 +160,13 @@ struct PlayerItemView: View {
     
     var body: some View {
         VStack {
-            
             HStack {
-                
-                
                 KFImage(URL(string: sportTypeVM.selected == .Motorsport ? model.cutout ?? "" : model.render ?? ""))
                     .placeholder { progress in
                         LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
                     }
                     .resizable()
                     .scaledToFill()
-                    //.clipShape(Circle())
                     .frame(width: appVM.sizeImage.width * 2.5, height: appVM.sizeImage.height * 2.5)
                     .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
                     
@@ -181,6 +177,5 @@ struct PlayerItemView: View {
             Text(model.position ?? "")
                 .font(.caption.bold())
         }
-        //.fixedSize(horizontal: false, vertical: false)
     }
 }

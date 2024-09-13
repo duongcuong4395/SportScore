@@ -57,6 +57,44 @@ extension View {
 }
 
 
+struct SlideInEffect: ViewModifier {
+    var direction: AnimationDirection
+    var axis: (x: CGFloat, y: CGFloat) = (0, 0)
+    @State private var isVisible: Bool = false
+    
+    func body(content: Content) -> some View {
+        content
+            .offset(x: isVisible ? 0 : axis.x, y: isVisible ? 0 : axis.y)
+            .opacity(isVisible ? 1 : 0)
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.6)) {
+                    isVisible = true
+                }
+            }
+            .onDisappear {
+                isVisible = false
+            }
+    }
+}
+
+extension View {
+    func slideInEffect(direction: AnimationDirection) -> some View {
+        var axis: (x: CGFloat, y: CGFloat)
+        
+        switch direction {
+        case .leftToRight:
+            axis = (-UIScreen.main.bounds.width, 0) // Từ trái qua phải
+        case .rightToLeft:
+            axis = (UIScreen.main.bounds.width, 0) // Từ phải qua trái
+        case .topToBottom:
+            axis = (0, -UIScreen.main.bounds.height) // Từ trên xuống dưới
+        case .bottomToTop:
+            axis = (0, UIScreen.main.bounds.height) // Từ dưới lên trên
+        }
+        
+        return self.modifier(SlideInEffect(direction: direction, axis: axis))
+    }
+}
 
 // MARK: - Test
 

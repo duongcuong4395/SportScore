@@ -132,9 +132,12 @@ extension LeaguesViewModel {
     }
     
     func getListEmptyModels() -> [LeaguesModel] {
-        return [LeaguesModel(), LeaguesModel(), LeaguesModel()
-                ,LeaguesModel(), LeaguesModel(), LeaguesModel()
-                ,LeaguesModel(), LeaguesModel(), LeaguesModel()]
+        let item = LeaguesModel(leagueName: "Manchester United", currentSeason: "2023-2024")
+        return [item, item, item
+                ,item, item, item
+                ,item, item, item
+                ,item, item, item
+                ,item, item, item]
     }
 }
 
@@ -176,7 +179,13 @@ extension LeaguesViewModel {
             }
             KFImage(URL(string: self.modelDetail?.trophy ?? ""))
                 .placeholder { progress in
-                    LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                    //LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                    
+                    Image("trophy_symbol")
+                        .resizable()
+                        .scaledToFill()
+                        .redacted(reason: .placeholder)
+                        .shimmer()
                 }
                 .resizable()
                 .scaledToFill()

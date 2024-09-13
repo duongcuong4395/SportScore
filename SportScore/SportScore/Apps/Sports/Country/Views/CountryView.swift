@@ -40,6 +40,7 @@ struct SportCountryView: View {
     @EnvironmentObject var leaguesVM: LeaguesViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
     @EnvironmentObject var appVM: AppViewModel
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
     
     var action: () -> Void
     
@@ -55,15 +56,19 @@ struct SportCountryView: View {
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 UIApplication.shared.endEditing()
+                                appVM.resetTextSearch()
                                 Task {
-                                    appVM.resetTextSearch()
+                                    
                                     countryVM.resetFilter()
                                     countryVM.setDetail(by: country)
                                     leaguesVM.resetModels()
+                                    
+                                    action()
+                                    
                                     await leaguesVM.fetchLeagues(from: country, by: sportTypeVM.selected.rawValue)
-                                    if leaguesVM.models.count > 0 {
-                                        action()
-                                    } else {
+                                    
+                                    if leaguesVM.models.count <= 0 {
+                                        sportsPageVM.removeFrom(.Country)
                                         appVM.showDialogView(with: " What a pity! 􀙌", and: NoLeaguesView(objName: country.fullName).toAnyView(), then: true)
                                     }
                                 }

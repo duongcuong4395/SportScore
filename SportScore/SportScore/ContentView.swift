@@ -109,8 +109,8 @@ extension ContentView {
             .onAppear {
                 if appVM.autoCloseView {
                     Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { timer in
-                        withAnimation(.easeInOut(duration: 2)) {
-                            appVM.showDialog.toggle()
+                        withAnimation(.easeInOut(duration: 1)) {
+                            appVM.showDialog = false
                         }
                     }
                 }

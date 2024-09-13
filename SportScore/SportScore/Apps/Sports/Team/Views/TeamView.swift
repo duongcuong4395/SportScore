@@ -70,7 +70,6 @@ struct TeamItemMenuView: View {
 
 
 struct SportListTeamView: View {
-    //@EnvironmentObject var motorsportPageVM: MotorsportPageViewModel
     @EnvironmentObject var teamVM: TeamViewModel
     @EnvironmentObject var playerVM: PlayerViewModel
     @EnvironmentObject var scheduleVM: ScheduleViewModel
@@ -86,33 +85,49 @@ struct SportListTeamView: View {
         VStack {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: teamVM.columns) {
-                    
-                    ForEach (Array(teamVM.models.enumerated()), id: \.element.id) { index, team in
-                        team.getOptionView(with: {
-                            EmptyView()
-                        })
-                        .padding(0)
-                        .rotateOnAppear(angle: -90, duration: 0.5, axis: .x)
-                        .onTapGesture {
-                            withAnimation(.spring()) {
-                                UIApplication.shared.endEditing()
-                                action()
-                                teamVM.setDetail(by: team)
-                                playerVM.resetModels()
-                                playerVM.fetch(by: team)
-                                scheduleVM.resetModels()
-                                scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Next, from: context)
-                                scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
-                                
-                                equipmentVM.fetch(from: team) {}
-                                
-                                scheduleVM.modelsForLastEvents = []
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    scheduleVM.getLastEvents(by: team.idTeam ?? "0")
+                    switch teamVM.apiState {
+                    case .idle:
+                        EmptyView()
+                    case .loading:
+                        ForEach (teamVM.getListEmptyModels(), id: \.id) { team in
+                            team.getOptionView(with: {
+                                EmptyView()
+                            })
+                            .padding(0)
+                            .redacted(reason: .placeholder)
+                            .fadeInEffect(duration: 1, isLoop: true)
+                        }
+                    case .success(let teams):
+                        // teamVM.models
+                        ForEach (Array(teams.enumerated()), id: \.element.id) { index, team in
+                            team.getOptionView(with: {
+                                EmptyView()
+                            })
+                            .padding(0)
+                            .rotateOnAppear(angle: -90, duration: 0.5, axis: .x)
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    UIApplication.shared.endEditing()
+                                    action()
+                                    teamVM.setDetail(by: team)
+                                    playerVM.resetModels()
+                                    playerVM.fetch(by: team)
+                                    scheduleVM.resetModels()
+                                    scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Next, from: context)
+                                    scheduleVM.fetch(by: Int(team.idTeam ?? "0") ?? 0, for: .Previous, from: context)
+                                    
+                                    equipmentVM.fetch(from: team) {}
+                                    
+                                    scheduleVM.modelsForLastEvents = []
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        scheduleVM.getLastEvents(by: team.idTeam ?? "0")
+                                    }
                                 }
                             }
+                            
                         }
-                        
+                    case .failure(let error):
+                        EmptyView()
                     }
                 }
             }
