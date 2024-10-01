@@ -8,8 +8,6 @@
 import Foundation
 import SwiftUI
 
-
-
 struct SeasonForLeagueView: View {
     @EnvironmentObject var seasonVM: SeasonViewModel
     @EnvironmentObject var eventVM: EventViewModel

@@ -32,7 +32,7 @@ class GeminiAIManage {
     
     func getModel(with model: GeminiAIModel) -> GenerativeModel {
         return GenerativeModel(
-          name:   "gemini-1.5-flash-8b-exp-0827", 
+          name:   "gemini-1.5-flash",
           // "gemini-1.5-pro-latest",
           // "gemini-1.5-flash-latest",
           // gemini-1.5-flash-latest
@@ -41,8 +41,8 @@ class GeminiAIManage {
           generationConfig: GenerationConfig(
             temperature: 1,
             topP: 0.95,
-            topK: 64,
-            maxOutputTokens: 1048576, //8192,
+            topK: 64, // 64,
+            maxOutputTokens: 8192, //1048576, //8192,
             responseMIMEType: "text/plain"
           ),
           safetySettings: [

@@ -7,136 +7,6 @@
 
 import Foundation
 import SwiftUI
-/*
-enum Page: String {
-    case Main
-    case Country
-    case League
-    case LeagueDetail
-    case Team
-    case TeamDetail
-    case Player
-    
-    case NotiFy
-    
-    case EventDetail
-}
-
-extension Page {
-    func getView() -> AnyView {
-        switch self {
-        case .Main:
-            return AnyView(EmptyView())
-        case .Country:
-            return AnyView(CountryView())
-        case .League:
-            return AnyView(LeaguesView())
-        case .LeagueDetail:
-            return AnyView(LeagueDetailView())
-        case .Team:
-            return AnyView(TeamsView())
-        case .Player:
-            return AnyView(PlayerView())
-        case .TeamDetail:
-            return AnyView(TeamDetailView())
-        case .NotiFy:
-            return AnyView(NotificationView())
-        case .EventDetail:
-            return AnyView(EventDetailView())
-        }
-    }
-    
-    func getItemSelectedView() -> AnyView {
-        switch self {
-        case .Main:
-            return AnyView(EmptyView())
-        case .Country:
-            return AnyView(CountryItemPageSelectedView())
-        case .League:
-            return AnyView(LeaguesItemPageSelectedView())
-        case .LeagueDetail:
-            return AnyView(LeagueDetailView())
-        case .Team:
-            return AnyView(TeamsView())
-        case .Player:
-            return AnyView(PlayerView())
-        case .TeamDetail:
-            return AnyView(TeamDetailView())
-        case .NotiFy:
-            return AnyView(NotificationView())
-        case .EventDetail:
-            return AnyView(EventDetailView())
-        }
-    }
-}
-*/
-
-struct LeaguesItemPageSelectedView: View {
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    @EnvironmentObject var teamVM: TeamViewModel
-    @EnvironmentObject var playerVM: PlayerViewModel
-    @EnvironmentObject var appVM: AppViewModel
-    
-    var body: some View {
-        LeaguesDetailView()
-            .overlay {
-                VStack {
-                    HStack {
-                        Spacer()
-                        BadgeCloseView()
-                            .frame(alignment: .topTrailing)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    UIApplication.shared.endEditing() // Dismiss the keyboard
-                                    leaguesVM.resetDetail()
-                                    teamVM.resetDetail()
-                                    playerVM.resetDetail()
-                                    //appVM.switchPage(to: .League)
-                                }
-                            }
-                    }
-                    
-                    Spacer()
-                }
-            }
-            .scaleEffect(0.85)
-    }
-}
-
-struct CountryItemPageSelectedView: View {
-    @EnvironmentObject var countryVM: CountryViewModel
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    @EnvironmentObject var teamVM: TeamViewModel
-    @EnvironmentObject var playerVM: PlayerViewModel
-    @EnvironmentObject var appVM: AppViewModel
-    
-    var body: some View {
-        CountryDetailView()
-            .overlay {
-                VStack {
-                    HStack {
-                        Spacer()
-                        BadgeCloseView()
-                            .frame(alignment: .topTrailing)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    UIApplication.shared.endEditing() // Dismiss the keyboard
-                                    countryVM.resetDetail()
-                                    leaguesVM.resetDetail()
-                                    teamVM.resetDetail()
-                                    playerVM.resetDetail()
-                                    //appVM.switchPage(to: .Country)
-                                }
-                            }
-                    }
-                    
-                    Spacer()
-                }
-            }
-            .scaleEffect(0.85)
-    }
-}
-
 
 class AppViewModel: ObservableObject {
     @Published var textSearch: String = ""
@@ -145,11 +15,6 @@ class AppViewModel: ObservableObject {
     @Published var showBlurMap: Bool = true
     
     @Published var showMap: Bool = false
-    
-    
-    
-    //@Published var page: Page = .Country
-    //@Published var pagesSelected: [Page] = []
     
     @Published var sizeImage: (width: CGFloat, height: CGFloat) = (width: 70.0, height: 70.0)
     
@@ -178,9 +43,4 @@ class AppViewModel: ObservableObject {
     func resetTextSearch() {
         self.textSearch = ""
     }
-    /*
-    func switchPage(to newPage: Page) {
-        self.page = newPage
-    }
-    */
 }

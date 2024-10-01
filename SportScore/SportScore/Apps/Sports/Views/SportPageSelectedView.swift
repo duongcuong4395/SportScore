@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/*
 struct SportPageSelectedView: View {
     @EnvironmentObject var appVM: AppViewModel
     
@@ -105,3 +106,4 @@ struct SportPageSelectedView: View {
         }
     }
 }
+*/

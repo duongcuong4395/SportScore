@@ -7,6 +7,26 @@
 
 import SwiftUI
 
+
+struct SportView: View {
+    @EnvironmentObject var sportTypeVM: SportTypeViewModel
+    var pages: [SportPage]
+    var pageSelected: SportPage = .Country
+    
+    var body: some View {
+        VStack {
+            HStack {
+                ForEach(pages, id: \.self) { page in
+                    sportTypeVM.selected.getItemMenuView(by: page)
+                }
+            }
+            ZStack {
+                sportTypeVM.selected.getView(by: pageSelected)
+            }
+        }
+    }
+}
+
 enum DateEnum: String, CaseIterable {
     case Yesterday
     case Today
@@ -42,24 +62,7 @@ struct SportMainView: View {
     }
 }
 
-struct SportView: View {
-    @EnvironmentObject var sportTypeVM: SportTypeViewModel
-    var pages: [SportPage]
-    var pageSelected: SportPage = .Country
-    
-    var body: some View {
-        VStack {
-            HStack {
-                ForEach(pages, id: \.self) { page in
-                    sportTypeVM.selected.getItemMenuView(by: page)
-                }
-            }
-            ZStack {
-                sportTypeVM.selected.getView(by: pageSelected)
-            }
-        }
-    }
-}
+
 
 struct BadgeCloseView: View {
     var body: some View {
@@ -136,165 +139,7 @@ struct ListEventSpecificView: View {
 
 
 
-protocol LeaguesDetailDelegate {
-    
-    var seasonVM: SeasonViewModel { get }
-    var eventVM: EventViewModel { get }
-    var leaguesVM: LeaguesViewModel { get }
-}
 
-extension LeaguesDetailDelegate {
-    
-    @ViewBuilder
-    func getRankingByLeagueAndSeasonView() -> some View {
-        VStack {
-            if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil  {
-                if seasonVM.modelsRank.count > 0 {
-                    HStack {
-                        Text("Ranks")
-                            .font(.callout.bold())
-                        Spacer()
-                    }
-                    .padding(.horizontal, 10)
-                    
-                    LookuptableLeagueView()
-                        .padding(.bottom, 10)
-                        .frame(height: UIScreen.main.bounds.height / 2.5)
-                }
-                
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func getListEventEachRoundOfLeagueAndSeasonView() -> some View {
-        VStack {
-            if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil {
-                HStack {
-                    if eventVM.currentRound > 1 {
-                        Text("< Previous")
-                            .font(.callout)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    eventVM.listEvent = []
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        eventVM.currentRound -= 1
-                                        eventVM.getListEvent(by: seasonVM.leagueSelected?.idLeague ?? ""
-                                                             , in: "\(eventVM.currentRound)"
-                                                             , of: seasonVM.seasonSelected?.season ?? "") { objs, success in
-                                        }
-                                    }
-                                }
-                            }
-                    }
-                    Text("Round: \(eventVM.currentRound)")
-                        .font(.callout.bold())
-                    
-                    if eventVM.isNextRound == true {
-                        Text("Next >")
-                            .font(.callout)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    eventVM.listEvent = []
-                                    
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        eventVM.currentRound += 1
-                                        eventVM.getListEvent(by: seasonVM.leagueSelected?.idLeague ?? ""
-                                                             , in: "\(eventVM.currentRound)"
-                                                             , of: seasonVM.seasonSelected?.season ?? "") { objs, success in
-                                            eventVM.getEventForNextRound()
-                                        }
-                                    }
-                                }
-                            }
-                    }
-                    
-                    Spacer()
-                }
-                .padding(.horizontal, 15)
-                if eventVM.listEvent.count > 0 {
-                    ScheduleListItemView(models: eventVM.listEvent)
-                        .frame(maxHeight: UIScreen.main.bounds.height / 2.5)
-                        .onDisappear{
-                            eventVM.listEvent = []
-                        }
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func getListEventSpecificView() -> some View {
-        VStack {
-            VStack {
-                if seasonVM.leagueSelected != nil && seasonVM.seasonSelected != nil {
-                    if eventVM.listEventInSpecific.count > 0 {
-                        HStack {
-                            Text("Event Specific")
-                                .font(.callout.bold())
-                            Spacer()
-                        }
-                        .padding(.horizontal, 10)
-                        ScheduleListItemView(models: eventVM.listEventInSpecific)
-                            .frame(maxHeight: UIScreen.main.bounds.height / 2.5)
-                            .onDisappear{
-                                eventVM.listEventInSpecific = []
-                            }
-                    }
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func getLeagueDetailInforView() -> some View {
-        VStack {
-            HStack {
-                Text("Description:")
-                    .font(.callout.bold())
-                Spacer()
-            }
-            Text(leaguesVM.modelDetail?.descriptionEN ?? "")
-                .font(.caption)
-                .lineLimit(nil)
-                .frame(alignment: .leading)
-        }
-        .padding(.horizontal, 10)
-    }
-    
-    @ViewBuilder
-    func getListSeasonOfLeagueView() -> some View {
-        VStack {
-            if let league = leaguesVM.modelDetail {
-                HStack {
-                    Text("Seasons:")
-                        .font(.callout.bold())
-                        
-                    Spacer()
-                }
-                .padding(.horizontal, 10)
-                SeasonForLeagueView(league: league)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func getListTeamView(with action: @escaping () -> Void) -> some View {
-        VStack {
-            HStack {
-                Text("Teams")
-                    .font(.callout.bold())
-                Spacer()
-            }
-            .padding(.horizontal, 10)
-            SportListTeamView {
-                action()
-            }
-            .frame(height: UIScreen.main.bounds.height / 2)
-        }
-    }
-}
 
 struct LeaguesSocisalView: View {
     @Environment(\.openURL) var openURL

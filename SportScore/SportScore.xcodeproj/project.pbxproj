@@ -95,6 +95,12 @@
 		4FFD4C652C52141D006E9485 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFD4C642C52141D006E9485 /* Networking.swift */; };
 		4FFD4C732C521BFD006E9485 /* SportMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFD4C722C521BFD006E9485 /* SportMainView.swift */; };
 		4FFFC3F72C6B0E2B006BCDF0 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFFC3F62C6B0E2B006BCDF0 /* NotificationView.swift */; };
+		FA03D9962CAC28DF00106808 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FA03D9952CAC28DF00106808 /* Localizable.xcstrings */; };
+		FA03D9992CAC43D000106808 /* SportListCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03D9982CAC43D000106808 /* SportListCountryView.swift */; };
+		FA03D99B2CAC477000106808 /* SportLeaguesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03D99A2CAC477000106808 /* SportLeaguesView.swift */; };
+		FA03D99D2CAC4AB800106808 /* SportLeagueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03D99C2CAC4AB800106808 /* SportLeagueDetailView.swift */; };
+		FA03D99F2CAC4E1B00106808 /* SportTeamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03D99E2CAC4E1B00106808 /* SportTeamDetailView.swift */; };
+		FA03D9A12CAC4F7B00106808 /* SportListTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03D9A02CAC4F7B00106808 /* SportListTeamView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +186,12 @@
 		4FFD4C642C52141D006E9485 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		4FFD4C722C521BFD006E9485 /* SportMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportMainView.swift; sourceTree = "<group>"; };
 		4FFFC3F62C6B0E2B006BCDF0 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		FA03D9952CAC28DF00106808 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		FA03D9982CAC43D000106808 /* SportListCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportListCountryView.swift; sourceTree = "<group>"; };
+		FA03D99A2CAC477000106808 /* SportLeaguesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportLeaguesView.swift; sourceTree = "<group>"; };
+		FA03D99C2CAC4AB800106808 /* SportLeagueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportLeagueDetailView.swift; sourceTree = "<group>"; };
+		FA03D99E2CAC4E1B00106808 /* SportTeamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportTeamDetailView.swift; sourceTree = "<group>"; };
+		FA03D9A02CAC4F7B00106808 /* SportListTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportListTeamView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -429,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				4F9711242C526AB600A0DF1C /* AppUtility.swift */,
+				FA03D9952CAC28DF00106808 /* Localizable.xcstrings */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -872,6 +885,7 @@
 		4FFD4C712C521BE0006E9485 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FA03D9972CAC438100106808 /* MainView */,
 				4FFD4C722C521BFD006E9485 /* SportMainView.swift */,
 				4F2454212C6BADF3002F767A /* SportView.swift */,
 				4F9B62102C720F2A00003AB1 /* SportPageSelectedView.swift */,
@@ -887,6 +901,18 @@
 				4F65DB7A2C6B450600B5AE39 /* LocalNotificationManage.swift */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		FA03D9972CAC438100106808 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				FA03D9982CAC43D000106808 /* SportListCountryView.swift */,
+				FA03D99A2CAC477000106808 /* SportLeaguesView.swift */,
+				FA03D99C2CAC4AB800106808 /* SportLeagueDetailView.swift */,
+				FA03D99E2CAC4E1B00106808 /* SportTeamDetailView.swift */,
+				FA03D9A02CAC4F7B00106808 /* SportListTeamView.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -941,6 +967,7 @@
 			knownRegions = (
 				en,
 				Base,
+				vi,
 			);
 			mainGroup = 4FFD4C442C520FC1006E9485;
 			packageReferences = (
@@ -968,6 +995,7 @@
 			files = (
 				4FFD4C582C520FC7006E9485 /* Preview Assets.xcassets in Resources */,
 				4F94B19A2C84A64F009361AE /* Country.json in Resources */,
+				FA03D9962CAC28DF00106808 /* Localizable.xcstrings in Resources */,
 				4FFD4C552C520FC7006E9485 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -983,6 +1011,7 @@
 				4F1273B02C6F48F800D52EF2 /* FavoriteViewModel.swift in Sources */,
 				4FD08D702C66161F00C67251 /* SportAPI.swift in Sources */,
 				4FA8CD682C5936CC00A4DDFD /* MapNetWorking.swift in Sources */,
+				FA03D99F2CAC4E1B00106808 /* SportTeamDetailView.swift in Sources */,
 				4FAC11062C59F967007B4B68 /* AppViewModel.swift in Sources */,
 				4F94B1982C8497A4009361AE /* Collapsible.swift in Sources */,
 				4F96B9072C6719F7000B6D42 /* SeasonModel.swift in Sources */,
@@ -994,6 +1023,7 @@
 				4F9B6C992C6794D900AB03F4 /* TeamModel.swift in Sources */,
 				4F8B2D742C6870BC00C86717 /* TeamViewModel.swift in Sources */,
 				4F8CF8982C89F9E00055D687 /* OnboardingView.swift in Sources */,
+				FA03D9A12CAC4F7B00106808 /* SportListTeamView.swift in Sources */,
 				4F65DB7B2C6B450600B5AE39 /* LocalNotificationManage.swift in Sources */,
 				4FEFBE962C6A5C5100636471 /* EquipmentView.swift in Sources */,
 				4F357CA32C91EFE2001D9CB9 /* GeminiAIManage.swift in Sources */,
@@ -1017,6 +1047,7 @@
 				4F357C9A2C91ED93001D9CB9 /* GeminiAIModel.swift in Sources */,
 				4F1559142C5B89FC008A9D66 /* TestAnimtionView.swift in Sources */,
 				4F9B62112C720F2A00003AB1 /* SportPageSelectedView.swift in Sources */,
+				FA03D9992CAC43D000106808 /* SportListCountryView.swift in Sources */,
 				4F0FAD332C818249002C3331 /* SportCategory.swift in Sources */,
 				4F9711252C526AB600A0DF1C /* AppUtility.swift in Sources */,
 				4F9B6C9C2C67A41100AB03F4 /* CountryViewModel.swift in Sources */,
@@ -1025,6 +1056,7 @@
 				4FFD4C532C520FC1006E9485 /* ContentView.swift in Sources */,
 				4F8CF89C2C89FD0B0055D687 /* OnboardingListCountryView.swift in Sources */,
 				4F1CBC562C79877100FB827A /* ShimmeringView.swift in Sources */,
+				FA03D99D2CAC4AB800106808 /* SportLeagueDetailView.swift in Sources */,
 				4F8B2D712C686D2B00C86717 /* PlayerViewModel.swift in Sources */,
 				4F08FA312C85EE60006116D7 /* SportsPageViewModel.swift in Sources */,
 				4F1273AD2C6F487100D52EF2 /* FavoriteView.swift in Sources */,
@@ -1045,6 +1077,7 @@
 				4FCBE9B52C6CBC180072FA28 /* ScheduleCD+CoreDataProperties.swift in Sources */,
 				4FA8CD5A2C5928A900A4DDFD /* FIleManage.swift in Sources */,
 				4FCBE9A72C6CAAD00072FA28 /* ScheduleCoreData.swift in Sources */,
+				FA03D99B2CAC477000106808 /* SportLeaguesView.swift in Sources */,
 				4FA8CD5E2C59355600A4DDFD /* MapViewModel.swift in Sources */,
 				4FE92D602C8AB9510072A981 /* OnboardingListLeaguesView.swift in Sources */,
 				4FEFBE932C6A5A1E00636471 /* EquipmentModel.swift in Sources */,
@@ -1121,6 +1154,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1177,6 +1211,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1199,6 +1234,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=iphoneos*]" = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1234,6 +1270,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=iphoneos*]" = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
