@@ -193,17 +193,14 @@ extension ScheduleViewModel {
 extension ScheduleViewModel {
     func toggleFavoriteModel(for model: ScheduleLeagueModel
                              , by isFavorite: Bool) {
-        print("== toggleFavoriteModel", isFavorite, model)
         DispatchQueue.main.async {
-            
+            if let id = self.modelsForLastEvents.firstIndex(where: { $0.idEvent == model.idEvent }) {
+                self.modelsForLastEvents[id].isFavorite = isFavorite
+            }
             if let id = self.modelsForNext.firstIndex(where: { $0.idEvent == model.idEvent }) {
-                print("toggleLikeModel.Next", id, isFavorite)
                 self.modelsForNext[id].isFavorite = isFavorite
-            } else {
-                guard let id = self.modelsForPrevious.firstIndex(where: { $0.idEvent == model.idEvent }) else { return }
-                
-                print("toggleLikeModel Previous", id, isFavorite)
-                self.modelsForPrevious[id].isFavorite = isFavorite
+            }
+            if let id = self.modelsForPrevious.firstIndex(where: { $0.idEvent == model.idEvent }) { self.modelsForPrevious[id].isFavorite = isFavorite
             }
         }
     }

@@ -81,8 +81,6 @@ struct ScheduleItemView: View, ItemDelegate {
     @EnvironmentObject var favoriteVM: FavoriteViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
     @EnvironmentObject var eventVM: EventViewModel
-    
-    
     @Environment(\.managedObjectContext) var context
     
     var model: ScheduleLeagueModel
@@ -91,11 +89,14 @@ struct ScheduleItemView: View, ItemDelegate {
         model.getItemView(and: optionsView)
             .onAppear{
                 scheduleVM.checkNotify(of: model, from: context) { isNotify, objCoreData in
+                    eventVM.toggleNotifyModel(for: model, by: isNotify)
                     scheduleVM.toggleNotifyModel(for: model, by: isNotify)
                 }
                 
                 scheduleVM.checkFavorite(of: model, from: context) { isFavorite, objCoreData in
+                    eventVM.toggleFavoriteModel(for: model, by: isFavorite)
                     scheduleVM.toggleFavoriteModel(for: model, by: isFavorite)
+                    
                 }
             }
             
@@ -126,7 +127,6 @@ struct ScheduleItemView: View, ItemDelegate {
             eventVM.toggleFavoriteModel(for: model, by: liked)
             favoriteVM.getCount(from: sportTypeVM.selected.getEntities(), of: sportTypeVM.selected, from: context)
         }
-        
         UIApplication.shared.endEditing() // Dismiss the keyboard
     }
     
@@ -136,6 +136,7 @@ struct ScheduleItemView: View, ItemDelegate {
         
         if lnManager.isGranted {
             scheduleVM.toggleNotifyCoreData(for: model, from: context) { isNotify in
+                eventVM.toggleNotifyModel(for: model, by: isNotify)
                 if isNotify {
                     Task {
                         guard let scheduleDate = DateUtility.convertToDate(from: model.timestamp ?? "") else { return }
