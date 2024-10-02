@@ -28,7 +28,8 @@ struct ScheduleView: View {
 
 
 struct ScheduleListItemView: View {
-    @State var models: [ScheduleLeagueModel]
+    var models: [ScheduleLeagueModel]
+    //@State var models: [ScheduleLeagueModel]
     @State private var showModels: [Bool] = []
     var body: some View {
         VStack {
@@ -52,13 +53,7 @@ struct ScheduleListItemView: View {
                     ForEach(Array(models.enumerated()), id: \.element.id) { index, model in
                         ScheduleItemView(model: model)
                             .rotateOnAppear()
-                            
-                        /*
-                            .sequentiallyAnimating(isVisible: showModels.indices.contains(index) ?
-                                                   $showModels[index] : .constant(false), delay: Double(index) * 0.2, direction: .leftToRight)
-                        */
                             .onAppear{
-                                //.easeInOut(duration: 0.1)
                                 withAnimation {
                                     showModels[index] = true
                                 }
@@ -68,9 +63,6 @@ struct ScheduleListItemView: View {
                 }
             }
         }
-        
-        
-        
         .onAppear{
             withAnimation {
                 if showModels.count != models.count {
@@ -88,6 +80,8 @@ struct ScheduleItemView: View, ItemDelegate {
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     @EnvironmentObject var favoriteVM: FavoriteViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
+    @EnvironmentObject var eventVM: EventViewModel
+    
     
     @Environment(\.managedObjectContext) var context
     
@@ -128,9 +122,11 @@ struct ScheduleItemView: View, ItemDelegate {
     
     func toggleFavorite<T>(for model: T) where T : Decodable {
         guard let model = model as? ScheduleLeagueModel else { return }
-        scheduleVM.toggleFavoriteCoreData(for: model, from: context) {
+        scheduleVM.toggleFavoriteCoreData(for: model, from: context) { liked in
+            eventVM.toggleFavoriteModel(for: model, by: liked)
             favoriteVM.getCount(from: sportTypeVM.selected.getEntities(), of: sportTypeVM.selected, from: context)
         }
+        
         UIApplication.shared.endEditing() // Dismiss the keyboard
     }
     

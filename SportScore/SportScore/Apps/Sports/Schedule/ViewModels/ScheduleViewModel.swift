@@ -193,6 +193,7 @@ extension ScheduleViewModel {
 extension ScheduleViewModel {
     func toggleFavoriteModel(for model: ScheduleLeagueModel
                              , by isFavorite: Bool) {
+        print("== toggleFavoriteModel", isFavorite, model)
         DispatchQueue.main.async {
             
             if let id = self.modelsForNext.firstIndex(where: { $0.idEvent == model.idEvent }) {
@@ -209,7 +210,7 @@ extension ScheduleViewModel {
     
     func toggleFavoriteCoreData(for model: ScheduleLeagueModel
                                 ,from context: NSManagedObjectContext
-                                , completion: @escaping () -> Void) {
+                                , completion: @escaping (Bool) -> Void) {
         
         self.checkFavorite(of: model, from: context, completion: { exists, obj in
             guard let obj = obj else {
@@ -218,13 +219,13 @@ extension ScheduleViewModel {
                 newModel.add(into: context) { (result: Result<Bool, Error>) in
                     self.toggleFavoriteModel(for: newModel, by: true)
                 }
-                completion()
+                completion(true)
                 return
             }
             obj.isFavorite.toggle()
             try? context.save()
             self.toggleFavoriteModel(for: model, by: obj.isFavorite)
-            completion()
+            completion(obj.isFavorite)
         })
     }
     

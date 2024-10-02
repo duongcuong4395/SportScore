@@ -88,7 +88,7 @@ struct SportTeamDetailView: View {
                     else {
                         guard let model = teamVM.modelDetail else { return }
                         
-                        let str = "Hãy cho tôi danh sách tên các cầu thủ của đội \(teamVM.modelDetail?.teamName ?? "") của môn thể thao \(sportTypeVM.selected.rawValue), kết quả về chỉ cần theo định dạng sau: [\"ten cau tu 1\", \"ten cau thu 2\",...]. không mô tả gì thêm."
+                        let str = "Hãy cho tôi danh sách tên các cầu thủ của đội \(teamVM.modelDetail?.teamName ?? "") của môn thể thao \(sportTypeVM.selected.rawValue), kết quả về chỉ cần theo định dạng sau: [\"ten cau tu 1\", \"ten cau thu 2\",...], nếu không thể lấy danh sách cầu thủ thì chỉ cần trả về theo định dạng sau: []. không mô tả gì thêm."
                         DispatchQueueManager.share.runInBackground {
                             model.GeminiSend(prompt: str, and: false, withKeyFrom: keyCD.model.valueItem) { mes, status in
                                 print("=== Gemini:", str)

@@ -234,13 +234,11 @@ struct LookuptableLeagueView: View {
                                 
                             KFImage(URL(string: rank.badge ?? ""))
                                 .placeholder { progress in
-                                    //LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
                                     Image("Sports")
                                         .resizable()
                                         .scaledToFill()
                                         .foregroundStyle(.black)
                                         .opacity(0.3)
-                                        //.redacted(reason: .placeholder)
                                         .fadeInEffect(duration: 1, isLoop: true)
                                 }
                                 .resizable()
@@ -281,30 +279,12 @@ struct LookuptableLeagueView: View {
             }
         }
         .onChange(of: seasonVM.modelsRank) { vl, nvl in
-            print("$seasonVM.showRanks:", seasonVM.showRanks.count, seasonVM.modelsRank.count)
-            
-            // Chỉ khởi tạo showCars nếu nó chưa được khởi tạo hoặc có kích thước không khớp
             if seasonVM.showRanks.count != seasonVM.modelsRank.count {
-                
                 self.seasonVM.showRanks = Array(repeating: false, count: seasonVM.modelsRank.count)
-                /*
-                if seasonVM.showRanks.count > 0 {
-                    for index in seasonVM.modelsRank.indices {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.2) {
-                            withAnimation(.easeInOut(duration: 0.5)) {
-                                seasonVM.showRanks[index] = true
-                            }
-                        }
-                    }
-                }
-                */
-                
            }
         }
         .onAppear{
-            print("$seasonVM.showRanks:", seasonVM.showRanks.count, seasonVM.modelsRank.count)
             if seasonVM.showRanks.count != seasonVM.modelsRank.count {
-                
                 self.seasonVM.showRanks = Array(repeating: false, count: seasonVM.modelsRank.count)
             }
         }
@@ -636,7 +616,7 @@ struct SoccerScheduleItemView: View, ItemDelegate {
     
     func toggleFavorite<T>(for model: T) where T : Decodable {
         guard let model = model as? ScheduleLeagueModel else { return }
-        scheduleVM.toggleFavoriteCoreData(for: model, from: context) {
+        scheduleVM.toggleFavoriteCoreData(for: model, from: context) { liked in
             favoriteVM.getCount(from: sportTypeVM.selected.getEntities(), of: sportTypeVM.selected, from: context)
         }
         UIApplication.shared.endEditing() // Dismiss the keyboard

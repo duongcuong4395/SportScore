@@ -22,6 +22,27 @@ class EventViewModel: ObservableObject, SportAPIEvent {
     @Published var currentRound: Int = 1
     @Published var isNextRound: Bool = true
     
+    
+}
+
+extension EventViewModel {
+    func toggleFavoriteModel(for model: ScheduleLeagueModel
+                             , by isFavorite: Bool) {
+        print("== toggleFavoriteModel", isFavorite, model)
+        DispatchQueue.main.async {
+            
+            if let id = self.listEvent.firstIndex(where: { $0.idEvent == model.idEvent }) {
+                self.listEvent[id].isFavorite = isFavorite
+            }
+            
+            guard let id = self.listEventInSpecific.firstIndex(where: { $0.idEvent == model.idEvent }) else { return }
+            self.listEventInSpecific[id].isFavorite = isFavorite
+        }
+    }
+}
+
+
+extension EventViewModel {
     func fetch(by eventID: String, completion: @escaping ([PlayerEventModel]) -> Void) {
         DispatchQueueManager.share.runInBackground {
             self.getEventresults(by: eventID) { (result: Result<EventResponse, Error>) in
@@ -105,3 +126,4 @@ class EventViewModel: ObservableObject, SportAPIEvent {
         }
     }
 }
+
