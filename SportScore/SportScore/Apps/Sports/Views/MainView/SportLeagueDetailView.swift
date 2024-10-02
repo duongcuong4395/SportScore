@@ -28,28 +28,30 @@ struct LeaguesDetailGenView<sportPageVM: SportPageViewModel>: View, LeaguesDetai
         VStack {
             ScrollView(showsIndicators: false) {
                 leaguesVM.getTrophyView()
-                
+                    .padding(.horizontal, 5)
                 if let league = leaguesVM.modelDetail {
                     LeaguesSocisalView(league: league)
-                        .padding()
+                        //.padding()
                 }
-                
                 scheduleVM.getEventsOfPreviousAndNextDayView()
                     .frame(height: UIScreen.main.bounds.height / 1.5)
-                
                 getListTeamView {
                     self.sportPageVM.add(.Team)
                 }
+                .padding(.horizontal, 5)
                 
                 getListSeasonOfLeagueView()
+                    .padding(.horizontal, 5)
                 
                 getRankingByLeagueAndSeasonView()
-                
+                    .padding(.horizontal, 5)
                 getListEventEachRoundOfLeagueAndSeasonView()
-                
+                    .padding(.horizontal, 5)
                 getListEventSpecificView()
+                    .padding(.horizontal, 5)
                 
                 getLeagueDetailInforView()
+                    .padding(.horizontal, 5)
                 
                 if let league = leaguesVM.modelDetail {
                     LeaguesAdsView(league: league)
@@ -185,7 +187,7 @@ extension LeaguesDetailDelegate {
                 .lineLimit(nil)
                 .frame(alignment: .leading)
         }
-        .padding(.horizontal, 10)
+        //.padding(.horizontal, 10)
     }
     
     @ViewBuilder
@@ -198,7 +200,6 @@ extension LeaguesDetailDelegate {
                         
                     Spacer()
                 }
-                .padding(.horizontal, 10)
                 SeasonForLeagueView(league: league)
             }
         }
@@ -212,7 +213,6 @@ extension LeaguesDetailDelegate {
                     .font(.callout.bold())
                 Spacer()
             }
-            .padding(.horizontal, 10)
             SportListTeamView {
                 action()
             }

@@ -19,7 +19,7 @@ struct PlayerDetailResponse: Codable {
 }
 
 // MARK: - Player
-struct PlayerModel: Codable, Identifiable {
+struct PlayerModel: Codable, Identifiable, Equatable {
     var id: UUID = UUID()
     var idPlayer, playerName, idTeam, idTeam2: String?
     var playerAlternate: String?
@@ -159,23 +159,41 @@ struct PlayerItemView: View {
     let model: PlayerModel
     
     var body: some View {
-        VStack {
-            HStack {
-                KFImage(URL(string: sportTypeVM.selected == .Motorsport ? model.cutout ?? "" : model.render ?? ""))
-                    .placeholder { progress in
-                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
-                    }
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: appVM.sizeImage.width * 2.5, height: appVM.sizeImage.height * 2.5)
-                    .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
-                    
-            }
+        HStack {
+            KFImage(URL(string: sportTypeVM.selected == .Motorsport ? model.cutout ?? "" : model.render ?? ""))
+                .placeholder { progress in
+                    LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                }
+                .resizable()
+                .scaledToFill()
+            //
+                .frame(width: appVM.sizeImage.width * 2.5, height: appVM.sizeImage.height * 2.5)
             
-            Text(model.playerName ?? "")
-                .font(.callout.bold())
-            Text(model.position ?? "")
-                .font(.caption.bold())
+                .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
+            VStack(alignment: .leading, spacing: 5) {
+                Text(model.playerName ?? "")
+                    .font(.callout.bold())
+                Text(model.position ?? "")
+                    .font(.caption.bold())
+                HStack {
+                    Text(model.height ?? "")
+                        .font(.caption)
+                    Text(model.weight ?? "")
+                        .font(.caption)
+                    
+                    
+                    Spacer()
+                }
+                ScrollView(showsIndicators: false) {
+                    Text(model.descriptionEN ?? "")
+                        .font(.caption)
+                        .lineLimit(nil)
+                        .frame(alignment: .leading)
+                }
+            }
+        
+            Spacer()
+            
         }
     }
 }

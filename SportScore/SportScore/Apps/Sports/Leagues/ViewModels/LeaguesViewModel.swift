@@ -194,6 +194,5 @@ extension LeaguesViewModel {
                 .fadeInEffect(duration: 1)
             
         }
-        .padding(.horizontal, 10)
     }
 }

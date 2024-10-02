@@ -20,9 +20,8 @@ struct SportView: View {
                     sportTypeVM.selected.getItemMenuView(by: page)
                 }
             }
-            ZStack {
-                sportTypeVM.selected.getView(by: pageSelected)
-            }
+            sportTypeVM.selected.getView(by: pageSelected)
+                .padding(.horizontal, 5)
         }
     }
 }
@@ -146,7 +145,7 @@ struct LeaguesSocisalView: View {
     var league : LeaguesModel
     
     var body: some View {
-        HStack(spacing: 50) {
+        HStack {
             Button (action: {
                 openURL(URL(string: "https://\(league.youtube ?? "")")!)
             }, label: {
@@ -155,7 +154,7 @@ struct LeaguesSocisalView: View {
                     .scaledToFill()
                     .frame(width: 30, height: 30)
             })
-            
+            Spacer()
             Button (action: {
                 openURL(URL(string: "https://\(league.twitter ?? "")")!)
             }, label: {
@@ -164,6 +163,7 @@ struct LeaguesSocisalView: View {
                     .scaledToFill()
                     .frame(width: 30, height: 30)
             })
+            Spacer()
             
             if let instagram = league.instagram {
                 if instagram != "" {
@@ -175,6 +175,7 @@ struct LeaguesSocisalView: View {
                             .scaledToFill()
                             .frame(width: 30, height: 30)
                     })
+                    Spacer()
                 }
             }
             
@@ -186,7 +187,7 @@ struct LeaguesSocisalView: View {
                     .scaledToFill()
                     .frame(width: 30, height: 30)
             })
-            
+            Spacer()
             Button (action: {
                 openURL(URL(string: "https://\(league.website ?? "")")!)
             }, label: {
@@ -196,8 +197,8 @@ struct LeaguesSocisalView: View {
                     .frame(width: 30, height: 30)
             })
         }.padding(5)
-            .padding(.horizontal, 10)
-            .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+            .padding(.horizontal, 5)
+            .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 }
 
@@ -444,57 +445,59 @@ struct SeasonForTaeamView: View {
 
 struct TeamSocialView: View {
     @Environment(\.openURL) var openURL
-    var team: TeamModel
+    var team: TeamModel?
     
     var body: some View {
-        HStack(spacing: 50) {
-            Button (action: {
-                openURL(URL(string: "https://\(team.youtube ?? "")")!)
-            }, label: {
-                Image("youtube")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-            
-            Button (action: {
-                openURL(URL(string: "https://\(team.twitter ?? "")")!)
-            }, label: {
-                Image("twitter")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-            
-            Button (action: {
-                openURL(URL(string: "https://\(team.instagram ?? "")")!)
-            }, label: {
-                Image("instagram")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-            
-            Button (action: {
-                openURL(URL(string: "https://\(team.facebook ?? "")")!)
-            }, label: {
-                Image("facebook")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-            
-            Button (action: {
-                openURL(URL(string: "https://\(team.website ?? "")")!)
-            }, label: {
-                Image("website")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-        }.padding(5)
-            .padding(.horizontal, 10)
-            .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+        HStack {
+            if let team = team {
+                Button (action: {
+                    openURL(URL(string: "https://\(team.youtube ?? "")")!)
+                }, label: {
+                    Image("youtube")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 30, height: 30)
+                })
+                Spacer()
+                Button (action: {
+                    openURL(URL(string: "https://\(team.twitter ?? "")")!)
+                }, label: {
+                    Image("twitter")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 30, height: 30)
+                })
+                Spacer()
+                Button (action: {
+                    openURL(URL(string: "https://\(team.instagram ?? "")")!)
+                }, label: {
+                    Image("instagram")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 30, height: 30)
+                })
+                Spacer()
+                Button (action: {
+                    openURL(URL(string: "https://\(team.facebook ?? "")")!)
+                }, label: {
+                    Image("facebook")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 30, height: 30)
+                })
+                Spacer()
+                Button (action: {
+                    openURL(URL(string: "https://\(team.website ?? "")")!)
+                }, label: {
+                    Image("website")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 30, height: 30)
+                })
+            }
+        }
+        .padding(.horizontal, 5)
+        .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 25, style: .continuous))
         
     }
 }

@@ -10,15 +10,26 @@ import QGrid
 
 struct PlayerView: View {
     @EnvironmentObject var playerVM: PlayerViewModel
+    @State var selection: Int = 0
     
     var body: some View {
-        QGrid(playerVM.models, columns: 2
-              , vPadding: 5, hPadding: 5) { player in
-            player.getView { EmptyView().toAnyView() }
-                .padding(0)
-                .onTapGesture {
-                    UIApplication.shared.endEditing()
+        ZStack {
+            TabView(selection : $selection){
+                ForEach(Array(playerVM.models.enumerated()), id: \.element.idPlayer) { index, player in
+                    player.getView { EmptyView().toAnyView() }
+                        //.padding(0)
+                        .frame(width: UIScreen.main.bounds.width - 20)
+                        .onTapGesture {
+                            UIApplication.shared.endEditing()
+                        }
+                        
                 }
+            }
+            .tabViewStyle(.page)
+            .indexViewStyle(
+                .page(backgroundDisplayMode: .never)
+            )
         }
     }
 }
+

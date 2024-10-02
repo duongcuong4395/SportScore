@@ -104,6 +104,7 @@
       }
     },
     "Equipments" : {
+      "extractionState" : "stale",
       "localizations" : {
         "vi" : {
           "stringUnit" : {
@@ -204,11 +205,12 @@
       }
     },
     "Last event:" : {
+      "extractionState" : "stale",
       "localizations" : {
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sự kiện cuối cùng"
+            "value" : "Sự kiện gần nhất"
           }
         }
       }
@@ -244,6 +246,7 @@
       }
     },
     "Players" : {
+      "extractionState" : "stale",
       "localizations" : {
         "vi" : {
           "stringUnit" : {
@@ -304,6 +307,7 @@
       }
     },
     "Schedule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "vi" : {
           "stringUnit" : {
@@ -374,6 +378,7 @@
       }
     },
     "Trophies:" : {
+      "extractionState" : "stale",
       "localizations" : {
         "vi" : {
           "stringUnit" : {
