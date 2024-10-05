@@ -29,8 +29,14 @@ struct LeaguesDetailGenView<sportPageVM: SportPageViewModel>: View, LeaguesDetai
             ScrollView(showsIndicators: false) {
                 leaguesVM.getTrophyView()
                     .padding(.horizontal, 5)
+                
+                
                 if let league = leaguesVM.modelDetail {
-                    LeaguesSocisalView(league: league)
+                    SocialView(facebook: league.facebook
+                               , twitter: league.twitter
+                               , instagram: league.instagram
+                               , youtube: league.youtube
+                               , website: league.website)
                 }
                 scheduleVM.getEventsOfPreviousAndNextDayView()
                     .frame(height: UIScreen.main.bounds.height / 1.5)

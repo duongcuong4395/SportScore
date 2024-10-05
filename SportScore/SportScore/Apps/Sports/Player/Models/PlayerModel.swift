@@ -159,40 +159,49 @@ struct PlayerItemView: View {
     let model: PlayerModel
     
     var body: some View {
-        HStack {
-            KFImage(URL(string: sportTypeVM.selected == .Motorsport ? model.cutout ?? "" : model.render ?? ""))
-                .placeholder { progress in
-                    LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+        VStack {
+            HStack {
+                KFImage(URL(string: sportTypeVM.selected == .Motorsport ? model.cutout ?? "" : model.render ?? ""))
+                    .placeholder { progress in
+                        LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
+                    }
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: appVM.sizeImage.width * 3, height: appVM.sizeImage.height * 3)
+                
+                    .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(model.playerName ?? "")
+                        .font(.callout.bold())
+                    Text(model.position ?? "")
+                        .font(.caption.bold())
+                    HStack {
+                        Text(model.height ?? "")
+                            .font(.caption)
+                        Text(model.weight ?? "")
+                            .font(.caption)
+                        
+                        
+                        Spacer()
+                    }
+                    ScrollView(showsIndicators: false) {
+                        Text(model.descriptionEN ?? "")
+                            .font(.caption)
+                            .lineLimit(nil)
+                            .frame(alignment: .leading)
+                    }
                 }
-                .resizable()
-                .scaledToFill()
-                .frame(width: appVM.sizeImage.width * 3, height: appVM.sizeImage.height * 3)
             
-                .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
-            VStack(alignment: .leading, spacing: 5) {
-                Text(model.playerName ?? "")
-                    .font(.callout.bold())
-                Text(model.position ?? "")
-                    .font(.caption.bold())
-                HStack {
-                    Text(model.height ?? "")
-                        .font(.caption)
-                    Text(model.weight ?? "")
-                        .font(.caption)
-                    
-                    
-                    Spacer()
-                }
-                ScrollView(showsIndicators: false) {
-                    Text(model.descriptionEN ?? "")
-                        .font(.caption)
-                        .lineLimit(nil)
-                        .frame(alignment: .leading)
-                }
+                Spacer()
+                
             }
-        
-            Spacer()
-            
+            SocialView(facebook: model.facebook
+                       , twitter: model.twitter
+                       , instagram: model.instagram
+                       , youtube: model.youtube
+                       , website: model.website)
+            .scaleEffect(0.9)
         }
+        
     }
 }

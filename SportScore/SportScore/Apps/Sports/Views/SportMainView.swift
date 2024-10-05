@@ -139,69 +139,6 @@ struct ListEventSpecificView: View {
 
 
 
-
-struct LeaguesSocisalView: View {
-    @Environment(\.openURL) var openURL
-    var league : LeaguesModel
-    
-    var body: some View {
-        HStack {
-            Button (action: {
-                openURL(URL(string: "https://\(league.youtube ?? "")")!)
-            }, label: {
-                Image("youtube")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-            Spacer()
-            Button (action: {
-                openURL(URL(string: "https://\(league.twitter ?? "")")!)
-            }, label: {
-                Image("twitter")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-            Spacer()
-            
-            if let instagram = league.instagram {
-                if instagram != "" {
-                    Button (action: {
-                        openURL(URL(string: "https://\(league.instagram ?? "")")!)
-                    }, label: {
-                        Image("instagram")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 30, height: 30)
-                    })
-                    Spacer()
-                }
-            }
-            
-            Button (action: {
-                openURL(URL(string: "https://\(league.facebook ?? "")")!)
-            }, label: {
-                Image("facebook")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-            Spacer()
-            Button (action: {
-                openURL(URL(string: "https://\(league.website ?? "")")!)
-            }, label: {
-                Image("website")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 30, height: 30)
-            })
-        }.padding(5)
-            .padding(.horizontal, 5)
-            .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-    }
-}
-
 import Kingfisher
 import SwiftfulLoadingIndicators
 
@@ -423,6 +360,7 @@ struct SeasonForTaeamView: View {
     }
 }
 
+/*
 struct TeamSocialView: View {
     @Environment(\.openURL) var openURL
     var team: TeamModel?
@@ -481,6 +419,7 @@ struct TeamSocialView: View {
         
     }
 }
+*/
 
 struct TeamAdsView: View {
     var team: TeamModel
@@ -682,6 +621,49 @@ struct SportEventItemView: View {
             } else {
                 Sport2vs2EventItemView(model: model, optionView: optionView)
             }
+        }
+    }
+}
+
+
+struct SocialView: View {
+    var facebook: String?
+    var twitter: String?
+    var instagram: String?
+    var youtube: String?
+    var website: String?
+    
+    var body: some View {
+        HStack {
+            SocialItemView(socialLink: youtube, iconName: "youtube")
+            Spacer()
+            SocialItemView(socialLink: twitter, iconName: "twitter")
+            Spacer()
+            SocialItemView(socialLink: instagram, iconName: "instagram")
+            Spacer()
+            SocialItemView(socialLink: facebook, iconName: "facebook")
+            Spacer()
+            SocialItemView(socialLink: website, iconName: "website")
+        }.padding(5)
+            .padding(.horizontal, 5)
+            .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+    }
+}
+
+struct SocialItemView: View {
+    @Environment(\.openURL) var openURL
+    var socialLink: String?
+    var iconName: String
+    var body: some View {
+        if let socialLink = socialLink {
+            Button (action: {
+                openURL(URL(string: "https://\(socialLink)")!)
+            }, label: {
+                Image(iconName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 30, height: 30)
+            })
         }
     }
 }

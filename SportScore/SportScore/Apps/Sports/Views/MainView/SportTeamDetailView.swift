@@ -19,8 +19,18 @@ struct SportTeamDetailView: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                TeamSocialView(team: teamVM.modelDetail)
+                //TeamSocialView(team: teamVM.modelDetail)
+                    //.padding(.horizontal, 5)
+                if let team = teamVM.modelDetail {
+                    SocialView(facebook: team.facebook
+                               , twitter: team.twitter
+                               , instagram: team.instagram
+                               , youtube: team.youtube
+                               , website: team.website)
                     .padding(.horizontal, 5)
+                }
+                
+                
                 if scheduleVM.modelsForNext.count > 0 || scheduleVM.modelsForPrevious.count > 0 {
                     ComponentGenView(title: "Schedule") {
                         ScheduleView()
