@@ -8,141 +8,71 @@
 import Foundation
 import SwiftUI
 
-struct NewCarousel<Items : View> : View {
-    // Initializing necessary properties for the carousel
-    // Including a timer for automatic sliding
-    private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-    let items: Items
-    let numberOfItems: CGFloat
+struct CarouselView<Content: View>: View {
+    let items: [Content]
     let spacing: CGFloat
-    let widthOfHiddenCards: CGFloat
-    let totalSpacing: CGFloat
-    let cardWidth: CGFloat
-    
-    // Gesture state for drag detection
-    @GestureState var isDetectingLongPress = false
-    
-    // Accessing UI state
-    @EnvironmentObject var UIState: UIStateModel
-        
-    @inlinable public init(
-        numberOfItems: CGFloat,
-        spacing: CGFloat,
-        widthOfHiddenCards: CGFloat,
-        @ViewBuilder _ items: () -> Items) {
-        
-        // Setting up carousel parameters
-        self.items = items()
-        self.numberOfItems = numberOfItems
-        self.spacing = spacing
-        self.widthOfHiddenCards = widthOfHiddenCards
-        self.totalSpacing = (numberOfItems - 1) * spacing
-        self.cardWidth = UIScreen.main.bounds.width - (widthOfHiddenCards*2) - (spacing*2)
-    }
-    
-    // Body of the carousel view
-    var body: some View {
-        // Calculating offset for active card and screen drag
-        // Adjusting offset based on user interaction
-        // Handling gesture and timer events
-        let totalCanvasWidth: CGFloat = (cardWidth * numberOfItems) + totalSpacing
-        let xOffsetToShift = (totalCanvasWidth - UIScreen.main.bounds.width) / 2
-        let leftPadding = widthOfHiddenCards + spacing
-        let totalMovement = cardWidth + spacing
-                
-        let activeOffset = xOffsetToShift + (leftPadding) - (totalMovement * CGFloat(UIState.activeCard))
-        let nextOffset = xOffsetToShift + (leftPadding) - (totalMovement * CGFloat(UIState.activeCard) + 1)
-
-        var calcOffset = Float(activeOffset)
-        
-        if (calcOffset != Float(nextOffset)) {
-            calcOffset = Float(activeOffset) + UIState.screenDrag
-        }
-        
-        return HStack(alignment: .center, spacing: spacing) {
-            items
-        }
-        .offset(x: CGFloat(calcOffset), y: 0)
-        // Gesture handling for drag detection and animation
-        .gesture(DragGesture().updating($isDetectingLongPress) { currentState, gestureState, transaction in
-            self.UIState.screenDrag = Float(currentState.translation.width)
-            
-        }.onEnded { value in
-            self.UIState.screenDrag = 0
-            
-            // Handling swipe events to navigate between cards
-            if (value.translation.width < -50) &&  self.UIState.activeCard < Int(numberOfItems) - 1 {
-                self.UIState.activeCard = self.UIState.activeCard + 1
-                let impactMed = UIImpactFeedbackGenerator(style: .medium)
-                impactMed.impactOccurred()
-            }
-            
-            if (value.translation.width > 50) && self.UIState.activeCard > 0 {
-                self.UIState.activeCard = self.UIState.activeCard - 1
-                let impactMed = UIImpactFeedbackGenerator(style: .medium)
-                impactMed.impactOccurred()
-            }
-        })
-        // Handling automatic sliding using timer
-        .onReceive(timer, perform: { _ in
-            withAnimation {
-                if UIState.activeCard < Int(numberOfItems) - 1 {
-                    self.UIState.activeCard = self.UIState.activeCard + 1
-                } else {
-                    self.UIState.activeCard = 0
-                }
-            }
-        })
-    }
-}
-
-
-public class UIStateModel: ObservableObject {
-    @Published var activeCard: Int = 0
-    @Published var screenDrag: Float = 0.0
-}
-
-
-// MARK: Canvas
-
-struct Canvas<Content : View> : View {
-    let content: Content
-    @EnvironmentObject var UIState: UIStateModel
-    
-    @inlinable init(@ViewBuilder _ content: () -> Content) {
-        self.content = content()
-    }
-    
-    var body: some View {
-        content
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-            
-    }
-}
-
-struct Item<Content: View>: View {
-    @EnvironmentObject var UIState: UIStateModel
     let cardWidth: CGFloat
     let cardHeight: CGFloat
-
-    var _id: Int
-    var content: Content
-
-    @inlinable public init(
-        _id: Int,
-        spacing: CGFloat,
-        widthOfHiddenCards: CGFloat,
-        cardHeight: CGFloat,
-        @ViewBuilder _ content: () -> Content
-    ) {
-        self.content = content()
-        self.cardWidth = UIScreen.main.bounds.width - (widthOfHiddenCards*2) - (spacing*2)
-        self.cardHeight = cardHeight
-        self._id = _id
-    }
-
+    
+    @State private var activeIndex: Int = 0
+    @State private var dragOffset: CGFloat = 0
+    @State private var isDragging: Bool = false
+    
     var body: some View {
-        content
-            .frame(width: cardWidth, height: _id == UIState.activeCard ? cardHeight : cardHeight - 8, alignment: .center)
+        GeometryReader { geometry in
+            let totalWidth = CGFloat(items.count) * cardWidth + CGFloat(items.count - 1) * spacing
+            let startOffset = (geometry.size.width - cardWidth) / 2
+            
+            HStack(spacing: spacing) {
+                ForEach(0..<items.count, id: \.self) { index in
+                    items[index]
+                        .frame(width: cardWidth, height: cardHeight)
+                        .scaleEffect(index == activeIndex ? 1.0 : 0.7) // Phóng to mục đang chọn
+                        .animation(.easeInOut(duration: 0.5), value: activeIndex) // Hiệu ứng chuyển động
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                activeIndex = index
+                                updateOffset(for: geometry.size.width, at: index)
+                            }
+                        }
+                }
+            }
+            .padding(.horizontal, startOffset)
+            .offset(x: dragOffset)
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        isDragging = true
+                        dragOffset = value.translation.width + calculateActiveOffset(for: geometry.size.width)
+                    }
+                    .onEnded { value in
+                        isDragging = false
+                        let predictedEnd = value.predictedEndTranslation.width
+                        let newIndex = calculateIndex(for: value.translation.width + predictedEnd, in: geometry.size.width)
+                        activeIndex = min(max(newIndex, 0), items.count - 1)
+                        withAnimation(.spring()) {
+                            updateOffset(for: geometry.size.width, at: activeIndex)
+                        }
+                    }
+            )
+        }
+    }
+    
+    private func calculateActiveOffset(for viewWidth: CGFloat) -> CGFloat {
+        let totalOffset = CGFloat(activeIndex) * (cardWidth + spacing)
+        let startOffset = (viewWidth - cardWidth) / 2
+        return startOffset - totalOffset
+    }
+    
+    private func updateOffset(for viewWidth: CGFloat, at index: Int) {
+        let activeOffset = calculateActiveOffset(for: viewWidth)
+        dragOffset = activeOffset
+    }
+    
+    private func calculateIndex(for translation: CGFloat, in viewWidth: CGFloat) -> Int {
+        let cardSpacing = cardWidth + spacing
+        let offsetAmount = -translation / cardSpacing
+        let newIndex = Int(round(CGFloat(activeIndex) + offsetAmount))
+        return newIndex
     }
 }

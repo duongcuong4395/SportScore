@@ -40,7 +40,7 @@ class FavoriteViewModel: ObservableObject {
             objs.forEach { obj in
                 let condition = NSPredicate (format: "isFavorite = %d AND sportName like %@", true, sportype.rawValue)
                 let modelExists = context.getEntities(ofType: obj, with: condition)
-                print("=== obj.getCount", modelExists.models.count, modelExists.models)
+                print("=== obj.getCount", sportype.rawValue, modelExists.models.count, modelExists.models)
                 self.number += modelExists.models.count
             }
         }

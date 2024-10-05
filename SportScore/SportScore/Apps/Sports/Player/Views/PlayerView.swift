@@ -12,24 +12,20 @@ struct PlayerView: View {
     @EnvironmentObject var playerVM: PlayerViewModel
     @State var selection: Int = 0
     
+    @State private var offset: CGFloat = 0
+    @State private var dragging: Bool = false
+    
     var body: some View {
-        ZStack {
-            TabView(selection : $selection){
-                ForEach(Array(playerVM.models.enumerated()), id: \.element.idPlayer) { index, player in
-                    player.getView { EmptyView().toAnyView() }
-                        //.padding(0)
-                        .frame(width: UIScreen.main.bounds.width - 20)
-                        .onTapGesture {
-                            UIApplication.shared.endEditing()
-                        }
-                        
-                }
-            }
-            .tabViewStyle(.page)
-            .indexViewStyle(
-                .page(backgroundDisplayMode: .never)
-            )
-        }
+        CarouselView(
+               items: playerVM.models.map { player in
+                   player.getView { EmptyView().toAnyView() }
+                       .cornerRadius(10)
+                       .shadow(radius: 5)
+               },
+               spacing: 5,
+               cardWidth: UIScreen.main.bounds.width,
+               cardHeight: UIScreen.main.bounds.height / 2  - 20
+           )
     }
 }
 

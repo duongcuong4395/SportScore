@@ -20,12 +20,13 @@ struct SportTeamDetailView: View {
         VStack {
             ScrollView(showsIndicators: false) {
                 TeamSocialView(team: teamVM.modelDetail)
-                
+                    .padding(.horizontal, 5)
                 if scheduleVM.modelsForNext.count > 0 || scheduleVM.modelsForPrevious.count > 0 {
                     ComponentGenView(title: "Schedule") {
                         ScheduleView()
                             .frame(height: UIScreen.main.bounds.height / 1.5)
                     }
+                    .padding(.horizontal, 5)
                 }
                 if scheduleVM.modelsForLastEvents.count > 0 {
                     ComponentGenView(title: "Last event:") {
@@ -34,6 +35,7 @@ struct SportTeamDetailView: View {
                                 scheduleVM.modelsForLastEvents = []
                             }
                     }
+                    .padding(.horizontal, 5)
                 }
                 
                 if playerVM.models.count > 0 {
@@ -41,6 +43,7 @@ struct SportTeamDetailView: View {
                         PlayerView()
                             .frame(height: UIScreen.main.bounds.height / 2)
                     }
+                    .padding(.horizontal, 5)
                 } else  {
                     buttonGetPlayersView
                 }
@@ -49,6 +52,7 @@ struct SportTeamDetailView: View {
                 ComponentGenView(title: "Equipments") {
                     EquipmentView()
                 }
+                .padding(.horizontal, 5)
                 
                 /*
                 HStack {
@@ -65,10 +69,11 @@ struct SportTeamDetailView: View {
                         .lineLimit(nil)
                         .frame(alignment: .leading)
                 }
-                
+                .padding(.horizontal, 5)
                 
                 if let team = teamVM.modelDetail {
                     TeamAdsView(team: team)
+                       // .padding(.horizontal, 5)
                 }
             }
         }

@@ -31,7 +31,6 @@ struct LeaguesDetailGenView<sportPageVM: SportPageViewModel>: View, LeaguesDetai
                     .padding(.horizontal, 5)
                 if let league = leaguesVM.modelDetail {
                     LeaguesSocisalView(league: league)
-                        //.padding()
                 }
                 scheduleVM.getEventsOfPreviousAndNextDayView()
                     .frame(height: UIScreen.main.bounds.height / 1.5)
@@ -55,10 +54,12 @@ struct LeaguesDetailGenView<sportPageVM: SportPageViewModel>: View, LeaguesDetai
                 
                 if let league = leaguesVM.modelDetail {
                     LeaguesAdsView(league: league)
+                        //.padding(.horizontal, 5)
                 }
             }
         }
         .environmentObject(seasonVM)
+        //.padding(.horizontal, 5)
     }
 }
 

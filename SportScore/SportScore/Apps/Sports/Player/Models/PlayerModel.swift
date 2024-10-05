@@ -166,8 +166,7 @@ struct PlayerItemView: View {
                 }
                 .resizable()
                 .scaledToFill()
-            //
-                .frame(width: appVM.sizeImage.width * 2.5, height: appVM.sizeImage.height * 2.5)
+                .frame(width: appVM.sizeImage.width * 3, height: appVM.sizeImage.height * 3)
             
                 .shadow(color: Color.blue, radius: 5, x: 0, y: 0)
             VStack(alignment: .leading, spacing: 5) {
