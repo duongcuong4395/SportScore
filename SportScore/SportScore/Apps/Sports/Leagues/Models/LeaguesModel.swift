@@ -159,7 +159,7 @@ struct LeaguesItemView: View {
                 .placeholder({ progress in
                     //LoadingIndicator(animation: .circleBars, size: .small, speed: .normal)
                     
-                    Image("website")
+                    Image("Sports")
                         .resizable()
                         .scaledToFill()
                         //.clipShape(Circle())

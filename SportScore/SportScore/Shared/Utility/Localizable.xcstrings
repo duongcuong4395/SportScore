@@ -43,6 +43,9 @@
     "99+" : {
 
     },
+    "Back" : {
+
+    },
     "Check" : {
       "localizations" : {
         "vi" : {
@@ -123,6 +126,9 @@
           }
         }
       }
+    },
+    "Favorite" : {
+
     },
     "Get Started" : {
       "localizations" : {

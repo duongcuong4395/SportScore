@@ -215,7 +215,7 @@ struct TeamItemView: View {
             KFImage(URL(string: model.badge ?? ""))
                 .placeholder { progress in
                     //LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
-                    Image("website")
+                    Image("Sports")
                         .resizable()
                         .scaledToFill()
                 }

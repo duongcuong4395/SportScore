@@ -90,10 +90,13 @@ struct Sport2vs2EventItemView: View {
                             teamVM.getTeamDetail(by: model.homeTeamName ?? "") { team in
                                 guard let team = team else { return }
                                 selectTeam(from: team)
+                                
+                                appVM.switchPage(by: .Sport)
                             }
                             return
                         }
                         selectTeam(from: team)
+                        appVM.switchPage(by: .Sport)
                     }
                 }
                 
@@ -150,11 +153,13 @@ struct Sport2vs2EventItemView: View {
                             teamVM.getTeamDetail(by: model.awayTeamName ?? "") { team in
                                 guard let team = team else { return }
                                 selectTeam(from: team)
+                                appVM.switchPage(by: .Sport)
                             }
                             return
                         }
                         
                         selectTeam(from: team)
+                        appVM.switchPage(by: .Sport)
                     }
                 }
             }
@@ -181,7 +186,7 @@ struct Sport2vs2EventItemView: View {
 
 struct SportSingleEventItemView: View {
     @Environment(\.managedObjectContext) var context
-    
+    @EnvironmentObject var appVM: AppViewModel
     @EnvironmentObject var sportsPageVM: SportsPageViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
     
@@ -250,6 +255,8 @@ struct SportSingleEventItemView: View {
                             if players.count > 0 {
                                 scheduleVM.setModelDetail(by: model)
                                 sportsPageVM.add(.Event)
+                                
+                                appVM.switchPage(by: .Sport)
                             }
                         }
                     }

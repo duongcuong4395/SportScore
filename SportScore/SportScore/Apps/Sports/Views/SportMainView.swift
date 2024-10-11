@@ -7,6 +7,33 @@
 
 import SwiftUI
 
+struct SportMainView: View {
+    @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    
+    @EnvironmentObject var countryVM: CountryViewModel
+    @EnvironmentObject var leaguesVM: LeaguesViewModel
+    @EnvironmentObject var appVM: AppViewModel
+    
+    
+    var body: some View {
+        ZStack {
+            switch appVM.page {
+            case .Sport:
+                SportView(pages: sportsPageVM.pages, pageSelected: sportsPageVM.pageSelected)
+                    .onAppear{
+                        print("=== Sport onAppear", countryVM.modelDetail)
+                        if countryVM.modelDetail != nil, leaguesVM.modelDetail == nil {
+                            sportsPageVM.add(.Country)
+                        }
+                    }
+            case .Notify:
+                EmptyView()
+            case .Favorite:
+                FavoriteListItemView()
+            }
+        }
+    }
+}
 
 struct SportView: View {
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
@@ -42,26 +69,6 @@ enum DateEnum: String, CaseIterable {
         }
     }
 }
-
-struct SportMainView: View {
-    @EnvironmentObject var sportsPageVM: SportsPageViewModel
-    
-    @EnvironmentObject var countryVM: CountryViewModel
-    @EnvironmentObject var leaguesVM: LeaguesViewModel
-    
-    var body: some View {
-        VStack {
-            SportView(pages: sportsPageVM.pages, pageSelected: sportsPageVM.pageSelected)
-                .onAppear{
-                    if countryVM.modelDetail != nil, leaguesVM.modelDetail == nil {
-                        sportsPageVM.add(.Country)
-                    }
-                }
-        }
-    }
-}
-
-
 
 struct BadgeCloseView: View {
     var body: some View {
@@ -616,10 +623,14 @@ struct SportEventItemView: View {
     
     var body: some View {
         VStack {
-            if model.homeTeamName == nil && model.awayTeamName == nil {
-                SportSingleEventItemView(model: model, optionView: optionView)
+            if let awayTeamName = model.awayTeamName {
+                if model.homeTeamName != "" && model.awayTeamName != "" {
+                    Sport2vs2EventItemView(model: model, optionView: optionView)
+                } else {
+                    SportSingleEventItemView(model: model, optionView: optionView)
+                }
             } else {
-                Sport2vs2EventItemView(model: model, optionView: optionView)
+                SportSingleEventItemView(model: model, optionView: optionView)
             }
         }
     }
@@ -643,7 +654,7 @@ struct SocialView: View {
             Spacer()
             SocialItemView(socialLink: facebook, iconName: "facebook")
             Spacer()
-            SocialItemView(socialLink: website, iconName: "website")
+            SocialItemView(socialLink: website, iconName: "Sports")
         }.padding(5)
             .padding(.horizontal, 5)
             .background(.thinMaterial.opacity(0.9), in: RoundedRectangle(cornerRadius: 20, style: .continuous))

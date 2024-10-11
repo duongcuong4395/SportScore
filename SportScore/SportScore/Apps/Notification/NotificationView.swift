@@ -85,60 +85,57 @@ struct NotificationView: View {
 
 
 
-import UserNotifications
 
-struct NotificationBellView: View {
+struct FavoriteItemView: View {
+    @EnvironmentObject var favoriteVM: FavoriteViewModel
     @EnvironmentObject var appVM: AppViewModel
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
-    
-    @EnvironmentObject var lnManager: LocalNotificationManager
-    
-    @EnvironmentObject var favoriteVM: FavoriteViewModel
     @Environment(\.managedObjectContext) var context
     
     var body: some View {
-        HStack {
-            Image(systemName: "heart")
-                .font(.title2)
+        Image(systemName: "heart")
+            .font(.title2)
+            .overlay(content: {
+                NotificationCountView(value: .constant(favoriteVM.number))
+            })
+            .onTapGesture {
+                UIApplication.shared.endEditing() // Dismiss the keyboard
+                _ = favoriteVM.getObjs(of: sportTypeVM.selected, from: context)
+                withAnimation {
+                    appVM.switchPage(by: .Favorite)
+                }
                 
-                .overlay(content: {
-                    NotificationCountView(value: .constant(favoriteVM.number))
-                })
-                .onTapGesture {
-                    //favoriteVM.getObjsFavorite(of: ScheduleCD.self, sportype: .Soccer, from: context)
-                    UIApplication.shared.endEditing() // Dismiss the keyboard
-                    appVM.showDialogView(with: "Favorite"
-                                         , and: FavoriteListItemView()
-                        .frame(height: UIScreen.main.bounds.height/2)
+                /*
+                appVM.showDialogView(with: "Favorite"
+                                     , and: FavoriteListItemView()
+                    .frame(height: UIScreen.main.bounds.height/2)
+                    .toAnyView()
+                    )
+                _ = favoriteVM.getObjs(of: sportTypeVM.selected, from: context)
+                */
+            }
+    }
+}
+
+struct NotifyItemView: View {
+    @EnvironmentObject var lnManager: LocalNotificationManager
+    @EnvironmentObject var appVM: AppViewModel
+    var body: some View {
+        Image(systemName: "bell")
+            .font(.title2)
+            .overlay(content: {
+                NotificationCountView(value: .constant(lnManager.pendingRequests.count))
+            })
+            .onTapGesture {
+                UIApplication.shared.endEditing() // Dismiss the keyboard
+                Task {
+                    await lnManager.getPendingRequests()
+                    appVM.showDialogView(with: "Notifications"
+                                         , and: NotificationView()
+                        .frame(height: UIScreen.main.bounds.height/3)
                         .toAnyView()
                         )
-                    _ = favoriteVM.getObjs(of: sportTypeVM.selected, from: context)
-                    
                 }
-                .padding()
-            Image(systemName: "bell")
-                .font(.title2)
-                .overlay(content: {
-                    NotificationCountView(value: .constant(lnManager.pendingRequests.count))
-                })
-                .onTapGesture {
-                    //appVM.switchPage(to: .NotiFy)
-                    UIApplication.shared.endEditing() // Dismiss the keyboard
-                    Task {
-                        await lnManager.getPendingRequests()
-                        appVM.showDialogView(with: "Notifications"
-                                             , and: NotificationView()
-                            //.environmentObject(lnManager)
-                            .frame(height: UIScreen.main.bounds.height/3)
-                            .toAnyView()
-                            )
-                    }
-                    
-                    
-                    
-                }
-                .padding()
-                
-        }
+            }
     }
 }

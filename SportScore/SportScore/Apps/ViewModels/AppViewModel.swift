@@ -8,6 +8,12 @@
 import Foundation
 import SwiftUI
 
+enum Page {
+    case Sport
+    case Notify
+    case Favorite
+}
+
 class AppViewModel: ObservableObject {
     @Published var textSearch: String = ""
     @Published var columns: [GridItem] = [GridItem(),GridItem(),GridItem()]
@@ -27,6 +33,8 @@ class AppViewModel: ObservableObject {
     @Published var autoCloseView: Bool = false
     
     
+    @Published var page: Page = .Sport
+    
     func showDialogView(with title: String, and body: AnyView, then autoCloseView: Bool = false) {
         self.titleDialog = title
         self.bodyDialog = body
@@ -42,5 +50,12 @@ class AppViewModel: ObservableObject {
     
     func resetTextSearch() {
         self.textSearch = ""
+    }
+}
+
+
+extension AppViewModel {
+    func switchPage(by newPage: Page) {
+        self.page = newPage
     }
 }

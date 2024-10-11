@@ -101,6 +101,8 @@
 		FA03D99D2CAC4AB800106808 /* SportLeagueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03D99C2CAC4AB800106808 /* SportLeagueDetailView.swift */; };
 		FA03D99F2CAC4E1B00106808 /* SportTeamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03D99E2CAC4E1B00106808 /* SportTeamDetailView.swift */; };
 		FA03D9A12CAC4F7B00106808 /* SportListTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03D9A02CAC4F7B00106808 /* SportListTeamView.swift */; };
+		FA277E762CB634E5006A12AB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA277E752CB634E5006A12AB /* MainView.swift */; };
+		FA277E782CB63733006A12AB /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA277E772CB63733006A12AB /* HeaderView.swift */; };
 		FAC9C5AC2CACF7E3007E5C4E /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC9C5AB2CACF7E3007E5C4E /* Carousel.swift */; };
 		FAD3E18F2CACEE6300C98213 /* ComponentGenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD3E18E2CACEE6300C98213 /* ComponentGenView.swift */; };
 /* End PBXBuildFile section */
@@ -194,6 +196,8 @@
 		FA03D99C2CAC4AB800106808 /* SportLeagueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportLeagueDetailView.swift; sourceTree = "<group>"; };
 		FA03D99E2CAC4E1B00106808 /* SportTeamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportTeamDetailView.swift; sourceTree = "<group>"; };
 		FA03D9A02CAC4F7B00106808 /* SportListTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportListTeamView.swift; sourceTree = "<group>"; };
+		FA277E752CB634E5006A12AB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		FA277E772CB63733006A12AB /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		FAC9C5AB2CACF7E3007E5C4E /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		FAD3E18E2CACEE6300C98213 /* ComponentGenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentGenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -895,6 +899,8 @@
 				4FFD4C722C521BFD006E9485 /* SportMainView.swift */,
 				4F2454212C6BADF3002F767A /* SportView.swift */,
 				4F9B62102C720F2A00003AB1 /* SportPageSelectedView.swift */,
+				FA277E752CB634E5006A12AB /* MainView.swift */,
+				FA277E772CB63733006A12AB /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1049,6 +1055,7 @@
 				4FC9A6642C69DEBD00B2769B /* ScheduleModel.swift in Sources */,
 				4F6581482C7778D500B7999A /* RotateModifier.swift in Sources */,
 				4FCBE9B42C6CBC180072FA28 /* ScheduleCD+CoreDataClass.swift in Sources */,
+				FA277E762CB634E5006A12AB /* MainView.swift in Sources */,
 				4FF63BDA2C6FA78400A76AB2 /* EventModel.swift in Sources */,
 				4FBC43542C6A178F00EFA4DA /* LeagueDetailView.swift in Sources */,
 				4F7E79492C67BD61001BCC2D /* PlayerModel.swift in Sources */,
@@ -1085,6 +1092,7 @@
 				4FBC43522C6A0E2500EFA4DA /* ScheduleView.swift in Sources */,
 				4F8B2D772C68880400C86717 /* TeamView.swift in Sources */,
 				4FFD4C512C520FC1006E9485 /* SportScoreApp.swift in Sources */,
+				FA277E782CB63733006A12AB /* HeaderView.swift in Sources */,
 				4F7E79422C67AFE0001BCC2D /* LeaguesViewModel.swift in Sources */,
 				4F27D0852C706D2400CCE79F /* EventView.swift in Sources */,
 				4FAC11032C59F501007B4B68 /* TextFieldSearchView.swift in Sources */,
@@ -1250,7 +1258,6 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=iphoneos*]" = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1286,7 +1293,6 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=iphoneos*]" = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

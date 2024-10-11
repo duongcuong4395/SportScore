@@ -11,6 +11,7 @@ import Kingfisher
 import SwiftfulLoadingIndicators
 
 struct SportTypeView: View {
+    @Environment(\.managedObjectContext) var context
     @EnvironmentObject var sportTypeVM: SportTypeViewModel
     @EnvironmentObject var leaguesVM: LeaguesViewModel
     @EnvironmentObject var teamVM: TeamViewModel
@@ -18,6 +19,10 @@ struct SportTypeView: View {
     @EnvironmentObject var scheduleVM: ScheduleViewModel
     
     @EnvironmentObject var sportsPageVM: SportsPageViewModel
+    @EnvironmentObject var favoriteVM: FavoriteViewModel
+    @EnvironmentObject var appVM: AppViewModel
+    @EnvironmentObject var countryVM: CountryViewModel
+    
     
     var body: some View {
         HStack {
@@ -47,11 +52,16 @@ struct SportTypeView: View {
                                         return
                                     }
                                     sportTypeVM.selected = sport
+                                    countryVM.resetDetail()
                                     sportsPageVM.removeFrom(.Country)
                                     leaguesVM.resetAll()
                                     teamVM.resetAll()
                                     playerVM.resetAll()
                                     scheduleVM.resetAll()
+                                    
+                                    if appVM.page == .Favorite {
+                                        _ = favoriteVM.getObjs(of: sportTypeVM.selected, from: context)
+                                    }
                                 }
                             }
                         }

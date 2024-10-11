@@ -179,13 +179,10 @@ extension LeaguesViewModel {
             }
             KFImage(URL(string: self.modelDetail?.trophy ?? ""))
                 .placeholder { progress in
-                    //LoadingIndicator(animation: .circleBars, size: .medium, speed: .normal)
-                    
                     Image("trophy_symbol")
                         .resizable()
                         .scaledToFill()
-                        .redacted(reason: .placeholder)
-                        .shimmer()
+                        .fadeInEffect(duration: 100, isLoop: true)
                 }
                 .resizable()
                 .scaledToFill()
