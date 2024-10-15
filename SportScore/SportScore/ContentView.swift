@@ -35,6 +35,7 @@ struct ContentView: View {
     @StateObject var sportTypeVM = SportTypeViewModel()
     
     @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true
+    //@State private var isFirstLaunch: Bool = true
     
     var body: some View {
         ZStack {

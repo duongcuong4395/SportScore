@@ -83,6 +83,7 @@ struct ScheduleItemView: View, ItemDelegate {
     @EnvironmentObject var eventVM: EventViewModel
     @Environment(\.managedObjectContext) var context
     
+    
     var model: ScheduleLeagueModel
     
     var body: some View {
@@ -105,9 +106,18 @@ struct ScheduleItemView: View, ItemDelegate {
     @ViewBuilder
     func optionsView() -> some View {
         HStack(spacing: 30) {
+            if let awayTeamName = model.awayTeamName {
+                if model.homeTeamName != "" && model.awayTeamName != "" {
+                    if model.homeScore == nil {
+                        model.getBtnViewDetail(with: self, type: .MultiStar)
+                            .foregroundStyle(.blue)
+                    }
+                }
+            }
             
             
             let now = Date()
+            
             if let dateTimeOfMatch = DateUtility.convertToDate(from: model.timestamp ?? "") {
                 if now < dateTimeOfMatch {
                     model.getBtnNotify(with: self)
@@ -179,6 +189,39 @@ struct ScheduleItemView: View, ItemDelegate {
     }
 }
 
+extension ScheduleItemView {
+    func viewDetail<T>(for model: T) where T : Decodable {
+        guard let model = model as? ScheduleLeagueModel else { return }
+        if let awayTeamName = model.awayTeamName {
+            if model.homeTeamName != "" && model.awayTeamName != "" {
+                appVM.showDialogView(with: NSLocalizedString("\(model.homeTeamName ?? "") - \(awayTeamName)", comment: ""), and: AnyView(ScheduleDetailView(model: model)))
+            }
+        }
+        
+    }
+}
+
+struct ScheduleDetailView:View {
+    @EnvironmentObject var sportTypeVM: SportTypeViewModel
+    let model: ScheduleLeagueModel
+    @State var text: LocalizedStringKey = ""
+    @State private var displayCharacter: String = ""
+    
+    let timer  = Timer.publish(every: 0.02, on: .main, in: .common).autoconnect()
+    
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            Text(text)
+        }
+        .frame(height: UIScreen.main.bounds.height/2)
+        .onAppear{
+            model.getDetailInfor(sportTypeVM: sportTypeVM) { dt in
+                self.text = LocalizedStringKey(dt)
+            }
+        }
+    }
+}
+
 import SwiftfulLoadingIndicators
 
 struct ScheduleVideoView: View {
@@ -210,13 +253,5 @@ struct ScheduleVideoView: View {
             }
         }
         
-    }
-}
-
-
-struct ScheduleMenuItemView: View {
-    let model: ScheduleLeagueModel
-    var body: some View {
-        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
     }
 }

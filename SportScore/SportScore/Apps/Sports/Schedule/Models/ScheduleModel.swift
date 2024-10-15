@@ -108,6 +108,29 @@ struct ScheduleLeagueModel: Codable, Identifiable, Equatable {
     
 }
 
+extension ScheduleLeagueModel: ChatGeminiEvent {}
+extension ScheduleLeagueModel {
+    func getDetailInfor(sportTypeVM: SportTypeViewModel, completed: @escaping (String) -> Void) {
+        DispatchQueueManager.share.runInBackground {
+            if let awayTeamName = awayTeamName {
+                if homeTeamName != "" && awayTeamName != "" {
+                    let str = "Bạn hãy cho tôi biết các thông tin sau của 2 đội \(homeTeamName ?? "") và \(awayTeamName) trong môn thể thao \(sportTypeVM.selected.rawValue) theo các tiêu chí sau:\n 1. Phong độ gần đây. \n2. Tình hình lực lượng. \n3. Lối chơi. \n4. Thành tích đối đầu. \n5. Danh sách tên các cầu thủ hiện có của mỗi đội. \nTừ các thông tin đó hãy dự đoán tỷ số trận đấu."
+                    GeminiSend(prompt: str, and: false, withKeyFrom: GeminiAIManage.keyString) { resultMess, status  in
+                        completed(resultMess)
+                    }
+                    //Sport2vs2EventItemView(model: model, optionView: optionView)
+                } else {
+                    //SportSingleEventItemView(model: model, optionView: optionView)
+                }
+            } else {
+                //SportSingleEventItemView(model: model, optionView: optionView)
+            }
+        }
+    }
+}
+
+
+
 import SwiftUI
 import Kingfisher
 import SwiftfulLoadingIndicators

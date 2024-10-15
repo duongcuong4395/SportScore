@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     " We couldn't find any leagues in %@! " : {
       "localizations" : {
         "vi" : {
@@ -155,9 +158,6 @@
           }
         }
       }
-    },
-    "Hello, world!" : {
-
     },
     "Here we have some fancy text content. Could be whatever you imagine." : {
 

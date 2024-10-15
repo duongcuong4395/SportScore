@@ -86,6 +86,9 @@ enum IconDetailType: String {
     case RouteBranch = "arrow.triangle.branch"
     case RouteSwap = "arrow.triangle.swap"
     case Star = "wand.and.stars"
+    case MultiStar = "sparkles"
+    
+    
 }
 
 protocol ItemOptionsBuilder: Decodable{
